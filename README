@@ -1,0 +1,34 @@
+DEPENDENCIES-
+
+Python 2.7
+1. In python, following are needed to run the program:
+a. Module tqdm.
+b. Module requests.
+
+INTRODUCTION-
+
+This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai. 
+
+PREPARATION OF DATA-
+1. Mention the Intents and the train data to be created in the Intent.csv file. While entering data , please follow the format as it 	is in Intent.csv
+2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it   	is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary 	  capitalization. 
+
+HOW TO CONFIGURE-
+
+In the configBot.py File, follow the mentioned steps to get all the necessary tokens and populate them.
+
+HOW TO RUN-
+
+In the command prompt, run pipeline.py file
+"python pipeline.py"
+
+HOW TO EVALUATE THE RESULTS-
+
+1. The ML_Results.csv sheet has the status pass or fail depending on the intent identified matched with expected intent. 
+2. The summary.csv sheet shows the True Positives, True Negatives, False Positives and False Negatives for all the three platforms.
+3. The summary sheet also shows Precision, Recall, F Measure and Accuracy Values for all the three platforms.
+
+NOTES- Certain limitations are to be noted:
+	a. Maximum number of Intents that can be created in Luis.AI are 12.
+	b. Maximum number of endpoint hits for Luis.AI are 1000 hits per month for an account(For all the bots in the account 		   together)
+	c. Maximum number of agents that can be created in API.AI are 15

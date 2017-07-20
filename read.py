@@ -22,8 +22,9 @@ def main():
         Types.append(row[2])
     fr.close()
     print("Test data sheet is running")
-    fp=open('ML_Results.csv','w')
-    fp.write(",".join(['Expected TaskName','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','kore CS score','kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis']) + '\n')
+    timestr=time.strftime("%d-%m-%Y--%H:%M:%S")
+    fp=open('ML_Results '+timestr+'.csv','w')
+    fp.write(",".join(['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis']) + '\n')
     for i in tqdm(range(len(Utterances))):
         output=[]
         output.append(TaskNames[i])#'''In the output, appending the inputs and matched intents to compare with the expected task name'''
@@ -76,13 +77,18 @@ def callKoreBot(token_QAbots, input_data):
             }
 
         response = requests.request("POST", url, data=payload, headers=headers, params=querystring)
+        #print(response.text)
         if not resp.json()=={} and resp.json().has_key('intent') and not resp.json()['intent'] ==[] and not resp.json()['intent']==None and resp.json()['intent'][0].has_key('name'):
             MatchedIntents_qabots=resp.json()['intent'][0]['name']
-            #if(MatchedIntents_qabots!='Default Fallback Intent'):
-              #      koreCSScore=response.json()['response']['intentMatch'][0]['totalScore']
-              #      koreMLScore=response.json()['response']['intentMatch'][0]['mlScore']              
-            koreCSScore='Null'
-            koreMLScore='Null'
+            #print(response.json()['response']['intentMatch'])
+            if(response.json()['response']['intentMatch']==[]):
+                #print("INSIDE")
+                koreCSScore='Null'
+                koreMLScore='Null'
+            else:
+                koreCSScore=response.json()['response']['intentMatch'][0]['totalScore']
+                koreMLScore=response.json()['response']['intentMatch'][0]['mlScore']              
+
         else:
             MatchedIntents_qabots='Empty Response qabots'
             koreCSScore='Null'

@@ -1,0 +1,250 @@
+Expected Task Name,Utterance,Utterance Classification
+Apply for Loan,Can i get a personal loan to buy a car?,Positive
+Apply for Loan,I need to buy a house for my family,Positive
+Apply for Loan,I want a business loan to start off my new venture,Positive
+Apply for Loan,I need a business loan as early as possible,Positive
+Apply for Loan,Get an approval for a study loan,Positive
+Apply for Loan,Arrange for a loan of 5000 to start our business,Positive
+Apply for Loan,Can i be credited with 10000 for property investment?,Positive
+Apply for Loan,Can I borrow funds for admission fees,Positive
+Apply for Loan,Can you help me get funds in advance for wedding,Positive
+Apply for Loan,Render a loan approval for my House EMI ,Positive
+Apply for Loan,Financial assistance is required to buy a new house,Positive
+Apply for Loan,Financial help is needed to buy a new property,Positive
+Apply for Loan,I need money to open a restaurant,Positive
+Apply for Loan,Want money on credit immediately ,Positive
+Apply for Loan,Request the bank to lend money for home loan,Positive
+Apply for Loan,Apply for a personal loan on my salaried account,Positive
+Apply for Loan,Get money available on credit for payment of insurance bills,Positive
+Apply for Loan,Need to borrow money for personal expenses,Positive
+Apply for Loan,Can you help me arrange funds for payment of my credit card expenses?,Positive
+Apply for Loan,Need a bank loan urgently,Positive
+Apply for Loan,Require financial assistance from bank to start a company,Positive
+Apply for Loan,Need a loan at lowest interest rate,Positive
+Apply for Loan,Require an easy to repay loan,Positive
+Apply for Loan,I want to mortgage my house ,Positive
+Apply for Loan,Want a guaranteed loan approval for my house renovation,Positive
+Apply for Loan,I need some money urgently. Can I apply for individual loan?,Positive
+Apply for Loan,I want to apply for personal loan for my wedding expenses,Positive
+Apply for Loan,I need 50000 $ as loan,Positive
+Apply for Loan,I need credit of 50K. How do I apply for it?,Positive
+Apply for Loan,I would like to apply for a loan of 50K to pay my College fees,Positive
+Apply for Loan,I have to pay people 40K for my sister's marriage expenses. Can I get loan?,Positive
+Apply for Loan,Can I get a loan of USD3000 from the bank to renovate my house?,Positive
+Apply for Loan,I need to borrow some money to take a travel down south,Positive
+Apply for Loan,Can I take some money on credit for 6 months,Positive
+Apply for Loan,how can i get advance money to pay my college registration fee?,Positive
+Apply for Loan,Could you grant me an allowance of 1200 USD,Positive
+Apply for Loan,Can i get some amount beforehand,Positive
+Apply for Loan,I need some aid to set up my business,Positive
+Apply for Loan,I need help to pay my college fee,Positive
+Apply for Loan,What kind of financial aid can you help me with?,Positive
+Apply for Loan,Can you grant me financial aid of 5000 for a car purchase,Positive
+Apply for Loan,Can you faciltate finances for my wedding/admission/college fees,Positive
+Apply for Loan,Hi! I'm planning to purchase a two room flat in central location of the city.So i want to know how can Standard Chartered Bank help me in this.,Positive
+Apply for Loan,Hey! I'm thinking of buying a car but I don't want to use all the money in my account,Positive
+Apply for Loan,Hi. I'm looking out for an easier way to investment in property by taking money from the bank,Positive
+Apply for Loan,Hi Buddy i need you to fix my problem of some shortage of funds that I am facing while working on my new garment showroom,Positive
+Apply for Loan,Hi there!! I feel screwed up as i have lost a lot of money in the stock market. I gotta get some money to recover my loss to work on my business. ,Positive
+Apply for Loan,Hey! I'm all broke buddy! Get me some money to clear my running debts for this month,Positive
+Default Fallback Intent,Who all are eligible to apply for business loan?,Negative
+Default Fallback Intent,What is the rate of interest for personal loan,Negative
+Default Fallback Intent,What is the quickest way to repay for loan,Negative
+Default Fallback Intent,How can I repay my loan in EMI?,Negative
+Default Fallback Intent,Connect me to your executive for loan information ,Negative
+Default Fallback Intent,When can I get a loan ?,Negative
+Default Fallback Intent,Is bank ready to offer financial assistance for repaying a loan?,Negative
+Default Fallback Intent,Can we have a loan to repay a loan?,Negative
+Default Fallback Intent,Can we apply for multiple loans?,Negative
+Default Fallback Intent,How can I pay my credits ?,Negative
+Default Fallback Intent,Can a loan be sanctioned to a unemployed?,Negative
+Default Fallback Intent,How many days does it take to process a personal loan?,Negative
+Default Fallback Intent,What is the penalty incurred for inability to repay loan?,Negative
+Default Fallback Intent,what are interest rates for personal loan ?,Negative
+Default Fallback Intent,What kind of personal loans does the bank offer?,Negative
+Apply for Loan,Need a fin help frm Bnk for coll fee,Spell Errors
+Apply for Loan,I'm looking for a low-rate loan on EMI for 5yrs,Spell Errors
+Apply for Loan,What kind of PL can i get as a coll student?,Spell Errors
+Apply for Loan,Wanna take loan frm ur bank,Spell Errors
+Apply for Loan,I gotta take a PL on my ac asap!!!,Spell Errors
+Apply for Loan,Cant I got loan from the bank fro collage fees,Spell Errors
+Apply for Loan,I need to burrow money,Spell Errors
+Apply for Loan,Please Grantloan,Spell Errors
+Apply for Loan,Grant sum money on llan,Spell Errors
+Apply for Loan,I need some money as loan,Spell Errors
+Apply for Loan,I'd need many from the bank for persnak lean ,Spell Errors
+Apply for Loan,Money wanted bank laon asap,Spell Errors
+Apply for Loan,Went some mony on land of Bank,Spell Errors
+Apply for Loan,Give date of Intrest for Parson Loan,Spell Errors
+Transfer Funds,I want to transfer funds to another acoount,Positive
+Transfer Funds,I have to send money to someone,Positive
+Transfer Funds,Need to shift money to an account,Positive
+Transfer Funds,Can you help me in money Transfer?,Positive
+Transfer Funds,Deposit 5000 USD from my account to xyz account,Positive
+Transfer Funds,Will you send $200 to my alternate account?,Positive
+Transfer Funds,Please transfer money from my account to another,Positive
+Transfer Funds,I wish to deposit money from my account to xyz a/c,Positive
+Transfer Funds,Send money online to my friend's account,Positive
+Transfer Funds,Please help me transfer money to my mother's account,Positive
+Transfer Funds,Can you Transfer money now?,Positive
+Transfer Funds,transfer Rs 5000 from my account,Positive
+Transfer Funds,Send $100 from my account,Positive
+Transfer Funds,Transfer $100 from my account today ,Positive
+Transfer Funds,Give X amount from my account to account no. 234,Positive
+Transfer Funds,i want ac no 234 to receive $100 from my account,Positive
+Transfer Funds,Send money from my account to xyz account,Positive
+Transfer Funds,I need to make a payment to my younger brother for a bike purchase,Positive
+Transfer Funds,Can you move 500USD to my wife's account asap?,Positive
+Transfer Funds,Would like to wire money to my international account,Positive
+Transfer Funds,Have to transfer money to a friend on a travel trip,Positive
+Transfer Funds,Can 3000 be remitted to my landlord's account?,Positive
+Transfer Funds,transfer 500 to my Kotak account ,Positive
+Transfer Funds,Transfer 50k for my sister's admission fee to her college account,Positive
+Transfer Funds,I need to move part of my finances to another account,Structurally Different
+Transfer Funds,I want to share some money with a separate account,Structurally Different
+Transfer Funds,Have to send funds to an online site for shopping transaction,Structurally Different
+Transfer Funds,Money is required to be transferred from one account to another,Structurally Different
+Transfer Funds,Could you please send a sum of $100 to an agent?,Structurally Different
+Transfer Funds,Can you shift my outstanding balance amount to my new account?,Structurally Different
+Transfer Funds,I need an urgent wire transfer of $100,Structurally Different
+Transfer Funds,Immediately make an online wire transfer of $500,Structurally Different
+Transfer Funds,I want Transfer of funds from India to Germany,Structurally Different
+Transfer Funds,I need transfer of money from savings a/c to foreign a/c,Structurally Different
+Transfer Funds,Fund the transaction through my account,Structurally Different
+Transfer Funds,Transfer $100 today and then send $50 tomorrow to ac no 234,Structurally Different
+Transfer Funds,I have to contribute $100 to xyz to clear my dues in the pool lunch.,Structurally Different
+Transfer Funds,I need to contribute my share of money for the lunch to Girish's account,Structurally Different
+Transfer Funds,Send money in accont to tronsfer,Spell Errors
+Transfer Funds,Find of Transfer with account of 1000,Spell Errors
+Transfer Funds,Can you send tranfer in account,Spell Errors
+Transfer Funds,urgent money send on a/c,Spell Errors
+Transfer Funds,Sned money rom my account ,Spell Errors
+Transfer Funds,Transfr amunt of $100 from my accunt,Spell Errors
+Transfer Funds,Can you transfer money on my behalf,Spell Errors
+Transfer Funds,I need to make a pavement,Spell Errors
+Transfer Funds,Wirr some cash to my patents,Spell Errors
+Transfer Funds,Pay 100USD from my acc,Spell Errors
+Transfer Funds,Release the fun to dads account,Spell Errors
+Transfer Funds,Plz provide fund transfer to xyz ac,Spell Errors
+Transfer Funds,Send Asap money frm savng ac,Spell Errors
+Transfer Funds,Wire transfer funds to XYZ Asap!,Spell Errors
+Transfer Funds,Need u to help me transfer USD frm a/c A to a/c B,Spell Errors
+Transfer Funds,Transfer USD 100 frm my ac nw!,Spell Errors
+Transfer Funds,Hi I want to pay back my friend $100 for the pub night ,Positive
+Transfer Funds,I want to pay my car EMI through my alternate bank account.Transfer Rs.5000 to ac no 244,Positive
+Transfer Funds,Hey!! Need your help to repay a frn's payment on my movie ticket,Positive
+Default Fallback Intent,Need to update change of address due to location transfer,Negative
+Default Fallback Intent,Do I need to give Identification proof for money transfer?,Negative
+Default Fallback Intent,How can we transfer money?,Negative
+Default Fallback Intent,How much time will it take for transferring money to another account?,Negative
+Default Fallback Intent,Can i send money to my family today,Negative
+Default Fallback Intent,Present a cheque of 5000 to e-seva,Negative
+Default Fallback Intent,What is the daily transaction limit?,Negative
+Default Fallback Intent,Grant access for mobile banking,Negative
+Default Fallback Intent,Can i pay for multiple services at a time?,Negative
+Default Fallback Intent,Request for a new pin for my ATM,Negative
+Default Fallback Intent,Please give 1000 dollars from my account,Negative
+Default Fallback Intent,quickly send 500 usd from my account ,Negative
+Default Fallback Intent,i want to apply for job transfer,Negative
+Default Fallback Intent,By what time will the transfer be made,Negative
+Default Fallback Intent,Is Pan number Required to transfer fund,Negative
+Default Fallback Intent,Is overseas transfer of money supported.,Negative
+Default Fallback Intent,The file transfer is complete,Negative
+Pay a Bill,Please make a payment of USD 100 to my Uber account,Positive
+Pay a Bill,Pay 100 to Uber for last ride,Positive
+Pay a Bill,Pay 2000 for anti-virus purchase,Positive
+Pay a Bill,Got to work off my parking fine. Please help. ,Positive
+Pay a Bill,Please work off my credit card dues,Positive
+Pay a Bill,Clear my dues for the laundry bill,Positive
+Pay a Bill,Settle my account with the grocery store,Positive
+Pay a Bill,make payment of 400 to credit card statement,Positive
+Pay a Bill,Clear the outstanding bill for credit card,Positive
+Pay a Bill,500 is due for groceries payment ,Positive
+Pay a Bill,Give 600 pounds to the travel agent,Positive
+Pay a Bill,I want to make a charity of Rs. 1000,Positive
+Pay a Bill,I want to close my account at the hotel,Positive
+Pay a Bill,Clear my debt on mobile purchase,Positive
+Pay a Bill,Complete my purchase of JBL bluetooth speakers on Amazon ,Positive
+Pay a Bill,Clear the bill for ebay,Positive
+Pay a Bill,I want to purchase Amazon prime,Positive
+Pay a Bill,Pay 1200 for Net Flix ,Positive
+Pay a Bill,Pay bill for internet recharge,Positive
+Pay a Bill,Pay my electricity bill,Positive
+Pay a Bill,Pay my house rent,Positive
+Pay a Bill,Pay the hotel tariff,Positive
+Pay a Bill,settle my account with xyz,Structurally Different
+Pay a Bill,Recharge my net connection,Structurally Different
+Pay a Bill,Complete my payment with Amazon,Structurally Different
+Pay a Bill,Finish my transaction with Air BnB,Structurally Different
+Pay a Bill,Process payment for invoice,Structurally Different
+Pay a Bill,square accounts with my friend for last weekend trip,Structurally Different
+Pay a Bill,she needs to get her annual leave entitlement,Structurally Different
+Pay a Bill,The butler expects 200 for this month's service,Structurally Different
+Pay a Bill,Surcharge for additional services subscription has to be given to the service provider,Structurally Different
+Pay a Bill,Penalty of Rs 500 has to be given for late submission of fees,Structurally Different
+Default Fallback Intent,Ebay will reimburse for merchandise purchase ,Negative
+Default Fallback Intent,How much do I have to pay for the conveyance charges?,Negative
+Default Fallback Intent,Need review of my previous payments,Negative
+Default Fallback Intent,What is the status of my pending payments?,Negative
+Default Fallback Intent,I need to pay a lot of interest for the EMI,Negative
+Default Fallback Intent,Can i cancel my paid transaction?,Negative
+Default Fallback Intent,When can i apply for money repayment?,Negative
+Default Fallback Intent,Update my phone number for my account,Negative
+Default Fallback Intent,Under what conditions does a debit card get deactivated.,Negative
+Default Fallback Intent,Has my pension been debited?,Negative
+Default Fallback Intent,What if i sent money to the wrong account?,Negative
+Default Fallback Intent,Please request to issue a new cheque book,Negative
+Default Fallback Intent,Please make a 1200USD payment to transco,Negative
+Default Fallback Intent,Water bill is 600 please pay accordingly,Negative
+Default Fallback Intent,I need Change for 10 dollar bill,Negative
+Default Fallback Intent,are you charging for online bill payments?,Negative
+Default Fallback Intent,My bill payment was not successfull will amount be refunded.,Negative
+Default Fallback Intent,will the bill receipt be sent to my email.,Negative
+Pay a Bill,Please paybill,Spell Errors
+Pay a Bill,Pay bIll,Spell Errors
+Pay a Bill,Clear the invoive,Spell Errors
+Pay a Bill,Please make a payment of USD 100 to my Uber account,Spell Errors
+Pay a Bill,Pat 100 to his accont,Spell Errors
+Pay a Bill,Perchaise of 1000 made on accoumt,Spell Errors
+Pay a Bill,poynent has made for new bill,Spell Errors
+View Account Balance,What's my Outstanding account balance?,Positive
+View Account Balance,How much money is left in my account?,Positive
+View Account Balance,What's my outstanding balance?,Positive
+View Account Balance,How much money am i left with?,Positive
+View Account Balance,What's the updated account balance,Positive
+View Account Balance,Want to view my account statement,Positive
+View Account Balance,What are current savings in my account,Positive
+View Account Balance,Can I have my bank statement,Positive
+View Account Balance,Want to get my account balance,Positive
+View Account Balance,Want to review my outstanding bank credit ,Positive
+View Account Balance,What amount is available in my account?,Positive
+View Account Balance,What is my bank balance,Positive
+View Account Balance,generate my bank statement,Positive
+View Account Balance,generate my account balance sheet,Positive
+View Account Balance,generate my outstanding balance statement,Positive
+View Account Balance,generate my account information,Positive
+View Account Balance,Need to view my balance,Positive
+View Account Balance,have to view current balance,Positive
+View Account Balance,show me updated balance,Positive
+View Account Balance,Show the savings status ,Positive
+View Account Balance,generate a balance inquiry on my account,Positive
+View Account Balance,I need a mini statement on my account balance,Positive
+View Account Balance,Notify me on the remaining balance in account ,Positive
+View Account Balance,How much money do i have?,Positive
+View Account Balance,Can you tell me the opening balance,Positive
+View Account Balance,View the opening balance,Positive
+View Account Balance,View the current opening balance of my current account,Positive
+View Account Balance,I want to know why has my cheque bounced?,Structurally Different
+View Account Balance,How much money is unused in my ac now?,Structurally Different
+Default Fallback Intent,Can I view my account balance on mobile app?,Negative
+Default Fallback Intent,How can i know the rate of interest for savings account?,Negative
+Default Fallback Intent,Can there be a co-holder for savings account?,Negative
+Default Fallback Intent,How safe is it to view account balance on net banking?,Negative
+Default Fallback Intent,How can I link my account info to my alternate account,Negative
+Default Fallback Intent,Can i view the pending payments,Negative
+View Account Balance,Wat's my ac bal?,Spell Errors
+View Account Balance,Is my ac bal up to date?,Spell Errors
+View Account Balance,How many $ remaining in my ac nw?,Spell Errors
+View Account Balance,View a ac update on me ac,Spell Errors
+View Account Balance,View belounce account informmation ,Spell Errors
+View Account Balance,How muc maney is ldft in my account?,Spell Errors

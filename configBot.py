@@ -1,6 +1,26 @@
+#Configuration for API.ai
+#First of all create a new bot(referred as agent in api.ai). Press on the gear icon on the left next to the bot name. Copy the Developer_Access_Token and paste it within the quotes of Token_Api.
+
 Token_Api="ad909349d4794d0a8bc254dde1186569"
-#cookieAPI="zUserAccessToken=a3a99bdb-448b-44dd-8156-1ec24a561b88; _ga=GA1.2.2059952162.1500535536; _gid=GA1.2.1323117936.1500535536; _gat=1"
+
+#In the URL of the page, copy the id next to 'editAgent/' and paste it within the quotes in botIDApi.
+
 botIDApi="6df3fa75-febd-455e-a272-69c7d5772824"
+
+
+
+#Configuration for Luis.ai
+#As soon as you login into the Luis website, press on My Keys. In this page, copy the Programmatic API key and paste it within the keys in subscriptionToken.
 subscriptionToken="42a6a52ad33140ff9da0054563eff162"
+
+
+#Configuration for Kore.ai
+#Enter the name for the environment to be run in within quotes in korePlatform.  
+
 KorePlatform="bots.kore.ai"
+
+#If running with company account id, please mark ssoKore as 'True' and enter the user-ID along with Authorization bearer in the command prompt. Else, enter you login credentials in the terminal.
 ssoKore=False
+
+#Name of the input file.
+fileName='Intent.csv'

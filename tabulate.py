@@ -34,8 +34,8 @@ def main():
 		fr.close()
 	except:
 		print("File not found")
-	
-	fr1=open('Tabulated.csv','w')
+        timestr=time.strftime("%d-%m-%Y--%H:%M:%S")	
+	fr1=open('Summary '+timestr+'.csv','w')
 	success=[success1,success2,success3]
 	platforms=0
 	totalPositives=0
