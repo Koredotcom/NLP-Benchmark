@@ -18,7 +18,7 @@ subscriptionToken="42a6a52ad33140ff9dasdfs4563eff162"
 
 #Configuration for Kore.ai -:
 
-#Enter the name for the environment to be run in within quotes in korePlatform.  
+#Enter the name of the environment for which the Benchmark tool needs to be run within the quotes in korePlatform.  
 
 KorePlatform="bots.kore.ai"
 
