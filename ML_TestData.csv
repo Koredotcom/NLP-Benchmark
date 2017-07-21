@@ -47,21 +47,21 @@ Apply for Loan,Hi. I'm looking out for an easier way to investment in property b
 Apply for Loan,Hi Buddy i need you to fix my problem of some shortage of funds that I am facing while working on my new garment showroom,Positive
 Apply for Loan,Hi there!! I feel screwed up as i have lost a lot of money in the stock market. I gotta get some money to recover my loss to work on my business. ,Positive
 Apply for Loan,Hey! I'm all broke buddy! Get me some money to clear my running debts for this month,Positive
-Default Fallback Intent,Who all are eligible to apply for business loan?,Negative
-Default Fallback Intent,What is the rate of interest for personal loan,Negative
-Default Fallback Intent,What is the quickest way to repay for loan,Negative
-Default Fallback Intent,How can I repay my loan in EMI?,Negative
-Default Fallback Intent,Connect me to your executive for loan information ,Negative
-Default Fallback Intent,When can I get a loan ?,Negative
-Default Fallback Intent,Is bank ready to offer financial assistance for repaying a loan?,Negative
-Default Fallback Intent,Can we have a loan to repay a loan?,Negative
-Default Fallback Intent,Can we apply for multiple loans?,Negative
-Default Fallback Intent,How can I pay my credits ?,Negative
-Default Fallback Intent,Can a loan be sanctioned to a unemployed?,Negative
-Default Fallback Intent,How many days does it take to process a personal loan?,Negative
-Default Fallback Intent,What is the penalty incurred for inability to repay loan?,Negative
-Default Fallback Intent,what are interest rates for personal loan ?,Negative
-Default Fallback Intent,What kind of personal loans does the bank offer?,Negative
+None,Who all are eligible to apply for business loan?,Negative
+None,What is the rate of interest for personal loan,Negative
+None,What is the quickest way to repay for loan,Negative
+None,How can I repay my loan in EMI?,Negative
+None,Connect me to your executive for loan information ,Negative
+None,When can I get a loan ?,Negative
+None,Is bank ready to offer financial assistance for repaying a loan?,Negative
+None,Can we have a loan to repay a loan?,Negative
+None,Can we apply for multiple loans?,Negative
+None,How can I pay my credits ?,Negative
+None,Can a loan be sanctioned to a unemployed?,Negative
+None,How many days does it take to process a personal loan?,Negative
+None,What is the penalty incurred for inability to repay loan?,Negative
+None,what are interest rates for personal loan ?,Negative
+None,What kind of personal loans does the bank offer?,Negative
 Apply for Loan,Need a fin help frm Bnk for coll fee,Spell Errors
 Apply for Loan,I'm looking for a low-rate loan on EMI for 5yrs,Spell Errors
 Apply for Loan,What kind of PL can i get as a coll student?,Spell Errors
@@ -133,23 +133,23 @@ Transfer Funds,Transfer USD 100 frm my ac nw!,Spell Errors
 Transfer Funds,Hi I want to pay back my friend $100 for the pub night ,Positive
 Transfer Funds,I want to pay my car EMI through my alternate bank account.Transfer Rs.5000 to ac no 244,Positive
 Transfer Funds,Hey!! Need your help to repay a frn's payment on my movie ticket,Positive
-Default Fallback Intent,Need to update change of address due to location transfer,Negative
-Default Fallback Intent,Do I need to give Identification proof for money transfer?,Negative
-Default Fallback Intent,How can we transfer money?,Negative
-Default Fallback Intent,How much time will it take for transferring money to another account?,Negative
-Default Fallback Intent,Can i send money to my family today,Negative
-Default Fallback Intent,Present a cheque of 5000 to e-seva,Negative
-Default Fallback Intent,What is the daily transaction limit?,Negative
-Default Fallback Intent,Grant access for mobile banking,Negative
-Default Fallback Intent,Can i pay for multiple services at a time?,Negative
-Default Fallback Intent,Request for a new pin for my ATM,Negative
-Default Fallback Intent,Please give 1000 dollars from my account,Negative
-Default Fallback Intent,quickly send 500 usd from my account ,Negative
-Default Fallback Intent,i want to apply for job transfer,Negative
-Default Fallback Intent,By what time will the transfer be made,Negative
-Default Fallback Intent,Is Pan number Required to transfer fund,Negative
-Default Fallback Intent,Is overseas transfer of money supported.,Negative
-Default Fallback Intent,The file transfer is complete,Negative
+None,Need to update change of address due to location transfer,Negative
+None,Do I need to give Identification proof for money transfer?,Negative
+None,How can we transfer money?,Negative
+None,How much time will it take for transferring money to another account?,Negative
+None,Can i send money to my family today,Negative
+None,Present a cheque of 5000 to e-seva,Negative
+None,What is the daily transaction limit?,Negative
+None,Grant access for mobile banking,Negative
+None,Can i pay for multiple services at a time?,Negative
+None,Request for a new pin for my ATM,Negative
+None,Please give 1000 dollars from my account,Negative
+None,quickly send 500 usd from my account ,Negative
+None,i want to apply for job transfer,Negative
+None,By what time will the transfer be made,Negative
+None,Is Pan number Required to transfer fund,Negative
+None,Is overseas transfer of money supported.,Negative
+None,The file transfer is complete,Negative
 Pay a Bill,Please make a payment of USD 100 to my Uber account,Positive
 Pay a Bill,Pay 100 to Uber for last ride,Positive
 Pay a Bill,Pay 2000 for anti-virus purchase,Positive
@@ -182,24 +182,24 @@ Pay a Bill,she needs to get her annual leave entitlement,Structurally Different
 Pay a Bill,The butler expects 200 for this month's service,Structurally Different
 Pay a Bill,Surcharge for additional services subscription has to be given to the service provider,Structurally Different
 Pay a Bill,Penalty of Rs 500 has to be given for late submission of fees,Structurally Different
-Default Fallback Intent,Ebay will reimburse for merchandise purchase ,Negative
-Default Fallback Intent,How much do I have to pay for the conveyance charges?,Negative
-Default Fallback Intent,Need review of my previous payments,Negative
-Default Fallback Intent,What is the status of my pending payments?,Negative
-Default Fallback Intent,I need to pay a lot of interest for the EMI,Negative
-Default Fallback Intent,Can i cancel my paid transaction?,Negative
-Default Fallback Intent,When can i apply for money repayment?,Negative
-Default Fallback Intent,Update my phone number for my account,Negative
-Default Fallback Intent,Under what conditions does a debit card get deactivated.,Negative
-Default Fallback Intent,Has my pension been debited?,Negative
-Default Fallback Intent,What if i sent money to the wrong account?,Negative
-Default Fallback Intent,Please request to issue a new cheque book,Negative
-Default Fallback Intent,Please make a 1200USD payment to transco,Negative
-Default Fallback Intent,Water bill is 600 please pay accordingly,Negative
-Default Fallback Intent,I need Change for 10 dollar bill,Negative
-Default Fallback Intent,are you charging for online bill payments?,Negative
-Default Fallback Intent,My bill payment was not successfull will amount be refunded.,Negative
-Default Fallback Intent,will the bill receipt be sent to my email.,Negative
+None,Ebay will reimburse for merchandise purchase ,Negative
+None,How much do I have to pay for the conveyance charges?,Negative
+None,Need review of my previous payments,Negative
+None,What is the status of my pending payments?,Negative
+None,I need to pay a lot of interest for the EMI,Negative
+None,Can i cancel my paid transaction?,Negative
+None,When can i apply for money repayment?,Negative
+None,Update my phone number for my account,Negative
+None,Under what conditions does a debit card get deactivated.,Negative
+None,Has my pension been debited?,Negative
+None,What if i sent money to the wrong account?,Negative
+None,Please request to issue a new cheque book,Negative
+None,Please make a 1200USD payment to transco,Negative
+None,Water bill is 600 please pay accordingly,Negative
+None,I need Change for 10 dollar bill,Negative
+None,are you charging for online bill payments?,Negative
+None,My bill payment was not successfull will amount be refunded.,Negative
+None,will the bill receipt be sent to my email.,Negative
 Pay a Bill,Please paybill,Spell Errors
 Pay a Bill,Pay bIll,Spell Errors
 Pay a Bill,Clear the invoive,Spell Errors
@@ -236,12 +236,12 @@ View Account Balance,View the opening balance,Positive
 View Account Balance,View the current opening balance of my current account,Positive
 View Account Balance,I want to know why has my cheque bounced?,Structurally Different
 View Account Balance,How much money is unused in my ac now?,Structurally Different
-Default Fallback Intent,Can I view my account balance on mobile app?,Negative
-Default Fallback Intent,How can i know the rate of interest for savings account?,Negative
-Default Fallback Intent,Can there be a co-holder for savings account?,Negative
-Default Fallback Intent,How safe is it to view account balance on net banking?,Negative
-Default Fallback Intent,How can I link my account info to my alternate account,Negative
-Default Fallback Intent,Can i view the pending payments,Negative
+None,Can I view my account balance on mobile app?,Negative
+None,How can i know the rate of interest for savings account?,Negative
+None,Can there be a co-holder for savings account?,Negative
+None,How safe is it to view account balance on net banking?,Negative
+None,How can I link my account info to my alternate account,Negative
+None,Can i view the pending payments,Negative
 View Account Balance,Wat's my ac bal?,Spell Errors
 View Account Balance,Is my ac bal up to date?,Spell Errors
 View Account Balance,How many $ remaining in my ac nw?,Spell Errors
