@@ -15,9 +15,12 @@ c3=['Recall']
 c4=['F Measure']
 c5=['Error']
 c6=['Accuracy']
+#arrTestTable1=['Positives']
+#arrTestTable2=['split']
+#arrTestTable3=['','Positive']
 
-def main():
-	fr=open('ML_Results.csv','r')
+def main(resultsFileName):
+	fr=open(resultsFileName,'r')
 	try:
 		reader=csv.reader(fr,delimiter=',')
 		x = reader.next()
@@ -34,7 +37,7 @@ def main():
 		fr.close()
 	except:
 		print("File not found")
-        timestr=time.strftime("%d-%m-%Y--%H:%M:%S")	
+	timestr=time.strftime("%d-%m-%Y--%H:%M:%S")	
 	fr1=open('Summary '+timestr+'.csv','w')
 	success=[success1,success2,success3]
 	platforms=0
@@ -81,39 +84,37 @@ def main():
 		spellTruePos=0
 		spellFalseNeg=0
 		totalSpell=0		
-        
 		for i in range(len(TyOfUtt)):
-			if(TyOfUtt[i]=='Positive'):
+			if(TyOfUtt[i].lower()=='positive'):
 				if(success[platforms][i]=='pass'):
 					truePositives+=1
 				elif(success[platforms][i]=='fail'):
 					falseNegatives+=1
 				totalPositives=truePositives+falseNegatives
-			elif(TyOfUtt[i]=='Negative'):
+			elif(TyOfUtt[i].lower()=='negative'):
 				if(success[platforms][i]=='pass'):
 					trueNegatives+=1
 				elif(success[platforms][i]=='fail'):
 					falsePositives+=1
 				totalNegatives=trueNegatives+falsePositives
-			elif(TyOfUtt[i]=='Structurally Different'):
+			elif(TyOfUtt[i].lower()=='structurally different'):
 				if(success[platforms][i]=='pass'):
 					strucTruePositive+=1
 				elif(success[platforms][i]=='fail'):
 					strucFalseNegative+=1
 				totalStruct=strucTruePositive+strucFalseNegative
-			elif(TyOfUtt[i]=='Stemming and Lemmatization'):
+			elif(TyOfUtt[i].lower()=='stemming and lemmatization'):
 				if(success[platforms][i]=='pass'):
 					stemTruePositive+=1
 				elif(success[platforms][i]=='fail'):
 					stemFalseNeg+=1
 				totalStem=stemTruePositive+stemFalseNeg
-			elif(TyOfUtt[i]=='Spell Errors'):
+			elif(TyOfUtt[i].lower()=='spell errors'):
 				if(success[platforms][i]=='pass'):
 					spellTruePos+=1
 				elif(success[platforms][i]=='fail'):
 					spellFalseNeg+=1
 				totalSpell=spellTruePos+spellFalseNeg
-		#array1.append(q)
 		array1.append(truePositives)
 		array1.append(falseNegatives)
 		array2.append(trueNegatives)
@@ -124,12 +125,35 @@ def main():
 		array4.append(stemFalseNeg)
 		array5.append(spellTruePos)
 		array5.append(spellFalseNeg)		
-		if(platforms==0):		
-			calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)#'''Calling the function for formulae calculation and result tables i.e. to identify the sum of false positives, false negatives, etc'''
-		elif(platforms==1):
-			calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)
-		else:
-			calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)							
+		try:	
+			if(platforms==0):		
+				calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)#'''Calling the function for formulae calculation and result tables i.e. to identify the sum of false positives, false negatives, etc'''
+			elif(platforms==1):
+				calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)
+			else:
+				calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)							
+		except:
+			#print("I Entered 66")
+			b2.append('')
+			b2.append('Null')
+			b3.append('')
+			b3.append('Null')
+			b4.append('')
+			b4.append('Null')
+			b5.append('')
+			b5.append('Null')
+			c2.append('Null')
+			c2.append('')
+			c3.append('Null')
+			c3.append('')
+			c4.append('Null')
+			c4.append('')
+			c5.append('')
+			c5.append('')
+			c6.append('Null')
+			c6.append('')		
+			platforms+=1	
+			continue
 		platforms+=1	
 	array1.append(totalPositives)
 	array2.append(totalNegatives)
@@ -139,6 +163,14 @@ def main():
 	array=[arrayD,array1,array2,array3,array5]	
 	arrayB=[b1,b2,b3,b4,b5]
 	'''printing the three result tables for all the three platforms'''
+#	arrayTestTable=[]
+#	for i in range(len(TestDataTable)):
+#		row=''
+#		for j in range():
+#			row=row+str()+','
+#		fr1.write(row+"\n")
+#	fr1.write("\n")
+
 	for i in range(len(array)):
 		row=''
 		for j in range(len(array1)):
@@ -186,5 +218,6 @@ def calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegat
 
 
 if __name__=="__main__":
-	main()
+	import sys
+	main(sys.argv[1])
 
