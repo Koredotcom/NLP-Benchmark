@@ -21,6 +21,7 @@ HOW TO RUN-
 
 In the command prompt, run pipeline.py file
 "python pipeline.py"
+Do not give spaces in bot name. It is not tested with spaces.
 
 HOW TO EVALUATE THE RESULTS-
 

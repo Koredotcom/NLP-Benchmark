@@ -15,9 +15,6 @@ c3=['Recall']
 c4=['F Measure']
 c5=['Error']
 c6=['Accuracy']
-#arrTestTable1=['Positives']
-#arrTestTable2=['split']
-#arrTestTable3=['','Positive']
 
 def main(resultsFileName):
 	fr=open(resultsFileName,'r')
@@ -37,7 +34,7 @@ def main(resultsFileName):
 		fr.close()
 	except:
 		print("File not found")
-	timestr=time.strftime("%d-%m-%Y--%H:%M:%S")	
+	timestr=time.strftime("%d-%m-%Y--%H:%M:%S")#adding a timestamp to the new file generated	
 	fr1=open('Summary '+timestr+'.csv','w')
 	success=[success1,success2,success3]
 	platforms=0
@@ -133,7 +130,6 @@ def main(resultsFileName):
 			else:
 				calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)							
 		except:
-			#print("I Entered 66")
 			b2.append('')
 			b2.append('Null')
 			b3.append('')
@@ -160,17 +156,9 @@ def main(resultsFileName):
 	array3.append(totalStruct)
 	array4.append(totalStem)
 	array5.append(totalSpell)
-	array=[arrayD,array1,array2,array3,array5]	
+	array=[arrayD,array1,array2,array3,array4,array5]	
 	arrayB=[b1,b2,b3,b4,b5]
 	'''printing the three result tables for all the three platforms'''
-#	arrayTestTable=[]
-#	for i in range(len(TestDataTable)):
-#		row=''
-#		for j in range():
-#			row=row+str()+','
-#		fr1.write(row+"\n")
-#	fr1.write("\n")
-
 	for i in range(len(array)):
 		row=''
 		for j in range(len(array1)):
@@ -193,16 +181,16 @@ def main(resultsFileName):
 	fr1.close()
 
 def calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell):
-	prK=round((truePositives+strucTruePositive+spellTruePos)/float(truePositives+strucTruePositive+spellTruePos+falsePositives),4)
-	rrK=round((truePositives+strucTruePositive+spellTruePos)/float(truePositives+strucTruePositive+spellTruePos+falseNegatives+strucFalseNegative+stemFalseNeg+spellFalseNeg),4)
-	acK=round((truePositives+trueNegatives+strucTruePositive+spellTruePos)/float(totalPositives+totalNegatives+totalStruct+totalSpell),4)
-	frK=round((2*prK*rrK)/float(prK+rrK),4)
+	prK=round((truePositives+strucTruePositive+spellTruePos+stemTruePositive)/float(truePositives+stemTruePositive+strucTruePositive+spellTruePos+falsePositives),4)#Calculating Precision
+	rrK=round((truePositives+strucTruePositive+spellTruePos+stemTruePositive)/float(truePositives+strucTruePositive+spellTruePos+stemTruePositive+falseNegatives+strucFalseNegative+stemFalseNeg+spellFalseNeg),4)#Calculating Recall
+	acK=round((truePositives+trueNegatives+strucTruePositive+spellTruePos+stemTruePositive)/float(totalPositives+totalNegatives+totalStruct+totalSpell+totalStem),4)#Calculating Accuracy
+	frK=round((2*prK*rrK)/float(prK+rrK),4)#Calculating F Measure
 	b2.append('')
-	b2.append(truePositives+strucTruePositive+spellTruePos)
+	b2.append(truePositives+strucTruePositive+spellTruePos+stemTruePositive)
 	b3.append('')
 	b3.append(trueNegatives)
 	b4.append('')
-	b4.append(falseNegatives+strucFalseNegative+spellFalseNeg)
+	b4.append(falseNegatives+strucFalseNegative+spellFalseNeg+stemFalseNeg)
 	b5.append('')
 	b5.append(falsePositives)
 	c2.append(prK)

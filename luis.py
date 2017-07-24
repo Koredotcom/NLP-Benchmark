@@ -7,30 +7,28 @@ def createLuisBot(input,subscriptionToken):
         try:
                 response = requests.request("POST", url, data=payload, headers=headerLuis)
         except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
+                raise Exception("Error while creating a bot in Luis")        
 
         return response.text.strip('"')            
 
-def callLuisIntent(input,botIdLuis,subscriptionToken):
+def addLuisIntent(input,botIdLuis,subscriptionToken):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/intents"
         payload = str({"name":input})
         try:
                 response = requests.request("POST", url, data=payload, headers=headerLuis)
         except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
+                raise Exception("Error while creating an Intent in Luis")        
 
         return response.text
 
-def callLuisUtterance(input,LuisIntentId,botIdLuis,intentid,subscriptionToken):
+def addLuisUtterance(input,LuisIntentId,botIdLuis,intentid,subscriptionToken):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/examples"
         payload = "[{\"text\":\""+input+"\",\"intentName\":\""+intentid+"\",\"entityLabels\":[]}]"
         try:
                 response = requests.request("POST", url, data=payload, headers=headerLuis)
         except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
+                raise Exception("Error while adding trianing utterances in Luis")        
+
 def getLuisEndPointUrl(botIdLuis,subscriptionToken):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/assignedkey/"
         headers = {
@@ -40,53 +38,53 @@ def getLuisEndPointUrl(botIdLuis,subscriptionToken):
         try:    
                 response = requests.request("OPTIONS", url, headers=headers)
         except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
+                raise Exception("Error while trianing utterances in Luis")        
 
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/assignedkey/"
         payload = "\""+subscriptionToken+"\""
         try:
                 response = requests.request("PUT", url, data=payload, headers=headerLuis)
         except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
+                raise Exception("Error while trianing utterances in Luis")        
 
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/train"
         headers = {
             'access-control-request-method': "POST",
             'origin': "https://www.luis.ai",
             }
-        try:
-                response = requests.request("OPTIONS", url, headers=headers)
-        except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
-
-        url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/train"
         payload = "{}"
         try:
+                response = requests.request("OPTIONS", url, headers=headers)
                 response = requests.request("POST", url, data=payload, headers=headerLuis)
         except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
+                raise Exception("Error while trianing utterances in Luis")        
 
-        url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/train"
-        try:
+        while(1):
+            try:
+                response = requests.request("OPTIONS", url, headers=headers)
                 response = requests.request("GET", url, headers=headerLuis)
-        except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
-
-        time.sleep(60)
+#                if response.json()[0]['details']['status'] !='UpToDate':
+#                    print(response.json()[0]['details']['status'])
+#                    raise Exception("NOT UPTODATE")
+                break
+            except:
+                print("Error while checking training status in Luis")
+                time.sleep(5)
+        
+        print("Waiting for bots to train") 
+#        time.sleep(60) #Leaving 1 minute time for training the Luis bot
 
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/publish"
         payload = "{\"versionId\":\"0.1\",\"isStaging\":false}"
-        try:
+        while(1):
+            try:
                 response = requests.request("POST", url, data=payload, headers=headerLuis)
-        except:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-                print(response.text)
+            except:
+                raise Exception("Error while publishing app in Luis")        
 
-        endpointURL=response.json()['endpointUrl']+"?subscription-key="+response.json()['assignedEndpointKey']+"&timezoneOffset=0&verbose=true&q="
-        return endpointURL
-
+            try:
+                endpointURL=response.json()['endpointUrl']+"?subscription-key="+response.json()['assignedEndpointKey']+"&timezoneOffset=0&verbose=true&q="
+                return endpointURL
+            except:
+                print("Could not fetch the endpoint in Luis:: trying to get end point after 5 seconds")
+                time.sleep(5)

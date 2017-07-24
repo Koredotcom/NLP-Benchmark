@@ -1,7 +1,7 @@
 import tabulate
 import requests, csv, os, time,sys,urllib
 from tqdm import tqdm
-from config import *     #Calling the config file which contains all the static variables used in the code'''
+from config import *     #Calling the config file which contains all the static variables used in the code
 reload(sys)
 sys.setdefaultencoding('utf8')
 '''Three global arrays declared to get input from the ML csv file to get the utterance, expected task name and the type of utterance and 1 array for the output to capture the matched intent and status(success or failure)'''
@@ -60,39 +60,43 @@ def main():
     fp.close()
     return resultsFileName
 def callKoreBot(token_QAbots, input_data):
-        try:
-                resp=requests.post(urlKa+\
-                      uid_QAbots+urlKb\
-                       +streamid_QAbots+urlKc,\
-                            headers={'authorization':token_QAbots},\
-                    data={ "input":input_data,"streamName":botname_QAbots})#'''Hitting find intent API call for kore.ai'''
-        except:
-                print(resp.text)
+        while(1):
+            try:
+                resp=requests.post(urlKa+uid_QAbots+urlKb+streamid_QAbots+urlKc,headers={'authorization':token_QAbots},\
+                    data={ "input":input_data,"streamName":botname_QAbots})#Hitting find intent API call for kore.ai
+                respjson=resp.json()
+                break
+            except:
+                print("Error while finding intent kore")
+                time.sleep(10)
 
-        url = urlKa+uid_QAbots+urlKb+streamid_QAbots+"/getTrainLogs"
+        url = urlKa+uid_QAbots+urlKb+streamid_QAbots+"/getTrainLogs"#Hitting the trainLogs api for kore to get the CS score and the ML Score
         querystring = {"rnd":"6ye6to"}
         payload = "{\"input\":\""+input_data+"&#160;\",\"streamName\":\""+botname_QAbots+"\"}"
         headers = {
     'authorization': token_QAbots,
     'content-type': "application/json;charset=UTF-8",
             }
-        try:
+        while(1):
+            try:
                 response = requests.request("POST", url, data=payload, headers=headers, params=querystring)
-        except:
-                print(response.text)
-
-        if not resp.json()=={} and resp.json().has_key('intent') and not resp.json()['intent'] ==[] and not resp.json()['intent']==None and resp.json()['intent'][0].has_key('name'):
-            MatchedIntents_qabots=resp.json()['intent'][0]['name']
+                break
+            except:
+                print("Error while finding trainlogs kore")
+                time.sleep(10)
+            
+        if not respjson=={} and respjson.has_key('intent') and not respjson['intent'] ==[] and not respjson['intent']==None and respjson['intent'][0].has_key('name'):
+            MatchedIntents_qabots=respjson['intent'][0]['name']
             if(response.json()['response']['intentMatch']==[]):
                 koreCSScore='Null'
                 koreMLScore='Null'
             else:
                 try:
-                    koreCSScore=response.json()['response']['intentMatch'][0]['totalScore']
+                    koreCSScore=response.json()['response']['intentMatch'][0]['totalScore']#Getting CS Score
                 except:
                     koreCSScore='Null'
                 try:
-                    koreMLScore=response.json()['response']['intentMatch'][0]['mlScore']              
+                    koreMLScore=response.json()['response']['intentMatch'][0]['mlScore']#Getting ML Score              
                 except:    
                     koreMLScore='Null'              
 
@@ -112,14 +116,17 @@ def callAPIBot(input_data):
         'authorization': "Bearer "+Token_Api,
         'content-type': "application/json",
          }
-    try:
-        response = requests.request("post", url, data=payload, headers=headers)#'''Hitting the API call for api.ai'''
-    except:
-        print(response.text)
+    while(1):
+        try:
+            response = requests.request("post", url, data=payload, headers=headers)#'''Hitting the API call for api.ai'''
+            response.json()
+            break
+        except:
+            print("Error while finding intent in google")
 
     if not response.json()=={} and response.json().has_key('result') and response.json()['result'].has_key('metadata') and response.json()['result']['metadata'].has_key('intentName'):
             MatchedIntents_Api=response.json()['result']['metadata']['intentName']
-            score=response.json()['result']['score']
+            score=response.json()['result']['score']#Getting the confidence score.
     else:
             MatchedIntents_Api='Empty Response api'
             score=['null']
@@ -127,25 +134,25 @@ def callAPIBot(input_data):
     if(MatchedIntents_Api=='Default Fallback Intent'):
             MatchedIntents_Api='None'        
     
-    ApiArray=[MatchedIntents_Api,score]
-    return ApiArray
+    return MatchedIntents_Api,score
             
 def callLUISBot(input_data):
-        try:
+        while(1):
+            try:
                 respLuis=requests.get(urlL+input_data)#'''Reading the JSON response for luis.ai'''
-        except:
-                print(respLuis.text)
+                respluis=respLuis.json()
+                break
+            except:
+                print("Error while finding intent in Luis")
 
-        respluis=respLuis.json()
         if respluis!={} and respluis.has_key('topScoringIntent') and respluis['topScoringIntent'].has_key('intent') and respluis['topScoringIntent']['intent']!='None':
                 MatchedIntents_Luis=respluis['topScoringIntent']['intent']#Luis Output Taken Here
-                score=respluis['topScoringIntent']['score']
+                score=respluis['topScoringIntent']['score']#Getting Luis Score
         else:         
                 MatchedIntents_Luis='Empty Response'
                 score='Null'
 
-        luisArray=[MatchedIntents_Luis,score]        
-        return luisArray
+        return MatchedIntents_Luis,score        
 
 def anothermain():
     start_time=time.time()
@@ -156,5 +163,3 @@ def anothermain():
 
 if __name__ == "__main__":
     anothermain()
-
-

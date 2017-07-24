@@ -1,0 +1,250 @@
+Expected Task Name,Utterance,Type of Utterance,Matched Intent(s) Kore,Status,Kore Total CS score,Kore ML score,Matched Intent(s) API,Status,ScoreApi,Matched Intent(s) Luis,Status,ScoresLuis
+Apply for Loan,Can i get a personal loan to buy a car?,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.839999973774,Empty Response,fail,Null
+Apply for Loan,I need to buy a house for my family,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,I want a business loan to start off my new venture,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,I need a business loan as early as possible,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.959999978542,Empty Response,fail,Null
+Apply for Loan,Get an approval for a study loan,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Arrange for a loan of 5000 to start our business,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Can i be credited with 10000 for property investment?,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Can I borrow funds for admission fees,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Can you help me get funds in advance for wedding,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Render a loan approval for my House EMI ,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Financial assistance is required to buy a new house,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Financial help is needed to buy a new property,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.639999985695,Empty Response,fail,Null
+Apply for Loan,I need money to open a restaurant,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Want money on credit immediately ,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.34999999404,Empty Response,fail,Null
+Apply for Loan,Request the bank to lend money for home loan,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.72000002861,Empty Response,fail,Null
+Apply for Loan,Apply for a personal loan on my salaried account,Positive,Apply for Loan,pass,10493.33,Null,Apply for Loan,pass,0.550000011921,Empty Response,fail,Null
+Apply for Loan,Get money available on credit for payment of insurance bills,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Need to borrow money for personal expenses,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.689999997616,Empty Response,fail,Null
+Apply for Loan,Can you help me arrange funds for payment of my credit card expenses?,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.509999990463,Empty Response,fail,Null
+Apply for Loan,Need a bank loan urgently,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.740000009537,Empty Response,fail,Null
+Apply for Loan,Require financial assistance from bank to start a company,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.490000009537,Empty Response,fail,Null
+Apply for Loan,Need a loan at lowest interest rate,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Require an easy to repay loan,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,I want to mortgage my house ,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Want a guaranteed loan approval for my house renovation,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,I need some money urgently. Can I apply for individual loan?,Positive,Apply for Loan,pass,10051.27,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,I want to apply for personal loan for my wedding expenses,Positive,Apply for Loan,pass,10493.33,Null,Apply for Loan,pass,0.850000023842,Empty Response,fail,Null
+Apply for Loan,I need 50000 $ as loan,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.740000009537,Empty Response,fail,Null
+Apply for Loan,I need credit of 50K. How do I apply for it?,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,1.0,Empty Response,fail,Null
+Apply for Loan,I would like to apply for a loan of 50K to pay my College fees,Positive,Apply for Loan,pass,10714.04,Null,Apply for Loan,pass,0.689999997616,Empty Response,fail,Null
+Apply for Loan,I have to pay people 40K for my sister's marriage expenses. Can I get loan?,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.579999983311,Empty Response,fail,Null
+Apply for Loan,Can I get a loan of USD3000 from the bank to renovate my house?,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.839999973774,Empty Response,fail,Null
+Apply for Loan,I need to borrow some money to take a travel down south,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.519999980927,Empty Response,fail,Null
+Apply for Loan,Can I take some money on credit for 6 months,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.639999985695,Empty Response,fail,Null
+Apply for Loan,how can i get advance money to pay my college registration fee?,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.550000011921,Empty Response,fail,Null
+Apply for Loan,Could you grant me an allowance of 1200 USD,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,fail,0.330000013113,Empty Response,fail,Null
+Apply for Loan,Can i get some amount beforehand,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.319999992847,Empty Response,fail,Null
+Apply for Loan,I need some aid to set up my business,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.52999997139,Empty Response,fail,Null
+Apply for Loan,I need help to pay my college fee,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.550000011921,Empty Response,fail,Null
+Apply for Loan,What kind of financial aid can you help me with?,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Apply for Loan,Can you grant me financial aid of 5000 for a car purchase,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Apply for Loan,Can you faciltate finances for my wedding/admission/college fees,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.569999992847,Empty Response,fail,Null
+Apply for Loan,Hi! I'm planning to purchase a two room flat in central location of the city.So i want to know how can Standard Chartered Bank help me in this.,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Apply for Loan,Hey! I'm thinking of buying a car but I don't want to use all the money in my account,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,fail,0.300000011921,Empty Response,fail,Null
+Apply for Loan,Hi. I'm looking out for an easier way to investment in property by taking money from the bank,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.370000004768,Empty Response,fail,Null
+Apply for Loan,Hi Buddy i need you to fix my problem of some shortage of funds that I am facing while working on my new garment showroom,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.519999980927,Empty Response,fail,Null
+Apply for Loan,Hi there!! I feel screwed up as i have lost a lot of money in the stock market. I gotta get some money to recover my loss to work on my business. ,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.389999985695,Empty Response,fail,Null
+Apply for Loan,Hey! I'm all broke buddy! Get me some money to clear my running debts for this month,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+None,Who all are eligible to apply for business loan?,Negative,Apply for Loan,fail,9910,Null,Apply for Loan,fail,0.740000009537,Empty Response,fail,Null
+None,What is the rate of interest for personal loan,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.579999983311,Empty Response,fail,Null
+None,What is the quickest way to repay for loan,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.579999983311,Empty Response,fail,Null
+None,How can I repay my loan in EMI?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.600000023842,Empty Response,fail,Null
+None,Connect me to your executive for loan information ,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.52999997139,Empty Response,fail,Null
+None,When can I get a loan ?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.629999995232,Empty Response,fail,Null
+None,Is bank ready to offer financial assistance for repaying a loan?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.670000016689,Empty Response,fail,Null
+None,Can we have a loan to repay a loan?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.670000016689,Empty Response,fail,Null
+None,Can we apply for multiple loans?,Negative,Apply for Loan,fail,8115.71,Null,Apply for Loan,fail,0.670000016689,Empty Response,fail,Null
+None,How can I pay my credits ?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.40000000596,Empty Response,fail,Null
+None,Can a loan be sanctioned to a unemployed?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.569999992847,Empty Response,fail,Null
+None,How many days does it take to process a personal loan?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,What is the penalty incurred for inability to repay loan?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.660000026226,Empty Response,fail,Null
+None,what are interest rates for personal loan ?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.670000016689,Empty Response,fail,Null
+None,What kind of personal loans does the bank offer?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+Apply for Loan,Need a fin help frm Bnk for coll fee,Spell Errors,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.620000004768,Empty Response,fail,Null
+Apply for Loan,I'm looking for a low-rate loan on EMI for 5yrs,Spell Errors,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.550000011921,Empty Response,fail,Null
+Apply for Loan,What kind of PL can i get as a coll student?,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Apply for Loan,Wanna take loan frm ur bank,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,fail,0.430000007153,Empty Response,fail,Null
+Apply for Loan,I gotta take a PL on my ac asap!!!,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,fail,0.490000009537,Empty Response,fail,Null
+Apply for Loan,Cant I got loan from the bank fro collage fees,Spell Errors,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.519999980927,Empty Response,fail,Null
+Apply for Loan,I need to burrow money,Spell Errors,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.610000014305,Empty Response,fail,Null
+Apply for Loan,Please Grantloan,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Apply for Loan,Grant sum money on llan,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Apply for Loan,I need some money as loan,Spell Errors,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.810000002384,Empty Response,fail,Null
+Apply for Loan,I'd need many from the bank for persnak lean ,Spell Errors,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.40000000596,Empty Response,fail,Null
+Apply for Loan,Money wanted bank laon asap,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Apply for Loan,Went some mony on land of Bank,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Apply for Loan,Give date of Intrest for Parson Loan,Spell Errors,Empty Response qabots,fail,Null,Null,Apply for Loan,pass,0.699999988079,Empty Response,fail,Null
+Transfer Funds,I want to transfer funds to another acoount,Positive,Transfer Funds,pass,11045.71,Null,Transfer Funds,pass,0.550000011921,Empty Response,fail,Null
+Transfer Funds,I have to send money to someone,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Need to shift money to an account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.769999980927,Empty Response,fail,Null
+Transfer Funds,Can you help me in money Transfer?,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Transfer Funds,Deposit 5000 USD from my account to xyz account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Will you send $200 to my alternate account?,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Please transfer money from my account to another,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.689999997616,Empty Response,fail,Null
+Transfer Funds,I wish to deposit money from my account to xyz a/c,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.899999976158,Empty Response,fail,Null
+Transfer Funds,Send money online to my friend's account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Please help me transfer money to my mother's account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.550000011921,Empty Response,fail,Null
+Transfer Funds,Can you Transfer money now?,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.319999992847,Empty Response,fail,Null
+Transfer Funds,transfer Rs 5000 from my account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.629999995232,Empty Response,fail,Null
+Transfer Funds,Send $100 from my account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.730000019073,Empty Response,fail,Null
+Transfer Funds,Transfer $100 from my account today ,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.660000026226,Empty Response,fail,Null
+Transfer Funds,Give X amount from my account to account no. 234,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.819999992847,Empty Response,fail,Null
+Transfer Funds,i want ac no 234 to receive $100 from my account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Send money from my account to xyz account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.990000009537,Empty Response,fail,Null
+Transfer Funds,I need to make a payment to my younger brother for a bike purchase,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Can you move 500USD to my wife's account asap?,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Would like to wire money to my international account,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Have to transfer money to a friend on a travel trip,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.490000009537,Empty Response,fail,Null
+Transfer Funds,Can 3000 be remitted to my landlord's account?,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,transfer 500 to my Kotak account ,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.879999995232,Empty Response,fail,Null
+Transfer Funds,Transfer 50k for my sister's admission fee to her college account,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.430000007153,Empty Response,fail,Null
+Transfer Funds,I need to move part of my finances to another account,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,I want to share some money with a separate account,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Have to send funds to an online site for shopping transaction,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Money is required to be transferred from one account to another,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.479999989271,Empty Response,fail,Null
+Transfer Funds,Could you please send a sum of $100 to an agent?,Structurally Different,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Transfer Funds,Can you shift my outstanding balance amount to my new account?,Structurally Different,View Account Balance,fail,8706.72,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,I need an urgent wire transfer of $100,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.360000014305,Empty Response,fail,Null
+Transfer Funds,Immediately make an online wire transfer of $500,Structurally Different,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Transfer Funds,I want Transfer of funds from India to Germany,Structurally Different,Transfer Funds,pass,10793.33,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,I need transfer of money from savings a/c to foreign a/c,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.5,Empty Response,fail,Null
+Transfer Funds,Fund the transaction through my account,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Transfer $100 today and then send $50 tomorrow to ac no 234,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.540000021458,Empty Response,fail,Null
+Transfer Funds,I have to contribute $100 to xyz to clear my dues in the pool lunch.,Structurally Different,Empty Response qabots,fail,Null,Null,Pay a Bill,fail,0.509999990463,Empty Response,fail,Null
+Transfer Funds,I need to contribute my share of money for the lunch to Girish's account,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,1.0,Empty Response,fail,Null
+Transfer Funds,Send money in accont to tronsfer,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.550000011921,Empty Response,fail,Null
+Transfer Funds,Find of Transfer with account of 1000,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.379999995232,Empty Response,fail,Null
+Transfer Funds,Can you send tranfer in account,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.569999992847,Empty Response,fail,Null
+Transfer Funds,urgent money send on a/c,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.379999995232,Empty Response,fail,Null
+Transfer Funds,Sned money rom my account ,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,fail,0.620000004768,Empty Response,fail,Null
+Transfer Funds,Transfr amunt of $100 from my accunt,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.379999995232,Empty Response,fail,Null
+Transfer Funds,Can you transfer money on my behalf,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.34999999404,Empty Response,fail,Null
+Transfer Funds,I need to make a pavement,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.490000009537,Empty Response,fail,Null
+Transfer Funds,Wirr some cash to my patents,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.419999986887,Empty Response,fail,Null
+Transfer Funds,Pay 100USD from my acc,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.40000000596,Empty Response,fail,Null
+Transfer Funds,Release the fun to dads account,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.479999989271,Empty Response,fail,Null
+Transfer Funds,Plz provide fund transfer to xyz ac,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.449999988079,Empty Response,fail,Null
+Transfer Funds,Send Asap money frm savng ac,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.479999989271,Empty Response,fail,Null
+Transfer Funds,Wire transfer funds to XYZ Asap!,Spell Errors,Transfer Funds,pass,10943.33,Null,Transfer Funds,pass,0.629999995232,Empty Response,fail,Null
+Transfer Funds,Need u to help me transfer USD frm a/c A to a/c B,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Transfer Funds,Transfer USD 100 frm my ac nw!,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,fail,0.670000016689,Empty Response,fail,Null
+Transfer Funds,Hi I want to pay back my friend $100 for the pub night ,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.300000011921,Empty Response,fail,Null
+Transfer Funds,I want to pay my car EMI through my alternate bank account.Transfer Rs.5000 to ac no 244,Positive,Empty Response qabots,fail,Null,Null,Transfer Funds,pass,0.639999985695,Empty Response,fail,Null
+Transfer Funds,Hey!! Need your help to repay a frn's payment on my movie ticket,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.40000000596,Empty Response,fail,Null
+None,Need to update change of address due to location transfer,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.34999999404,Empty Response,fail,Null
+None,Do I need to give Identification proof for money transfer?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.680000007153,Empty Response,fail,Null
+None,How can we transfer money?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,How much time will it take for transferring money to another account?,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.379999995232,Empty Response,fail,Null
+None,Can i send money to my family today,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.579999983311,Empty Response,fail,Null
+None,Present a cheque of 5000 to e-seva,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,What is the daily transaction limit?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,Grant access for mobile banking,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,Can i pay for multiple services at a time?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.449999988079,Empty Response,fail,Null
+None,Request for a new pin for my ATM,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,Please give 1000 dollars from my account,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.370000004768,Empty Response,fail,Null
+None,quickly send 500 usd from my account ,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.740000009537,Empty Response,fail,Null
+None,i want to apply for job transfer,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.490000009537,Empty Response,fail,Null
+None,By what time will the transfer be made,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,Is Pan number Required to transfer fund,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.389999985695,Empty Response,fail,Null
+None,Is overseas transfer of money supported.,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,The file transfer is complete,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Please make a payment of USD 100 to my Uber account,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Pay 100 to Uber for last ride,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.389999985695,Empty Response,fail,Null
+Pay a Bill,Pay 2000 for anti-virus purchase,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Got to work off my parking fine. Please help. ,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Please work off my credit card dues,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.579999983311,Empty Response,fail,Null
+Pay a Bill,Clear my dues for the laundry bill,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Settle my account with the grocery store,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,make payment of 400 to credit card statement,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.439999997616,Empty Response,fail,Null
+Pay a Bill,Clear the outstanding bill for credit card,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,500 is due for groceries payment ,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Give 600 pounds to the travel agent,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,I want to make a charity of Rs. 1000,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,I want to close my account at the hotel,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Clear my debt on mobile purchase,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Complete my purchase of JBL bluetooth speakers on Amazon ,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Clear the bill for ebay,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.759999990463,Empty Response,fail,Null
+Pay a Bill,I want to purchase Amazon prime,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.439999997616,Empty Response,fail,Null
+Pay a Bill,Pay 1200 for Net Flix ,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Pay bill for internet recharge,Positive,Pay a Bill,pass,11110,Null,Pay a Bill,pass,0.389999985695,Empty Response,fail,Null
+Pay a Bill,Pay my electricity bill,Positive,Pay a Bill,pass,8330,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Pay my house rent,Positive,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.639999985695,Empty Response,fail,Null
+Pay a Bill,Pay the hotel tariff,Positive,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.360000014305,Empty Response,fail,Null
+Pay a Bill,settle my account with xyz,Structurally Different,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.600000023842,Empty Response,fail,Null
+Pay a Bill,Recharge my net connection,Structurally Different,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Complete my payment with Amazon,Structurally Different,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.560000002384,Empty Response,fail,Null
+Pay a Bill,Finish my transaction with Air BnB,Structurally Different,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.389999985695,Empty Response,fail,Null
+Pay a Bill,Process payment for invoice,Structurally Different,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.370000004768,Empty Response,fail,Null
+Pay a Bill,square accounts with my friend for last weekend trip,Structurally Different,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.319999992847,Empty Response,fail,Null
+Pay a Bill,she needs to get her annual leave entitlement,Structurally Different,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.310000002384,Empty Response,fail,Null
+Pay a Bill,The butler expects 200 for this month's service,Structurally Different,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Surcharge for additional services subscription has to be given to the service provider,Structurally Different,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Penalty of Rs 500 has to be given for late submission of fees,Structurally Different,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+None,Ebay will reimburse for merchandise purchase ,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,How much do I have to pay for the conveyance charges?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,Need review of my previous payments,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,What is the status of my pending payments?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,I need to pay a lot of interest for the EMI,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.709999978542,Empty Response,fail,Null
+None,Can i cancel my paid transaction?,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.310000002384,Empty Response,fail,Null
+None,When can i apply for money repayment?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.620000004768,Empty Response,fail,Null
+None,Update my phone number for my account,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.310000002384,Empty Response,fail,Null
+None,Under what conditions does a debit card get deactivated.,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,Has my pension been debited?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,What if i sent money to the wrong account?,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.5,Empty Response,fail,Null
+None,Please request to issue a new cheque book,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,Please make a 1200USD payment to transco,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,Water bill is 600 please pay accordingly,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,I need Change for 10 dollar bill,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.72000002861,Empty Response,fail,Null
+None,are you charging for online bill payments?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,My bill payment was not successfull will amount be refunded.,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,will the bill receipt be sent to my email.,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.479999989271,Empty Response,fail,Null
+Pay a Bill,Please paybill,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Pay bIll,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Clear the invoive,Spell Errors,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,0.730000019073,Empty Response,fail,Null
+Pay a Bill,Please make a payment of USD 100 to my Uber account,Spell Errors,Empty Response qabots,fail,Null,Null,Pay a Bill,pass,1.0,Empty Response,fail,Null
+Pay a Bill,Pat 100 to his accont,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,Perchaise of 1000 made on accoumt,Spell Errors,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+Pay a Bill,poynent has made for new bill,Spell Errors,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.370000004768,Empty Response,fail,Null
+View Account Balance,What's my Outstanding account balance?,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,How much money is left in my account?,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,What's my outstanding balance?,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.649999976158,Empty Response,fail,Null
+View Account Balance,How much money am i left with?,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+View Account Balance,What's the updated account balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.660000026226,Empty Response,fail,Null
+View Account Balance,Want to view my account statement,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,What are current savings in my account,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,Can I have my bank statement,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,Want to get my account balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,Want to review my outstanding bank credit ,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,What amount is available in my account?,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.550000011921,Empty Response,fail,Null
+View Account Balance,What is my bank balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.740000009537,Empty Response,fail,Null
+View Account Balance,generate my bank statement,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.97000002861,Empty Response,fail,Null
+View Account Balance,generate my account balance sheet,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,generate my outstanding balance statement,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,generate my account information,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,Need to view my balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.540000021458,Empty Response,fail,Null
+View Account Balance,have to view current balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.579999983311,Empty Response,fail,Null
+View Account Balance,show me updated balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.519999980927,Empty Response,fail,Null
+View Account Balance,Show the savings status ,Positive,Empty Response qabots,fail,Null,Null,None,fail,1.0,Empty Response,fail,Null
+View Account Balance,generate a balance inquiry on my account,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.949999988079,Empty Response,fail,Null
+View Account Balance,I need a mini statement on my account balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.800000011921,Empty Response,fail,Null
+View Account Balance,Notify me on the remaining balance in account ,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.629999995232,Empty Response,fail,Null
+View Account Balance,How much money do i have?,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.360000014305,Empty Response,fail,Null
+View Account Balance,Can you tell me the opening balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,View the opening balance,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.949999988079,Empty Response,fail,Null
+View Account Balance,View the current opening balance of my current account,Positive,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.990000009537,Empty Response,fail,Null
+View Account Balance,I want to know why has my cheque bounced?,Structurally Different,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,How much money is unused in my ac now?,Structurally Different,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+None,Can I view my account balance on mobile app?,Negative,Empty Response qabots,fail,Null,Null,View Account Balance,fail,0.709999978542,Empty Response,fail,Null
+None,How can i know the rate of interest for savings account?,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.340000003576,Empty Response,fail,Null
+None,Can there be a co-holder for savings account?,Negative,Empty Response qabots,fail,Null,Null,None,pass,1.0,Empty Response,fail,Null
+None,How safe is it to view account balance on net banking?,Negative,Empty Response qabots,fail,Null,Null,View Account Balance,fail,0.629999995232,Empty Response,fail,Null
+None,How can I link my account info to my alternate account,Negative,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.639999985695,Empty Response,fail,Null
+None,Can i view the pending payments,Negative,Empty Response qabots,fail,Null,Null,Apply for Loan,fail,0.300000011921,Empty Response,fail,Null
+View Account Balance,Wat's my ac bal?,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,Is my ac bal up to date?,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,How many $ remaining in my ac nw?,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,pass,1.0,Empty Response,fail,Null
+View Account Balance,View a ac update on me ac,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.389999985695,Empty Response,fail,Null
+View Account Balance,View belounce account informmation ,Spell Errors,Empty Response qabots,fail,Null,Null,Transfer Funds,fail,0.449999988079,Empty Response,fail,Null
+View Account Balance,How muc maney is ldft in my account?,Spell Errors,Empty Response qabots,fail,Null,Null,View Account Balance,pass,0.759999990463,Empty Response,fail,Null
