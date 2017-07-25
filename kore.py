@@ -86,10 +86,12 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
 def addKoreUtterances(Input,idKore,streamid,intentid,userIdKore,authTokenKore,KorePlatform):
         url = "https://"+KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences"
         payload = "{\"taskId\":\""+idKore+"\",\"sentence\":\""+Input+"\",\"streamId\":\""+streamid+"\",\"taskName\":\""+intentid+"\",\"type\":\"DialogIntent\"}"
-        try:    
+        while(1):
+            try: 
                 response = requests.request("POST", url, data=payload, headers=headersKore)
-        except:
-                raise Exception("Error while adding training Utterances")        
+                return
+            except:
+                print("Error while adding training Utterances")        
 
 def trainKore(streamid,userIdKore,authTokenKore,KorePlatform):
         url = "https://"+KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/ml/train"

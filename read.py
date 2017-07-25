@@ -59,9 +59,7 @@ def main():
                 output.append('fail')
         output.append(str(MatchedIntents_Luis[1]))        
         outputs.append(output)
-        print(str(output))#'''Printing the output results'''
-    for i in outputs:
-        fp.write(','.join(i) + '\n')#'''Printing the output results'''
+        fp.write(','.join(output) + '\n')#Printing the output results
     fp.close()
     return resultsFileName
 def callKoreBot(token_QAbots, input_data):
@@ -106,7 +104,7 @@ def callKoreBot(token_QAbots, input_data):
                     koreMLScore='Null'              
 
         else:
-            matchedIntents_qabots='Empty Response qabots'
+            matchedIntents_qabots='Empty Response'
             koreCSScore='Null'
             koreMLScore='Null'
         if(matchedIntents_qabots=='Default Fallback Intent'):
@@ -134,7 +132,7 @@ def callAPIBot(input_data):
             matchedIntents_Api=response.json()['result']['metadata']['intentName']
             score=response.json()['result']['score']#Getting the confidence score.
     else:
-            matchedIntents_Api='Empty Response api'
+            matchedIntents_Api='Empty Response'
             score=['null']
     
     if(matchedIntents_Api=='Default Fallback Intent'):

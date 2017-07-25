@@ -1,4 +1,4 @@
-import requests, csv, os, time, sys, urllib,getpass
+import requests, csv, os, time, sys, threading, getpass
 from configBot import * #Calling the configuration file with all the static variables
 from tqdm import tqdm
 from google import *
@@ -10,6 +10,11 @@ sys.setdefaultencoding('utf8')
 intents=[]
 utterances=[]
 loginResp=[]
+urlL=[]
+input2={}
+intentset=[]
+idKore=[]
+LuisIntentId=[]
 def main():
         fr=open(fileName,'r')
         reader=csv.reader(fr,delimiter=',')
@@ -34,41 +39,20 @@ def main():
                 userIdKore=raw_input('Enter userid for kore: ')
                 authTokenKore=raw_input('Enter authorization token for kore: ')
         headersKore['authorization']=authTokenKore #passing the authorization token to the configBot.py file
-
-
         botName=raw_input('Enter Bot Name: ')
 
-
+        intentset.extend(list(set(intents)))
 
         botIdLuis=createLuisBot(botName)
         print("New bot "+botName+" has been created in Luis with botid: " +botIdLuis)
+        prepLuis(intentset,intents,utterances,botIdLuis)
 
         botIDKore=createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
         print("New bot "+botName+" has been created in Kore with botid: "+ botIDKore)
+        prepKore(intentset,intents,utterances,botIDKore,userIdKore,authTokenKore)
 
         #For the google platform, we need to send all the training utterances for an intent at once.
         #Calling an empty dictionary to collect all these utterances.
-        input2={}
-        intentset=list(set(intents))
-        idKore=[]
-        LuisIntentId=[]
-
-        print("Creating intents in luis")
-        for i in tqdm(range(len(intentset))):
-            LuisIntentId.append( addLuisIntent(intentset[i],botIdLuis))#Adding Intent in Luis
-
-        print("Adding train utterances in Luis")
-        for i in tqdm(range(len(intents))):
-            addLuisUtterance(utterances[i],LuisIntentId[intentset.index(intents[i])],botIdLuis,intents[i])
-
-        print("Creating intents in kore")
-        for i in tqdm(range(len(intentset))):
-            idKore.append(addIntentKore(intentset[i],botIDKore,userIdKore,authTokenKore,KorePlatform))
-
-        print("Adding train utterances in Kore")
-        for i in tqdm(range(len(intents))):
-            addKoreUtterances(utterances[i],idKore[intentset.index(intents[i])][0],botIDKore,intents[i],userIdKore,authTokenKore,KorePlatform)
-
         for i in range(len(intentset)):
             input2[intentset[i]]=[]
 
@@ -98,12 +82,45 @@ def main():
                     addLuisUtterance(utterances[i],LuisIntentId,botIdLuis,intentid,subscriptionToken)
         addIntentAndUtteranceAPI(intentid,input2)#Calling function for the last Intent
         """
+        print("Creating the config file for the read.py file.")
+        createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,urlL[0],botIDApi,Token_Api)
+
+def prepLuis(intentset,intents,utterances,botIdLuis):
+        print("Creating intents in luis")
+        for i in tqdm(range(len(intentset))):
+            LuisIntentId.append( addLuisIntent(intentset[i],botIdLuis))#Adding Intent in Luis
+
+        print("Adding train utterances in Luis")
+        th=[]
+        for i in range(len(intents)):
+            #addLuisUtterance(utterances[i],LuisIntentId[intentset.index(intents[i])],botIdLuis,intents[i])
+            th.append(threading.Thread(target=addLuisUtterance,
+                 args=([utterances[i],LuisIntentId[intentset.index(intents[i])],botIdLuis,intents[i]])))
+            th[-1].start()
+            
+        for i in tqdm(range(len(intents))):
+            th[i].join()
+        print("Fetching the endpoint URL to hit, for Luis, to check response by its bot")           
+        urlL.append(getLuisEndPointUrl(botIdLuis))
+
+
+def prepKore(intentset, intents, utterances,botIDKore,userIdKore,authTokenKore):
+        print("Creating intents in kore")
+        for i in tqdm(range(len(intentset))):
+            idKore.append(addIntentKore(intentset[i],botIDKore,userIdKore,authTokenKore,KorePlatform))
+
+        th=[]
+        print("Adding train utterances in Kore")
+        for i in range(len(intents)):
+            th.append(target=addKoreUtterances,args=([utterances[i],idKore[intentset.index(intents[i])][0],botIDKore,intents[i],userIdKore,authTokenKore,KorePlatform]))
+            th.start()
+        for i in tqdm(range(len(intents))):
+            #addKoreUtterances(utterances[i],idKore[intentset.index(intents[i])][0],botIDKore,intents[i],userIdKore,authTokenKore,KorePlatform)
+            th.join()
         print("training the Kore bot")
         trainKore(botIDKore,userIdKore,authTokenKore,KorePlatform)
-        print("Fetching the endpoint URL to hit, for Luis, to check response by its bot")           
-        urlL=getLuisEndPointUrl(botIdLuis)
-        print("Creating the config file for the read.py file.")
-        createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,urlL,botIDApi,Token_Api)
+
+
 def createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,urlL,botIDApi,Token_Api):
         fr=open('config.py','w')#Creating a config file for read, so as to be able to call read seperately
         fr.write("botname_QAbots=\""+botName+"\"\n")

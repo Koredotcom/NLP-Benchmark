@@ -24,10 +24,15 @@ def addLuisIntent(Input,botIdLuis):
 def addLuisUtterance(Input,LuisIntentId,botIdLuis,intentid):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/examples"
         payload = "[{\"text\":\""+Input+"\",\"intentName\":\""+intentid+"\",\"entityLabels\":[]}]"
-        try:
+        while(1):
+            try:
                 response = requests.request("POST", url, data=payload, headers=headerLuis)
-        except:
-                raise Exception("Error while adding trianing utterances in Luis")        
+                response.raise_for_status()
+                return
+            except:
+                #raise Exception("Error while adding trianing utterances in Luis")        
+                #print("Error while adding training utterances in Luis")
+                time.sleep(1)
 
 def getLuisEndPointUrl(botIdLuis):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/assignedkey/"

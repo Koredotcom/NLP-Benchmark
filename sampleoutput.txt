@@ -1,0 +1,26 @@
+Finished reading training data.
+Enter kore UserID: teja0210@testadmin2.xyz
+Enter kore Password: 
+Enter Bot Name: basic
+New bot basic has been created in Luis with botid: c814d27f-2f94-4a83-ac2d-1a3208c112fb
+Creating intents in luis
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:05<00:00,  1.35s/it]
+Adding train utterances in Luis
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████| 80/80 [00:00<00:00, 423.54it/s]
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 80/80 [00:18<00:00,  4.27it/s]
+Fetching the endpoint URL to hit, for Luis, to check response by its bot
+Waiting for bots to train
+New bot basic has been created in Kore with botid: st-1812c96d-858b-5891-9f47-386b32866e2c
+Creating intents in kore
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:14<00:00,  3.71s/it]
+Adding train utterances in Kore
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████| 80/80 [01:40<00:00,  1.27s/it]
+training the Kore bot
+Calling googles function after collecting all the train utterances
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:02<00:00,  1.45it/s]
+Creating the config file for the read.py file.
+The bots have been trained
+Test data sheet is running
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 249/249 [16:14<00:00,  3.38s/it]
+974.924898148
+
