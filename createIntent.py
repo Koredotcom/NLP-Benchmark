@@ -112,11 +112,11 @@ def prepKore(intentset, intents, utterances,botIDKore,userIdKore,authTokenKore):
         th=[]
         print("Adding train utterances in Kore")
         for i in range(len(intents)):
-            th.append(target=addKoreUtterances,args=([utterances[i],idKore[intentset.index(intents[i])][0],botIDKore,intents[i],userIdKore,authTokenKore,KorePlatform]))
-            th.start()
+            th.append(threading.Thread(target=addKoreUtterances,args=([utterances[i],idKore[intentset.index(intents[i])][0],botIDKore,intents[i],userIdKore,authTokenKore,KorePlatform])))
+            th[i].start()
         for i in tqdm(range(len(intents))):
             #addKoreUtterances(utterances[i],idKore[intentset.index(intents[i])][0],botIDKore,intents[i],userIdKore,authTokenKore,KorePlatform)
-            th.join()
+            th[i].join()
         print("training the Kore bot")
         trainKore(botIDKore,userIdKore,authTokenKore,KorePlatform)
 
