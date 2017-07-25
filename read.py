@@ -1,5 +1,5 @@
 import tabulate
-import requests, csv, os, time,sys,urllib
+import requests, csv, os, time, sys, threading
 from tqdm import tqdm
 from config import *     #Calling the config file which contains all the static variables used in the code
 reload(sys)
@@ -9,6 +9,9 @@ Utterances=[]
 TaskNames=[]
 Types=[]
 outputs=[]
+MatchedIntents_qabots=['','']
+MatchedIntents_Api=['','']
+MatchedIntents_Luis=['','']
 def main():
     fr=open(FileName,'r')
     reader=csv.reader(fr,delimiter=',')
@@ -29,12 +32,13 @@ def main():
     fp.write(",".join(['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis']) + '\n')
     for i in tqdm(range(len(Utterances))):
         output=[]
-        output.append(TaskNames[i])#'''In the output, appending the inputs and matched intents to compare with the expected task name'''
+        output.append(TaskNames[i])#In the output, appending the inputs and matched intents to compare with the expected task name
         output.append(Utterances[i])
         output.append(Types[i])
-        MatchedIntents_qabots=callKoreBot(token_QAbots, Utterances[i])    
-        MatchedIntents_Api=callAPIBot(Utterances[i])    
-        MatchedIntents_Luis=callLUISBot(Utterances[i])
+        thKORE=threading.Thread(target=callKoreBot,args=([token_QAbots, Utterances[i]]));thKORE.start()
+        thAPI=threading.Thread(target=callAPIBot,args=([Utterances[i]]));thAPI.start()
+        thLUIS=threading.Thread(target=callLUISBot,args=([Utterances[i]]));thLUIS.start()
+        thKORE.join();thAPI.join();thLUIS.join()
         output.append(MatchedIntents_qabots[0])
         if(MatchedIntents_qabots[0]==TaskNames[i]):
             output.append('pass')
@@ -55,6 +59,7 @@ def main():
                 output.append('fail')
         output.append(str(MatchedIntents_Luis[1]))        
         outputs.append(output)
+        print(str(output))#'''Printing the output results'''
     for i in outputs:
         fp.write(','.join(i) + '\n')#'''Printing the output results'''
     fp.close()
@@ -86,7 +91,7 @@ def callKoreBot(token_QAbots, input_data):
                 time.sleep(10)
             
         if not respjson=={} and respjson.has_key('intent') and not respjson['intent'] ==[] and not respjson['intent']==None and respjson['intent'][0].has_key('name'):
-            MatchedIntents_qabots=respjson['intent'][0]['name']
+            matchedIntents_qabots=respjson['intent'][0]['name']
             if(response.json()['response']['intentMatch']==[]):
                 koreCSScore='Null'
                 koreMLScore='Null'
@@ -101,13 +106,14 @@ def callKoreBot(token_QAbots, input_data):
                     koreMLScore='Null'              
 
         else:
-            MatchedIntents_qabots='Empty Response qabots'
+            matchedIntents_qabots='Empty Response qabots'
             koreCSScore='Null'
             koreMLScore='Null'
-        if(MatchedIntents_qabots=='Default Fallback Intent'):
-                MatchedIntents_qabots='None'
-        koreArray=[MatchedIntents_qabots,koreCSScore,koreMLScore]
-        return koreArray                
+        if(matchedIntents_qabots=='Default Fallback Intent'):
+                matchedIntents_qabots='None'
+        MatchedIntents_qabots.pop()
+        MatchedIntents_qabots.pop()
+        MatchedIntents_qabots.extend([matchedIntents_qabots,koreCSScore,koreMLScore])
 
 def callAPIBot(input_data):
     payload = {"q":input_data,"lang":"en","sessionId":botname_API}
@@ -118,48 +124,49 @@ def callAPIBot(input_data):
          }
     while(1):
         try:
-            response = requests.request("post", url, data=payload, headers=headers)#'''Hitting the API call for api.ai'''
+            response = requests.request("post", url, data=payload, headers=headers)#Hitting the API call for api.ai
             response.json()
             break
         except:
             print("Error while finding intent in google")
 
     if not response.json()=={} and response.json().has_key('result') and response.json()['result'].has_key('metadata') and response.json()['result']['metadata'].has_key('intentName'):
-            MatchedIntents_Api=response.json()['result']['metadata']['intentName']
+            matchedIntents_Api=response.json()['result']['metadata']['intentName']
             score=response.json()['result']['score']#Getting the confidence score.
     else:
-            MatchedIntents_Api='Empty Response api'
+            matchedIntents_Api='Empty Response api'
             score=['null']
     
-    if(MatchedIntents_Api=='Default Fallback Intent'):
-            MatchedIntents_Api='None'        
+    if(matchedIntents_Api=='Default Fallback Intent'):
+            matchedIntents_Api='None'        
     
-    return MatchedIntents_Api,score
+    MatchedIntents_Api.pop()
+    MatchedIntents_Api.pop()
+    MatchedIntents_Api.extend([matchedIntents_Api,score])
             
 def callLUISBot(input_data):
         while(1):
             try:
-                respLuis=requests.get(urlL+input_data)#'''Reading the JSON response for luis.ai'''
+                respLuis=requests.get(urlL+input_data)#Reading the JSON response for luis.ai
                 respluis=respLuis.json()
                 break
             except:
                 print("Error while finding intent in Luis")
-
+                sleep(1)
         if respluis!={} and respluis.has_key('topScoringIntent') and respluis['topScoringIntent'].has_key('intent') and respluis['topScoringIntent']['intent']!='None':
-                MatchedIntents_Luis=respluis['topScoringIntent']['intent']#Luis Output Taken Here
+                matchedIntents_Luis=respluis['topScoringIntent']['intent']#Luis Output Taken Here
                 score=respluis['topScoringIntent']['score']#Getting Luis Score
         else:         
-                MatchedIntents_Luis='Empty Response'
+                matchedIntents_Luis='Empty Response'
                 score='Null'
+        MatchedIntents_Luis.pop()
+        MatchedIntents_Luis.pop()
+        MatchedIntents_Luis.extend([matchedIntents_Luis,score])
 
-        return MatchedIntents_Luis,score        
-
-def anothermain():
+if __name__ == "__main__":
     start_time=time.time()
     resultsFileName=main()
     print(time.time()-start_time)
     tabulate.main(resultsFileName)
 
 
-if __name__ == "__main__":
-    anothermain()

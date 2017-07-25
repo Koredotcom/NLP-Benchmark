@@ -13,7 +13,7 @@ botIDApi="4rdfg5-febd-455e-a272-69c7d5772824"
 
 #As soon as you login into the Luis website, press on My Keys. In this page, copy the Programmatic API key and paste it within the keys in subscriptionToken.
 
-subscriptionToken="42a6a52ad33140ff9dasdfs4563eff162"
+subscriptionToken="42a6a52ad33140ff9da0054563eff162"
 
 
 #Configuration for Kore.ai -:

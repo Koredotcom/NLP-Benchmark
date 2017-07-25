@@ -16,9 +16,9 @@ def loginToKore(koreUserId,KorePassword,KorePlatform):
 
         return loginResp
 
-def createKoreBot(input,userIdKore,authTokenKore,KorePlatform):
+def createKoreBot(Input,userIdKore,authTokenKore,KorePlatform):
         url = "https://"+KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams"#Calling the builder Api for Kore
-        payload = "{\"name\":\""+input+"\",\"type\":\"taskbot\",\"description\":\"faq\",\"color\":\"#1B3880\",\"categoryIds\":[\"451902a073c071463e2ce7c6\"],\"skipMakeEditLinks\":false,\"purpose\":\"customer\",\"errorCodes\":{\"pollError\":[]},\"visibility\":{\"namespace\":[],\"namespaceIds\":[]}}"
+        payload = "{\"name\":\""+Input+"\",\"type\":\"taskbot\",\"description\":\"faq\",\"color\":\"#1B3880\",\"categoryIds\":[\"451902a073c071463e2ce7c6\"],\"skipMakeEditLinks\":false,\"purpose\":\"customer\",\"errorCodes\":{\"pollError\":[]},\"visibility\":{\"namespace\":[],\"namespaceIds\":[]}}"
         try:
                 response = requests.request("POST", url, data=payload, headers=headersKore)
                 streamid=response.json()['_id']
@@ -52,9 +52,9 @@ def createKoreBot(input,userIdKore,authTokenKore,KorePlatform):
 
         return streamid
 
-def addIntentKore(input,streamid,userIdKore,authTokenKore,KorePlatform):
+def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
         url = "https://"+KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components"
-        payload = "{\"desc\":\"\",\"type\":\"intent\",\"intent\":\""+input+"\"}"
+        payload = "{\"desc\":\"\",\"type\":\"intent\",\"intent\":\""+Input+"\"}"
         try:
                 response = requests.request("POST", url, data=payload, headers=headersKore)
         except:
@@ -83,9 +83,9 @@ def addIntentKore(input,streamid,userIdKore,authTokenKore,KorePlatform):
         idKores=[component,dialogId]        
         return idKores
 
-def addKoreUtterances(input,idKore,streamid,intentid,userIdKore,authTokenKore,KorePlatform):
+def addKoreUtterances(Input,idKore,streamid,intentid,userIdKore,authTokenKore,KorePlatform):
         url = "https://"+KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences"
-        payload = "{\"taskId\":\""+idKore+"\",\"sentence\":\""+input+"\",\"streamId\":\""+streamid+"\",\"taskName\":\""+intentid+"\",\"type\":\"DialogIntent\"}"
+        payload = "{\"taskId\":\""+idKore+"\",\"sentence\":\""+Input+"\",\"streamId\":\""+streamid+"\",\"taskName\":\""+intentid+"\",\"type\":\"DialogIntent\"}"
         try:    
                 response = requests.request("POST", url, data=payload, headers=headersKore)
         except:

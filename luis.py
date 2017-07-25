@@ -1,19 +1,19 @@
-import requests,time
+import requests, time
 from configBot import *
 
-def createLuisBot(input,subscriptionToken):
+def createLuisBot(botname):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"
-        payload = str({"name":input,"description":"","culture":"en-us","domain":"","usageScenario":""})
+        payload = str({"name":botname,"description":"","culture":"en-us","domain":"","usageScenario":""})
         try:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
-        except:
-                raise Exception("Error while creating a bot in Luis")        
-
+            response = requests.request("POST", url, data=payload, headers=headerLuis)
+            response.raise_for_status()
+        except Exception as e:
+            raise Exception("Error while creating a bot in Luis: ",str(e))        
         return response.text.strip('"')            
 
-def addLuisIntent(input,botIdLuis,subscriptionToken):
+def addLuisIntent(Input,botIdLuis):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/intents"
-        payload = str({"name":input})
+        payload = str({"name":Input})
         try:
                 response = requests.request("POST", url, data=payload, headers=headerLuis)
         except:
@@ -21,15 +21,15 @@ def addLuisIntent(input,botIdLuis,subscriptionToken):
 
         return response.text
 
-def addLuisUtterance(input,LuisIntentId,botIdLuis,intentid,subscriptionToken):
+def addLuisUtterance(Input,LuisIntentId,botIdLuis,intentid):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/examples"
-        payload = "[{\"text\":\""+input+"\",\"intentName\":\""+intentid+"\",\"entityLabels\":[]}]"
+        payload = "[{\"text\":\""+Input+"\",\"intentName\":\""+intentid+"\",\"entityLabels\":[]}]"
         try:
                 response = requests.request("POST", url, data=payload, headers=headerLuis)
         except:
                 raise Exception("Error while adding trianing utterances in Luis")        
 
-def getLuisEndPointUrl(botIdLuis,subscriptionToken):
+def getLuisEndPointUrl(botIdLuis):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/assignedkey/"
         headers = {
             'access-control-request-method': "PUT",
