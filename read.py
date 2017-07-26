@@ -125,8 +125,8 @@ def callKoreBot(token_QAbots, input_data):
             koreMLScore='Null'
         if(matchedIntents_qabots=='Default Fallback Intent'):
                 matchedIntents_qabots='None'
-        MatchedIntents_qabots.pop()
-        MatchedIntents_qabots.pop()
+        while(len(MatchedIntents_qabots)):
+            MatchedIntents_qabots.pop()
         MatchedIntents_qabots.extend([matchedIntents_qabots,koreCSScore,koreMLScore])
 
 def callAPIBot(input_data):
@@ -156,8 +156,8 @@ def callAPIBot(input_data):
     if(matchedIntents_Api=='Default Fallback Intent'):
             matchedIntents_Api='None'        
     
-    MatchedIntents_Api.pop()
-    MatchedIntents_Api.pop()
+    while(len(MatchedIntents_Api)):
+        MatchedIntents_Api.pop()
     MatchedIntents_Api.extend([matchedIntents_Api,score])
             
 def callLUISBot(input_data):
@@ -176,8 +176,8 @@ def callLUISBot(input_data):
         else:         
                 matchedIntents_Luis='Empty Response'
                 score='Null'
-        MatchedIntents_Luis.pop()
-        MatchedIntents_Luis.pop()
+        while(len(MatchedIntents_Luis)):
+            MatchedIntents_Luis.pop()
         MatchedIntents_Luis.extend([matchedIntents_Luis,score])
 
 if __name__ == "__main__":
