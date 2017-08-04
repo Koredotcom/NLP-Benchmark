@@ -37,3 +37,6 @@ headerLuis={
 headersKore = {
         'content-type': "application/json;charset=UTF-8",
 }
+
+USEGOOGLE=False
+USELUIS=False
