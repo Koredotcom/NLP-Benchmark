@@ -120,7 +120,7 @@ def callKoreBot(token_QAbots, input_data):
                     koreMLScore='Null'              
 
         else:
-            matchedIntents_qabots='Empty Response'
+            matchedIntents_qabots='None'
             koreCSScore='Null'
             koreMLScore='Null'
         if(matchedIntents_qabots=='Default Fallback Intent'):
@@ -130,37 +130,41 @@ def callKoreBot(token_QAbots, input_data):
         MatchedIntents_qabots.extend([matchedIntents_qabots,koreCSScore,koreMLScore])
 
 def callAPIBot(input_data):
-    payload = {"q":input_data,"lang":"en","sessionId":botname_API}
-    payload=str(payload)
-    headers = {
+    if USEGOOGLE:
+        payload = {"q":input_data,"lang":"en","sessionId":botname_API}
+        payload=str(payload)
+        headers = {
         'authorization': "Bearer "+Token_Api,
         'content-type': "application/json",
          }
-    while(1):
-        try:
-            response = requests.request("post", url, data=payload, headers=headers)#Hitting the API call for api.ai
-            response.json()
-            #response.raise_for_status()
-            break
-        except:
-            time.sleep(1)
-            print("Error while finding intent in google")
+        while(1):
+            try:
+                response = requests.request("post", url, data=payload, headers=headers)#Hitting the API call for api.ai
+                response.json()
+                #response.raise_for_status()
+                break
+            except:
+                time.sleep(1)
+                print("Error while finding intent in google")
 
-    if not response.json()=={} and response.json().has_key('result') and response.json()['result'].has_key('metadata') and response.json()['result']['metadata'].has_key('intentName'):
+        if not response.json()=={} and response.json().has_key('result') and response.json()['result'].has_key('metadata') and response.json()['result']['metadata'].has_key('intentName'):
             matchedIntents_Api=response.json()['result']['metadata']['intentName']
             score=response.json()['result']['score']#Getting the confidence score.
-    else:
-            matchedIntents_Api='Empty Response'
+        else:
+            matchedIntents_Api='None'
             score=['null']
     
-    if(matchedIntents_Api=='Default Fallback Intent'):
+        if(matchedIntents_Api=='Default Fallback Intent'):
             matchedIntents_Api='None'        
-    
+    else:
+        matchedIntents_Api='None'        
+        score=0.1
     while(len(MatchedIntents_Api)):
         MatchedIntents_Api.pop()
     MatchedIntents_Api.extend([matchedIntents_Api,score])
             
 def callLUISBot(input_data):
+    if USELUIS:
         while(1):
             try:
                 respLuis=requests.get(urlL+input_data)#Reading the JSON response for luis.ai
@@ -174,11 +178,14 @@ def callLUISBot(input_data):
                 matchedIntents_Luis=respluis['topScoringIntent']['intent']#Luis Output Taken Here
                 score=respluis['topScoringIntent']['score']#Getting Luis Score
         else:         
-                matchedIntents_Luis='Empty Response'
+                matchedIntents_Luis='None'
                 score='Null'
-        while(len(MatchedIntents_Luis)):
-            MatchedIntents_Luis.pop()
-        MatchedIntents_Luis.extend([matchedIntents_Luis,score])
+    else:
+        matchedIntents_Luis='None'
+        score=0.1
+    while(len(MatchedIntents_Luis)):
+        MatchedIntents_Luis.pop()
+    MatchedIntents_Luis.extend([matchedIntents_Luis,score])
 
 if __name__ == "__main__":
     start_time=time.time()

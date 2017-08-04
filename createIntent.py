@@ -10,12 +10,14 @@ sys.setdefaultencoding('utf8')
 intents=[]
 utterances=[]
 loginResp=[]
-urlL=[]
+urlL=[""]
 input2={}
 intentset=[]
 idKore=[]
 LuisIntentId=[]
 def main():
+#        botIDApi=""
+#        Token_Api=""
         fr=open(fileName,'r')
         reader=csv.reader(fr,delimiter=',')
         for row in reader:
@@ -42,14 +44,16 @@ def main():
         botName=raw_input('Enter Bot Name: ')
 
         intentset.extend(list(set(intents)))
-
-        botIdLuis=createLuisBot(botName)
-        print("New bot "+botName+" has been created in Luis with botid: " +botIdLuis)
-        prepLuis(intentset,intents,utterances,botIdLuis)
-
         botIDKore=createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
         print("New bot "+botName+" has been created in Kore with botid: "+ botIDKore)
         prepKore(intentset,intents,utterances,botIDKore,userIdKore,authTokenKore)
+
+        if USELUIS:
+            botIdLuis=createLuisBot(botName)
+            print("New bot "+botName+" has been created in Luis with botid: " +botIdLuis)
+            prepLuis(intentset,intents,utterances,botIdLuis)
+        else:
+            print("Not training LUIS")
 
         #For the google platform, we need to send all the training utterances for an intent at once.
         #Calling an empty dictionary to collect all these utterances.
@@ -59,9 +63,10 @@ def main():
         for i in range(len(intents)):
             input2[intents[i]].append(utterances[i])
 
-        print("Calling googles function after collecting all the train utterances")
-        for j in tqdm(range(len(intentset))):
-            addIntentAndUtteranceAPI(intentset[j],input2[intentset[j]])
+        if USEGOOGLE:
+          print("Training Google bot after collecting all the train utterances")
+          for j in tqdm(range(len(intentset))):
+              addIntentAndUtteranceAPI(intentset[j],input2[intentset[j]])
 
         """
         for i in tqdm(range(len(intents))):
@@ -135,6 +140,8 @@ def createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,url
         fr.write("url=\"https://console.api.ai/api/query\"\n")
         fr.write("botname_API=\""+botIDApi+"\"\n")
         fr.write("urlL=\""+urlL+"\"\n")	
+        fr.write("USEGOOGLE="+str(USEGOOGLE)+"\n")	
+        fr.write("USELUIS="+str(USELUIS)+"\n")	
 
 if __name__ == '__main__':
         main()
