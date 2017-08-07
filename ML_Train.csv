@@ -1,80 +1,75 @@
-1,Apply for Loan,I need to buy a house for my family
-2,Apply for Loan,I want a business loan to start off my new venture
+1,Apply for Loan,I want to buy a house. How to get a loan?
+2,Apply for Loan,I want to get a business loan
 3,Apply for Loan,Get an approval for a study loan
-4,Apply for Loan,Arrange for a loan of 5000 to start our business
-5,Apply for Loan,Can i be credited with 10000 for property investment?
-6,Apply for Loan,Can I borrow funds for admission fees
-7,Apply for Loan,Can you help me get funds in advance for wedding
+4,Apply for Loan,Need a loan of 5000 USD for my business
+5,Apply for Loan,How do I get a credit for 10000 dollars for property investment?
+6,Apply for Loan,Can I borrow funds for school fee
+7,Apply for Loan,Help me get a loan advance
 8,Apply for Loan,Financial assistance is required to buy a new house
 9,Apply for Loan,I need money to open a restaurant
 10,Apply for Loan,Get money available on credit for payment of insurance bills
 11,Apply for Loan,Need a loan at lowest interest rate
-12,Apply for Loan,Require an easy to repay loan
-13,Apply for Loan,I want to mortgage my house 
+12,Apply for Loan,Suggest me a loan with easy pay option
+13,Apply for Loan,I want to get a mortgage on my house 
 14,Apply for Loan,I need credit of 50K. How do I apply for it?
-15,Apply for Loan,I have to pay people 40K for my sister's marriage expenses. Can I get loan?
+15,Apply for Loan,I need to borrow 40K for expenses. Can I get loan?
 16,Apply for Loan,Could you grant me an allowance of 1200 USD
-17,Apply for Loan,Can i get some amount beforehand
+17,Apply for Loan,do you offer loans for veterans
 18,Apply for Loan,I need some aid to set up my business
 19,Apply for Loan,Can you faciltate finances for my wedding/admission/college fees
-20,Apply for Loan,Hi! I'm planning to purchase a two room flat in central location of the city.So i want to know how can Standard Chartered Bank help me in this.
-21,Apply for Loan,Hey! I'm thinking of buying a car but I don't want to use all the money in my account
-22,Apply for Loan,"Hi Buddy, i need you to fix my problem of some shortage of funds that I am facing while working on my new garment showroom"
-23,Apply for Loan,Hi there!! I feel screwed up as i have lost a lot of money in the stock market. I gotta get some money to recover my loss to work on my business. 
-24,Apply for Loan,"Hey! I'm all broke, buddy! Get me some money to clear my running debts for this month"
-25,Apply for Loan,Need a fin help frm Bnk for coll fee
-26,Apply for Loan,I'm looking for a low-rate loan on EMI for 5yrs
-27,Apply for Loan,What kind of PL can i get as a coll student?
-28,Transfer Funds,I have to send money to someone
-29,Transfer Funds,Deposit 5000 USD from my account to xyz account
-30,Transfer Funds,Will you send $200 to my alternate account?
-31,Transfer Funds,i want ac no 234 to receive $100 from my account
-32,Transfer Funds,I need to make a payment to my younger brother for a bike purchase
-33,Transfer Funds,Can you move 500USD to my wife's account asap?
-34,Transfer Funds,Would like to wire money to my international account
-35,Transfer Funds,Can 3000 be remitted to my landlord's account?
-36,Transfer Funds,I need to move part of my finances to another account
-37,Transfer Funds,I want to share some money with a separate account
-38,Transfer Funds,Have to send funds to an online site for shopping transaction
-39,Transfer Funds,Can you shift my outstanding balance amount to my new account?
-40,Transfer Funds,I want Transfer of funds from India to Germany
-41,Transfer Funds,Fund the transaction through my account
-42,Transfer Funds,I have to contribute $100 to xyz to clear my dues in the pool lunch.
-43,Transfer Funds,Plz provide fund transfer to xyz ac
-44,Transfer Funds,Send Asap money frm savng ac
-45,Transfer Funds,Need u to help me transfer USD frm a/c A to a/c B
-46,Transfer Funds,Transfer USD 100 frm my ac nw!
-47,Transfer Funds,"Hi, I want to pay back my friend $100 for the pub night "
-48,Transfer Funds,Hey!! Need your help to repay a frn's payment on my movie ticket
-49,Pay a Bill,Please make a payment of USD 100 to my Uber account
-50,Pay a Bill,Got to work off my parking fine. Please help. 
-51,Pay a Bill,Clear my dues for the laundry bill
-52,Pay a Bill,Settle my account with the grocery store
-53,Pay a Bill,Clear the outstanding bill for credit card
-54,Pay a Bill,500 is due for groceries payment 
-55,Pay a Bill,I want to make a charity of Rs. 1000
-56,Pay a Bill,I want to close my account at the hotel
-57,Pay a Bill,Clear my debt on mobile purchase
-58,Pay a Bill,Complete my purchase of JBL bluetooth speakers on Amazon 
-59,Pay a Bill,Clear the bill for ebay
-60,Pay a Bill,Recharge my net connection
-61,Pay a Bill,Finish my transaction with Air BnB
-62,Pay a Bill,Process payment for invoice
-63,Pay a Bill,square accounts with my friend for last weekend trip
-64,Pay a Bill,she needs to get her annual leave entitlement
-65,Pay a Bill,The butler expects 200 for this month's service
-66,Pay a Bill,Surcharge for additional services subscription has to be given to the service provider
-67,Pay a Bill,Penalty of Rs 500 has to be given for late submission of fees
-68,View Account Balance,What's my Outstanding account balance?
-69,View Account Balance,How much money is left in my account?
-70,View Account Balance,Want to view my account statement
-71,View Account Balance,What are current savings in my account
-72,View Account Balance,Can I have my bank statement
-73,View Account Balance,Want to review my outstanding bank credit 
-74,View Account Balance,generate my account information
-75,View Account Balance,Can you tell me the opening balance
-76,View Account Balance,I want to know why has my cheque bounced?
-77,View Account Balance,How much money is unused in my ac now?
-78,View Account Balance,Wat's my ac bal?
-79,View Account Balance,Is my ac bal up to date?
-80,View Account Balance,How many $ remaining in my ac nw?
+20,Apply for Loan,Need some financial assistance
+21,Apply for Loan,I'm looking for a low-rate loan on EMI for 5yrs
+22,Apply for Loan,What kind of loan can i get as a college student?
+23,Transfer Funds,I have to send money to someone
+24,Transfer Funds,Deposit 5000 USD from my account to xyz account
+25,Transfer Funds,Will you send $200 to my alternate account?
+26,Transfer Funds,i want ac no 234 to receive $100 from my account
+27,Transfer Funds,I need to make a payment to my younger brother for a bike purchase
+28,Transfer Funds,Can you move 500USD to my wife's account asap?
+29,Transfer Funds,Would like to wire money to my international account
+30,Transfer Funds,Can 3000 be remitted to my landlord's account?
+31,Transfer Funds,I need to move part of my finances to another account
+32,Transfer Funds,I want to share some money with a separate account
+33,Transfer Funds,Have to send funds to an online site for shopping transaction
+34,Transfer Funds,Can you shift my outstanding balance amount to my new account?
+35,Transfer Funds,I want Transfer of funds from India to Germany
+36,Transfer Funds,Fund the transaction through my account
+37,Transfer Funds,I have to contribute $100 to xyz to clear my dues in the pool lunch.
+38,Transfer Funds,Plz provide fund transfer to AC no 345231
+39,Transfer Funds,Move money from saving acccount to Checking
+40,Transfer Funds,Need u to help me transfer 30 USD frm a/c 32231 to a/c 239482
+41,Transfer Funds,Transfer USD 100 from my account to Bob's account
+42,Transfer Funds,"Hi, I want to pay back my friend $100 for the pub night "
+43,Transfer Funds,Hey!! Need your help to repay a frn's payment on my movie ticket
+44,Pay a Bill,Please make a payment of USD 100 to my Uber account
+45,Pay a Bill,Got to work off my parking fine. Please help. 
+46,Pay a Bill,Clear my dues for the laundry bill
+47,Pay a Bill,Settle my account with the grocery store
+48,Pay a Bill,Clear the outstanding bill for credit card
+49,Pay a Bill,500 is due for groceries payment 
+50,Pay a Bill,I want to make a charity of Rs. 1000
+51,Pay a Bill,I want to close my account at the hotel
+52,Pay a Bill,Clear my debt on mobile purchase
+53,Pay a Bill,Complete my purchase of JBL bluetooth speakers on Amazon 
+54,Pay a Bill,Clear the bill for ebay
+55,Pay a Bill,Recharge my net connection
+56,Pay a Bill,Finish my transaction with Air BnB
+57,Pay a Bill,Process payment for invoice
+58,Pay a Bill,square accounts with my friend for last weekend trip
+59,Pay a Bill,she needs to get her annual leave entitlement
+60,Pay a Bill,The butler expects 200 for this month's service
+61,Pay a Bill,Surcharge for additional services subscription has to be given to the service provider
+62,Pay a Bill,Penalty of Rs 500 has to be given for late submission of fees
+63,View Account Balance,What's my Outstanding account balance?
+64,View Account Balance,How much money is left in my account?
+65,View Account Balance,Want to see my account statement
+66,View Account Balance,What are current savings in my account
+67,View Account Balance,Can I have my bank statement
+68,View Account Balance,Want to review my outstanding bank credit 
+69,View Account Balance,generate my account information
+70,View Account Balance,Can you tell me the opening balance
+71,View Account Balance,I want to know why has my cheque bounced?
+72,View Account Balance,How much money is unused in my ac now?
+73,View Account Balance,What is my account balance?
+74,View Account Balance,Like to know remaining amount in my account
+75,View Account Balance,I think there are some wrong transactions in my account. I need to check the details.
