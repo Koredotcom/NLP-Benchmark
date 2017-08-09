@@ -88,7 +88,7 @@ def main():
         addIntentAndUtteranceAPI(intentid,input2)#Calling function for the last Intent
         """
         print("Creating the config file for the read.py file.")
-        createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,urlL[0],botIDApi,Token_Api)
+        createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,urlL[-1],botIDApi,Token_Api)
 
 def prepLuis(intentset,intents,utterances,botIdLuis):
         print("Creating intents in luis")
