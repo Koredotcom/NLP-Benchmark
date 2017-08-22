@@ -1,11 +1,12 @@
 import requests, csv, os, time, sys, threading, getpass
+from six.moves import input
 from configBot import * #Calling the configuration file with all the static variables
 from tqdm import tqdm
 from google import *
 from kore import *
 from luis import *
-reload(sys)
-sys.setdefaultencoding('utf8')
+#reload(sys)
+#sys.setdefaultencoding('utf8')
 #Global varibles used for reading input from the csv file
 intents=[]
 utterances=[]
@@ -31,17 +32,17 @@ def main():
         print("Finished reading training data.")
 
         if ssoKore is False:
-                koreUserId=raw_input('Enter kore UserID: ')#login credentials for kore
+                koreUserId=input('Enter kore Email ID: ')#login credentials for kore
                 KorePassword=getpass.getpass('Enter kore Password: ')
                 loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
                 userIdKore=loginCred[1]                                         
                 authTokenKore=loginCred[0]
 
         else:
-                userIdKore=raw_input('Enter userid for kore: ')
-                authTokenKore=raw_input('Enter authorization token for kore: ')
+                userIdKore=input('Enter kore userid: ')
+                authTokenKore=input('Enter authorization token for kore: ')
         headersKore['authorization']=authTokenKore #passing the authorization token to the configBot.py file
-        botName=raw_input('Enter Bot Name: ')
+        botName=input('Enter Bot Name: ')
 
         intentset.extend(list(set(intents)))
         botIDKore=createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
