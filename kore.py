@@ -16,7 +16,7 @@ def loginToKore(koreUserId,KorePassword,KorePlatform):
 
         return loginResp
 
-def createKoreBot(Input,userIdKore,authTokenKore,KorePlatform):
+def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
         url = "https://"+KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams"#Calling the builder Api for Kore
         payload = "{\"name\":\""+Input+"\",\"type\":\"taskbot\",\"description\":\"faq\",\"color\":\"#1B3880\",\"categoryIds\":[\"451902a073c071463e2ce7c6\"],\"skipMakeEditLinks\":false,\"purpose\":\"customer\",\"errorCodes\":{\"pollError\":[]},\"visibility\":{\"namespace\":[],\"namespaceIds\":[]}}"
         try:
@@ -32,8 +32,7 @@ def createKoreBot(Input,userIdKore,authTokenKore,KorePlatform):
                 response1 = requests.request("POST", url1, data=payload1, headers=headersKore)
                 dgValue=addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)#Creating the default fallback intent and fetching a value necessary for further task.
         except:
-                raise Exception("Error while creating Market streams")        
-
+                raise Exception("Error while creating Market streams")
 
         url = "https://"+KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs"
         querystring = {"rnd":"7hl7dm"}
@@ -45,8 +44,12 @@ def createKoreBot(Input,userIdKore,authTokenKore,KorePlatform):
         url = "https://"+KorePlatform+"/api/1.1/builder/streams/"+streamid+"/defaultDialogSettings"#Setting the Default Dialog Task to Default Fallback Intent. 
         querystring = {"rnd":"jw4tcv"}
         payload = "{\"defaultDialogId\":\""+dgValue[1]+"\"}"
+        headers = {}
+        headers['content-type'] = headersKore['content-type']
+        headers['authorization'] = authTokenKore
+        headers['x-http-method-override'] = 'put'
         try:
-                response = requests.request("POST", url, data=payload, headers=headersKore, params=querystring)             
+                response = requests.post(url, data=payload, headers=headers, params=querystring)             
         except:
                 raise Exception("Error while creating Setting Default dialog task streams")        
 
