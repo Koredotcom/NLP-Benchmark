@@ -53,7 +53,7 @@ def main():
         if row[0]==None or row[0].strip()=='':
             continue
         Utterances.append(row[1])#'''Reading from the input file i.e. ML_Testdata'''
-        TaskNames.append(row[0])
+        TaskNames.append(row[0].replace("_"," "))
         Types.append(row[2])
     fr.close()
     print("Test data sheet is running")
