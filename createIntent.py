@@ -133,7 +133,7 @@ def createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,url
         fr.write("uid_QAbots=\""+userIdKore+"\"\n")
         fr.write("token_QAbots=\""+authTokenKore+"\"\n")
         fr.write("streamid_QAbots=\""+botIDKore+"\"\n")
-        fr.write("urlKa=\"https://"+KorePlatform+"/api/1.1/users/\"\n")
+        fr.write("urlKa="+KorePlatform+"/api/1.1/users/\"\n")
         fr.write("urlKb=\"/builder/streams/\"\n")
         fr.write("urlKc=\"/findIntend\"\n")
         fr.write("FileName=\"ML_TestData.csv\"\n")
