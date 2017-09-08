@@ -35,7 +35,7 @@ def main(resultsFileName):
 	except:
 		print("File not found")
 	timestr=time.strftime("%d-%m-%Y--%H-%M-%S")#adding a timestamp to the new file generated	
-	fr1=open('Summary '+timestr+'.csv','w')
+	fr1=open('Summary-'+timestr+'.csv','w')
 	success=[success1,success2,success3]
 	platforms=0
 	totalPositives=0

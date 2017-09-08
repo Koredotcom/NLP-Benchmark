@@ -58,7 +58,7 @@ def main():
     fr.close()
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
-    resultsFileName='ML_Results '+timestr+'.csv'
+    resultsFileName='ML_Results-'+timestr+'.csv'
     fp=open(resultsFileName,'w')
     fp.write(",".join(['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis']) + '\n')
     th=[]
