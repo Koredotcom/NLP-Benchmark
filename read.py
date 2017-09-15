@@ -1,5 +1,5 @@
 import tabulate
-import requests, csv, os, time, sys, threading
+import requests, csv, os, time, sys, threading,urllib
 from tqdm import tqdm
 from config import *     #Calling the config file which contains all the static variables used in the code
 reload(sys)
@@ -61,15 +61,13 @@ def main():
     resultsFileName='ML_Results-'+timestr+'.csv'
     fp=open(resultsFileName,'w')
     fp.write(",".join(['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis']) + '\n')
-    th=[]
     for i in tqdm(range(len(Utterances))):
+        th=[]
         th.append(threading.Thread(target=find_intent3,args=([i])))
-        th[i].start()
-        if i%10 ==0:
+        th[-1].start()
+        if i ==len(Utterances)-1 or i%1 ==0:
             time.sleep(1)
-            map(lambda x:x.join(),th[0:i])
-    map(lambda x:x.join(),th[0:-1])
-    th[-1].join()
+            map(lambda x:x.join(),th[:])
     for output in outputs:
         fp.write(','.join(output) + '\n')#Printing the output results
     fp.close()
@@ -84,8 +82,8 @@ def callKoreBot(token_QAbots, input_data):
                 respjson=resp.json()
                 resp.raise_for_status()
                 break
-            except:
-                print("Error while finding intent kore")
+            except Exception as e:
+                print("Error while finding intent kore", e)
                 time.sleep(1)
 
         url = urlKa+uid_QAbots+urlKb+streamid_QAbots+"/getTrainLogs"#Hitting the trainLogs api for kore to get the CS score and the ML Score
@@ -97,25 +95,26 @@ def callKoreBot(token_QAbots, input_data):
             }
         while(1):
             try:
-                response = requests.request("POST", url, data=payload, headers=headers, params=querystring)
+                response = requests.post( url, data=payload, headers=headers, params=querystring)
+                responsejson=response.json()
                 response.raise_for_status()
                 break
-            except:
-                print("Error while finding trainlogs kore")
+            except Exception as e:
+                print("Error while finding trainlogs kore", e)
                 time.sleep(1)
             
         if not respjson=={} and respjson.has_key('intent') and not respjson['intent'] ==[] and not respjson['intent']==None and respjson['intent'][0].has_key('name'):
             matchedIntents_qabots=respjson['intent'][0]['name']
-            if(response.json()['response']['intentMatch']==[]):
+            if(responsejson['response']['intentMatch']==[]):
                 koreCSScore='Null'
                 koreMLScore='Null'
             else:
                 try:
-                    koreCSScore=response.json()['response']['intentMatch'][0]['totalScore']#Getting CS Score
+                    koreCSScore=responsejson['response']['intentMatch'][0]['totalScore']#Getting CS Score
                 except:
                     koreCSScore='Null'
                 try:
-                    koreMLScore=response.json()['response']['intentMatch'][0]['mlScore']#Getting ML Score              
+                    koreMLScore=responsejson['response']['intentMatch'][0]['mlScore']#Getting ML Score
                 except:    
                     koreMLScore='Null'              
 
@@ -131,35 +130,45 @@ def callKoreBot(token_QAbots, input_data):
 
 def callAPIBot(input_data):
     if USEGOOGLE:
-        payload = {"q":input_data,"lang":"en","sessionId":botname_API}
+        payload = {"q":input_data,"timezone":"UTC","lang":"en","sessionId":botname_API,"resetContexts":False}
         payload=str(payload)
+	params = {
+		"query":urllib.quote(input_data.replace("!","")),
+		"lang":"en",
+		"sessionId":botname_API,
+		"timezone":"UTC",
+		}
         headers = {
         'authorization': "Bearer "+Token_Api,
-        'content-type': "application/json",
+        'cache-control':'no-cache',
+        'content-type': "application/json;charset=utf8",
          }
         while(1):
             try:
-                response = requests.request("post", url, data=payload, headers=headers)#Hitting the API call for api.ai
+                #response = requests.post( url, data=payload, headers=headers,params = {"v":"20150910"})
+                response = requests.get( url,  headers=headers,params=params)
+		#Hitting the API call for api.ai
                 response.json()
-                #response.raise_for_status()
+                response.raise_for_status()
                 break
-            except:
+            except Exception as e:
+                print("Error while finding intent in google", e)
                 time.sleep(1)
-                print("Error while finding intent in google")
-
-        if not response.json()=={} and response.json().has_key('result') and response.json()['result'].has_key('metadata') and response.json()['result']['metadata'].has_key('intentName'):
-            matchedIntents_Api=response.json()['result']['metadata']['intentName']
-            score=response.json()['result']['score']#Getting the confidence score.
+        responsejson = response.json()
+        if not responsejson=={} and responsejson.has_key('result') and responsejson['result'].has_key('metadata') and responsejson['result']['metadata'].has_key('intentName'):
+            matchedIntents_Api=responsejson['result']['metadata']['intentName']
+            score=responsejson['result']['score']#Getting the confidence score.
+            if(matchedIntents_Api=='Default Fallback Intent'):
+                matchedIntents_Api='None'
         else:
-            matchedIntents_Api='None'
+            matchedIntents_Api='Empty response'
             score=['null']
-    
-        if(matchedIntents_Api=='Default Fallback Intent'):
-            matchedIntents_Api='None'        
+            #print("GUGL","post", url, "data=",payload, "headers=",headers)
+            print("GOOGLE","get", url, "headers=",headers,"params",params)
     else:
-        matchedIntents_Api='None'        
+        matchedIntents_Api='None'
         score=0.1
-    while(len(MatchedIntents_Api)):
+    while(MatchedIntents_Api):
         MatchedIntents_Api.pop()
     MatchedIntents_Api.extend([matchedIntents_Api,score])
             
@@ -169,17 +178,21 @@ def callLUISBot(input_data):
             try:
                 respLuis=requests.get(urlL+input_data)#Reading the JSON response for luis.ai
                 respluis=respLuis.json()
-                #respLuis.raise_for_status()
+                respLuis.raise_for_status()
                 break
-            except:
-                print("Error while finding intent in Luis")
+            except Exception as e:
+                print("Error while finding intent in Luis", e)
                 time.sleep(1)
-        if respluis!={} and respluis.has_key('topScoringIntent') and respluis['topScoringIntent'].has_key('intent') and respluis['topScoringIntent']['intent']!='None':
+        if respluis!={} and respluis.has_key('topScoringIntent') and respluis['topScoringIntent'].has_key('intent'):
                 matchedIntents_Luis=respluis['topScoringIntent']['intent']#Luis Output Taken Here
                 score=respluis['topScoringIntent']['score']#Getting Luis Score
-        else:         
-                matchedIntents_Luis='None'
+                if respluis['topScoringIntent']['intent']=='None':
+                        matchedIntents_Luis='None'
+        else:
+                matchedIntents_Luis='Empty Response'
                 score='Null'
+                print("LUIS","get" , (urlL+input_data))
+		print(respLuis)
     else:
         matchedIntents_Luis='None'
         score=0.1
@@ -191,6 +204,6 @@ if __name__ == "__main__":
     start_time=time.time()
     resultsFileName=main()
     print(time.time()-start_time)
-    tabulate.main(resultsFileName)
+#    tabulate.main(resultsFileName)
 
 
