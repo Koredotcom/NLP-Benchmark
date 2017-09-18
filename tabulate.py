@@ -1,16 +1,19 @@
 from __future__ import print_function
 import requests, csv, os, time,sys
-TyOfUtt=[]#'''Reading the type of utterances from input ML_Result csv file'''
-success1=[]
-success2=[]
-success3=[]
+TyOfUtt=[]#Reading the type of utterances from input ML_Result csv file
+success=[[],[],[]]
+intent=[]
 b1=['','','KORE.AI','','API.AI','','LUIS.AI']
-b2=['TP']#'''Global arrays declared for true positives table'''
+b2=['TP']#Global arrays declared for true positives table
 b3=['TN']
 b4=['FN']
 b5=['FP']
+b6=['TP None']
+b7=['TN None']
+b8=['FN None']
+b9=['FP None']
 c1=['','KORE.AI','','API.AI','','LUIS.AI']
-c2=['Precision']#'''Global arrays declared for formulae calculation table'''
+c2=['Precision']#Global arrays declared for formulae calculation table
 c3=['Recall']
 c4=['F Measure']
 c5=['Error']
@@ -24,10 +27,11 @@ def main(resultsFileName):
 		while 1:
 			try:
 				x = reader.next()
+				intent.append(x[0])
 				TyOfUtt.append(x[2])
-				success1.append(x[4])
-				success2.append(x[8])
-				success3.append(x[11])
+				success[0].append(x[4])
+				success[1].append(x[8])
+				success[2].append(x[11])
 			except StopIteration:
 				break
 
@@ -36,7 +40,6 @@ def main(resultsFileName):
 		print("File not found")
 	timestr=time.strftime("%d-%m-%Y--%H-%M-%S")#adding a timestamp to the new file generated	
 	fr1=open('Summary-'+timestr+'.csv','w')
-	success=[success1,success2,success3]
 	platforms=0
 	totalPositives=0
 	truePositives=0
@@ -54,16 +57,11 @@ def main(resultsFileName):
 	spellFalseNeg=0
 	totalSpell=0		
 	arrayD=['Type Of Utterance','Success_Kore.ai','Failure_Kore.ai','Success_Api.ai','Failure_Api.ai','Success_Luis.ai','Failure_Luis.ai','Total Utterances']
-	array1=[]
-	array1.append('Positive')
-	array2=[]
-	array2.append('Negative')
-	array3=[]
-	array3.append('Structurally different')
-	array4=[]
-	array4.append('Stemming and Lemmatization')
-	array5=[]
-	array5.append('Spell Error')
+	array1=['Positive']
+	array2=['Negative']
+	array3=['Structurally different']
+	array4=['Stemming and Lemmatization']
+	array5=['Spell Error']
 	'''Loop for the three platforms for result table calculation'''
 	while platforms<3:
 		totalPositives=0
@@ -72,6 +70,10 @@ def main(resultsFileName):
 		totalNegatives=0
 		trueNegatives=0
 		falsePositives=0
+		truePositivesNone=0
+		falsePositivesNone=0
+		trueNegativesNone=0
+		falseNegativesNone=0
 		totalStruct=0
 		strucTruePositive=0
 		strucFalseNegative=0
@@ -85,14 +87,22 @@ def main(resultsFileName):
 			if(TyOfUtt[i].lower()=='positive'):
 				if(success[platforms][i]=='pass'):
 					truePositives+=1
+					if(intent[i].lower() == 'none'):
+						truePositivesNone+=1
 				elif(success[platforms][i]=='fail'):
 					falseNegatives+=1
+					if(intent[i].lower() == 'none'):
+						falseNegativesNone+=1
 				totalPositives=truePositives+falseNegatives
 			elif(TyOfUtt[i].lower()=='negative'):
 				if(success[platforms][i]=='pass'):
 					trueNegatives+=1
+					if(intent[i].lower() == 'none'):
+						trueNegativesNone+=1
 				elif(success[platforms][i]=='fail'):
 					falsePositives+=1
+					if(intent[i].lower() == 'none'):
+						falsePositivesNone+=1
 				totalNegatives=trueNegatives+falsePositives
 			elif(TyOfUtt[i].lower()=='structurally different'):
 				if(success[platforms][i]=='pass'):
@@ -123,12 +133,15 @@ def main(resultsFileName):
 		array5.append(spellTruePos)
 		array5.append(spellFalseNeg)		
 		try:	
-			if(platforms==0):		
-				calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)#'''Calling the function for formulae calculation and result tables i.e. to identify the sum of false positives, false negatives, etc'''
-			elif(platforms==1):
-				calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)
-			else:
-				calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)							
+			calculateAndInsert(totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives, totalStruct, strucTruePositive, strucFalseNegative, totalStem, stemTruePositive, stemFalseNeg, spellTruePos, spellFalseNeg, totalSpell)#'''Calling the function for formulae calculation and result tables i.e. to identify the sum of false positives, false negatives, etc'''
+			b6.append('')
+			b6.append(truePositivesNone)
+			b7.append('')
+			b7.append(trueNegativesNone)
+			b8.append('')
+			b8.append(falseNegativesNone)
+			b9.append('')
+			b9.append(falsePositivesNone)
 		except:
 			b2.append('')
 			b2.append('Null')
@@ -138,6 +151,14 @@ def main(resultsFileName):
 			b4.append('Null')
 			b5.append('')
 			b5.append('Null')
+			b6.append('')
+			b6.append('Null')
+			b7.append('')
+			b7.append('Null')
+			b8.append('')
+			b8.append('Null')
+			b9.append('')
+			b9.append('Null')
 			c2.append('Null')
 			c2.append('')
 			c3.append('Null')
@@ -150,14 +171,15 @@ def main(resultsFileName):
 			c6.append('')		
 			platforms+=1	
 			continue
-		platforms+=1	
+		platforms+=1
 	array1.append(totalPositives)
 	array2.append(totalNegatives)
 	array3.append(totalStruct)
 	array4.append(totalStem)
 	array5.append(totalSpell)
 	array=[arrayD,array1,array2,array3,array4,array5]	
-	arrayB=[b1,b2,b3,b4,b5]
+	arrayB=[b1,b2,b6,b3,b7,b4,b8,b5,b9]
+	arrayC=[c1,c2,c3,c4,c5,c6]
 	'''printing the three result tables for all the three platforms'''
 	for i in range(len(array)):
 		row=''
@@ -172,7 +194,6 @@ def main(resultsFileName):
 		fr1.write(row+"\n")
 		
 	fr1.write("\n")
-	arrayC=[c1,c2,c3,c4,c5,c6]
 	for i in range(len(arrayC)):
 		row=''
 		for j in range(len(c1)):
