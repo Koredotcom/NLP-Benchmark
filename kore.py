@@ -27,7 +27,11 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
                 raise Exception("Error while creating builder streams")        
 
         url1 = KorePlatform+"/api/1.1/market/streams"#Calling the Market streams Api
-        payload1 = "{\"_id\":\""+streamid+"\",\"name\":\""+name+"\",\"description\":\"faq\",\"categoryIds\":[\"451902a073c071463e2fe7f6\"],\"icon\":\"58d2376ab99576e94c2daf2c\",\"keywords\":[],\"languages\":[],\"price\":1,\"screenShots\":[],\"namespace\":\"private\",\"namespaceIds\":[],\"color\":\"#3AB961\",\"bBanner\":\"\",\"sBanner\":\"\",\"bBannerColor\":\"#3AB961\",\"sBannerColor\":\"#3AB961\",\"profileRequired\":true,\"sendVcf\":false}"
+        if KorePlatform.split("//")[1].split(".")[0] == "pilot-bots" : 
+            icon = "59c0f641da89738e6f467d82"
+        else:
+            icon = "58d2376ab99576e94c2daf2c"
+        payload1 = "{\"_id\":\""+streamid+"\",\"name\":\""+name+"\",\"description\":\"faq\",\"categoryIds\":[\"451902a073c071463e2fe7f6\"],\"icon\":\""+icon+"\",\"keywords\":[],\"languages\":[],\"price\":1,\"screenShots\":[],\"namespace\":\"private\",\"namespaceIds\":[],\"color\":\"#3AB961\",\"bBanner\":\"\",\"sBanner\":\"\",\"bBannerColor\":\"#3AB961\",\"sBannerColor\":\"#3AB961\",\"profileRequired\":true,\"sendVcf\":false}"
         try:
                 response1 = requests.request("POST", url1, data=payload1, headers=headersKore)
                 dgValue=addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)#Creating the default fallback intent and fetching a value necessary for further task.
