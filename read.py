@@ -1,5 +1,6 @@
 import tabulate
-import requests, csv, os, time, sys, threading,urllib
+import requests, csv, os, time, sys, urllib
+from threading import Thread
 from tqdm import tqdm
 from config import *     #Calling the config file which contains all the static variables used in the code
 reload(sys)
@@ -12,15 +13,16 @@ outputs=[]
 MatchedIntents_qabots=['','']
 MatchedIntents_Api=['','']
 MatchedIntents_Luis=['','']
+NUM_THREADS=1 # integer, >=1
 
 def find_intent3(i):
         output=[]
         output.append(TaskNames[i])#In the output, appending the inputs and matched intents to compare with the expected task name
         output.append(Utterances[i])
         output.append(Types[i])
-        thKORE=threading.Thread(target=callKoreBot,args=([token_QAbots, Utterances[i]]));thKORE.start()
-        thAPI=threading.Thread(target=callAPIBot,args=([Utterances[i]]));thAPI.start()
-        thLUIS=threading.Thread(target=callLUISBot,args=([Utterances[i]]));thLUIS.start()
+        thKORE=Thread(target=callKoreBot,args=([token_QAbots, Utterances[i]]));thKORE.start()
+        thAPI=Thread(target=callAPIBot,args=([Utterances[i]]));thAPI.start()
+        thLUIS=Thread(target=callLUISBot,args=([Utterances[i]]));thLUIS.start()
         thKORE.join();thAPI.join();thLUIS.join()
         output.append(MatchedIntents_qabots[0])
         if(MatchedIntents_qabots[0]==TaskNames[i]):
@@ -41,9 +43,10 @@ def find_intent3(i):
         else:
                 output.append('fail')
         output.append(str(MatchedIntents_Luis[1]))        
-        outputs.append(output)
+        outputs[i]=output
 
 def main():
+    global outputs
     fr=open(FileName,'r')
     reader=csv.reader(fr,delimiter=',')
     reader.next()
@@ -61,15 +64,21 @@ def main():
     resultsFileName='ML_Results-'+timestr+'.csv'
     fp=open(resultsFileName,'w')
     fp.write(",".join(['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis']) + '\n')
+    fp.flush()
+    outputs = [None]*len(Utterances)
+    th=[]
+    prev=0
     for i in tqdm(range(len(Utterances))):
-        th=[]
-        th.append(threading.Thread(target=find_intent3,args=([i])))
+        th.append(Thread(target=find_intent3,args=([i])))
         th[-1].start()
-        if i ==len(Utterances)-1 or i%1 ==0:
-            time.sleep(1)
+        if i ==len(Utterances)-1 or (i+1)%NUM_THREADS ==0:
+            #time.sleep(1)
             map(lambda x:x.join(),th[:])
-    for output in outputs:
-        fp.write(','.join(output) + '\n')#Printing the output results
+            for output in outputs[prev:prev+len(th)]:
+                fp.write(','.join(output) + '\n')#Printing the output results
+            fp.flush()
+            prev = prev+len(th)
+            th=[]
     fp.close()
     return resultsFileName
 
@@ -94,7 +103,7 @@ def callKoreBot(token_QAbots, input_data):
     'content-type': "application/json;charset=UTF-8",
             }
         responsejson=respjson
-            
+
         if not respjson=={} and respjson.has_key('intent') and not respjson['intent'] ==[] and not respjson['intent']==None and respjson['intent'][0].has_key('name'):
             matchedIntents_qabots=respjson['intent'][0]['name']
             if(responsejson['response']['intentMatch']==[]):
