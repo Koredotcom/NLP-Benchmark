@@ -93,15 +93,7 @@ def callKoreBot(token_QAbots, input_data):
     'authorization': token_QAbots,
     'content-type': "application/json;charset=UTF-8",
             }
-        while(1):
-            try:
-                response = requests.post( url, data=payload, headers=headers, params=querystring)
-                responsejson=response.json()
-                response.raise_for_status()
-                break
-            except Exception as e:
-                print("Error while finding trainlogs kore", e)
-                time.sleep(1)
+        responsejson=respjson
             
         if not respjson=={} and respjson.has_key('intent') and not respjson['intent'] ==[] and not respjson['intent']==None and respjson['intent'][0].has_key('name'):
             matchedIntents_qabots=respjson['intent'][0]['name']
