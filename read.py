@@ -119,7 +119,7 @@ def callKoreBot(token_QAbots, input_data):
                     koreMLScore='Null'              
 
         else:
-            matchedIntents_qabots='None'
+            matchedIntents_qabots='Empty Response Kore'
             koreCSScore='Null'
             koreMLScore='Null'
         if(matchedIntents_qabots=='Default Fallback Intent'):
@@ -161,7 +161,7 @@ def callAPIBot(input_data):
             if(matchedIntents_Api=='Default Fallback Intent'):
                 matchedIntents_Api='None'
         else:
-            matchedIntents_Api='Empty response'
+            matchedIntents_Api='Empty Response Google'
             score=['null']
             #print("GUGL","post", url, "data=",payload, "headers=",headers)
             print("GOOGLE","get", url, "headers=",headers,"params",params)
@@ -189,7 +189,7 @@ def callLUISBot(input_data):
                 if respluis['topScoringIntent']['intent']=='None':
                         matchedIntents_Luis='None'
         else:
-                matchedIntents_Luis='Empty Response'
+                matchedIntents_Luis='Empty Response Luis'
                 score='Null'
                 print("LUIS","get" , (urlL+input_data))
 		print(respLuis)
