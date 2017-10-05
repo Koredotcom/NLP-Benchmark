@@ -15,14 +15,14 @@ MatchedIntents_Api=['','']
 MatchedIntents_Luis=['','']
 NUM_THREADS=1 # integer, >=1
 
-def find_intent3(i):
+def find_intent3(i,ses):
         output=[]
         output.append(TaskNames[i])#In the output, appending the inputs and matched intents to compare with the expected task name
         output.append(Utterances[i])
         output.append(Types[i])
-        thKORE=Thread(target=callKoreBot,args=([token_QAbots, Utterances[i]]));thKORE.start()
-        thAPI=Thread(target=callAPIBot,args=([Utterances[i]]));thAPI.start()
-        thLUIS=Thread(target=callLUISBot,args=([Utterances[i]]));thLUIS.start()
+        thKORE=Thread(target=callKoreBot,args=([token_QAbots, Utterances[i], ses[0]]));thKORE.start()
+        thAPI=Thread(target=callAPIBot,args=([Utterances[i]],ses[1]));thAPI.start()
+        thLUIS=Thread(target=callLUISBot,args=([Utterances[i]],ses[2]));thLUIS.start()
         thKORE.join();thAPI.join();thLUIS.join()
         output.append(MatchedIntents_qabots[0])
         if(MatchedIntents_qabots[0]==TaskNames[i]):
@@ -47,6 +47,7 @@ def find_intent3(i):
 
 def main():
     global outputs
+    ses=map(lambda x:map(lambda y:y(),x),[[requests.session]*3]*NUM_THREADS)
     fr=open(FileName,'r')
     reader=csv.reader(fr,delimiter=',')
     reader.next()
@@ -62,16 +63,17 @@ def main():
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
     resultsFileName='ML_Results-'+timestr+'.csv'
-    fp=open(resultsFileName,'w')
+    #fp=open(resultsFileName,'w')
+    fp=open("tmp.csv",'w')
     fp.write(",".join(['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis']) + '\n')
     fp.flush()
     outputs = [None]*len(Utterances)
     th=[]
     prev=0
     for i in tqdm(range(len(Utterances))):
-        th.append(Thread(target=find_intent3,args=([i])))
+        th.append(Thread(target=find_intent3,args=([i,ses[i%NUM_THREADS]])))
         th[-1].start()
-        if i ==len(Utterances)-1 or (i+1)%NUM_THREADS ==0:
+        if i+1==len(Utterances) or (i+1)%NUM_THREADS ==0:
             #time.sleep(1)
             map(lambda x:x.join(),th[:])
             for output in outputs[prev:prev+len(th)]:
@@ -83,10 +85,10 @@ def main():
     return resultsFileName
 
 
-def callKoreBot(token_QAbots, input_data):
+def callKoreBot(token_QAbots, input_data,ses):
         while(1):
             try:
-                resp=requests.post(urlKa+uid_QAbots+urlKb+streamid_QAbots+urlKc,headers={'authorization':token_QAbots},\
+                resp=ses.post(urlKa+uid_QAbots+urlKb+streamid_QAbots+urlKc,headers={'authorization':token_QAbots},\
                     data={ "input":input_data,"streamName":botname_QAbots})#Hitting find intent API call for kore.ai
                 respjson=resp.json()
                 resp.raise_for_status()
@@ -129,7 +131,7 @@ def callKoreBot(token_QAbots, input_data):
             MatchedIntents_qabots.pop()
         MatchedIntents_qabots.extend([matchedIntents_qabots,koreCSScore,koreMLScore])
 
-def callAPIBot(input_data):
+def callAPIBot(input_data,ses):
     if USEGOOGLE:
         payload = {"q":input_data,"timezone":"UTC","lang":"en","sessionId":botname_API,"resetContexts":False}
         payload=str(payload)
@@ -146,8 +148,8 @@ def callAPIBot(input_data):
          }
         while(1):
             try:
-                #response = requests.post( url, data=payload, headers=headers,params = {"v":"20150910"})
-                response = requests.get( url,  headers=headers,params=params)
+                #response = ses.post( url, data=payload, headers=headers,params = {"v":"20150910"})
+                response = ses.get( url,  headers=headers,params=params)
 		#Hitting the API call for api.ai
                 response.json()
                 response.raise_for_status()
@@ -173,11 +175,11 @@ def callAPIBot(input_data):
         MatchedIntents_Api.pop()
     MatchedIntents_Api.extend([matchedIntents_Api,score])
             
-def callLUISBot(input_data):
+def callLUISBot(input_data,ses):
     if USELUIS:
         while(1):
             try:
-                respLuis=requests.get(urlL+input_data)#Reading the JSON response for luis.ai
+                respLuis=ses.get(urlL+input_data)#Reading the JSON response for luis.ai
                 respluis=respLuis.json()
                 respLuis.raise_for_status()
                 break
