@@ -20,11 +20,11 @@ subscriptionToken="42a6a52ad33140ff9da0054563eff162"
 
 #Enter the name of the environment for which the Benchmark tool needs to be run within the quotes in korePlatform.  
 
-KorePlatform="bots.kore.ai"
+KorePlatform="https://bots.kore.ai"
 
 #If running with company account id, please mark ssoKore as 'True' and enter the user-ID along with Authorization bearer in the command prompt. Else, enter you login credentials in the terminal.
 
-ssoKore=False
+ssoKore=True
 
 #Name of the input file which contains Intent names of Intents to be created as well as the utterances to be trained for the respective intents.
 
