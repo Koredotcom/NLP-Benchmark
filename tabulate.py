@@ -1,4 +1,5 @@
-import requests, csv, os, time,sys
+import sys
+from odfhandle import *
 TyOfUtt=[]#Reading the type of utterances from input ML_Result csv file
 success=[[],[],[]]
 intent=[]
@@ -7,32 +8,46 @@ precession=[0,0,0]
 recall=[0,0,0]
 fscore=[0,0,0]
 accuracy=[0,0,0]
-def main(resultsFileName):
-	fr=open(resultsFileName,'r')
-	try:
-		reader=csv.reader(fr,delimiter=',')
-		x = reader.next()
-		while 1:
-			try:
-				x = reader.next()
-				intent.append(x[0])
-				TyOfUtt.append(x[2])
-				matched[0].append(x[3])
-				matched[1].append(x[7])
-				matched[2].append(x[10])
-				success[0].append(x[4])
-				success[1].append(x[8])
-				success[2].append(x[11])
-			except StopIteration:
-				break
 
-		fr.close()
-	except:
-		print("File not found")
+def main(ods):
+	sheets=[sheet for sheet in ods.sheets][1:]
+	for sheet in sheets: del sheet
+	rows=[r for r in ods.sheets[0].rows()][1:]
+	for x in rows:
+		intent.append(x[0].value)
+		TyOfUtt.append(x[2].value)
+		matched[0].append(x[3].value)
+		matched[1].append(x[7].value)
+		matched[2].append(x[10].value)
+		success[0].append(x[4].value)
+		success[1].append(x[8].value)
+		success[2].append(x[11].value)
+	numIntents=len(set(intent))
+	numrows=7*numIntents
+	if len(ods.sheets) <2:ods.sheets += Sheet()
+	if len(ods.sheets) <3:ods.sheets += Sheet()
+	sheetAll=ods.sheets[1]
+	sheetAll.name="Summary All"
+	sheetAll._cellmatrix.reset((22,11))
+	sheetInd=ods.sheets[2]
+	sheetInd.name="Summary Individual Intents"
+	sheetInd._cellmatrix.reset((numrows,11))
+	RowNum[0]=0 
+	for ints in set(intent):
+	    if ints != 'None':
+		writeCSV(sheetInd,ints)
 
+	writeCSV(sheetInd,'None')
+	RowNum[0]=0
+	ods.save()
+	writeCSV(sheetAll, None)
+	ods.save()
 
-def writeCSV(fr1,currentIntent=None):
-	b1=['','KORE.AI: ALL','KORE.AI: NONE','','API.AI:ALL','API.AI:NONE','','LUIS.AI:ALL','LUIS.AI:NONE','']
+def writeCSV(sheet,currentIntent=None):
+	if not currentIntent:
+		b1=['','KORE.AI: ALL','KORE.AI: NONE','','API.AI:ALL','API.AI:NONE','','LUIS.AI:ALL','LUIS.AI:NONE','']
+	elif currentIntent :
+		b1=['','KORE.AI','','API.AI','','LUIS.AI','']
 	b2=['TP']
 	b3=['TN']
 	b4=['FN']
@@ -151,17 +166,29 @@ def writeCSV(fr1,currentIntent=None):
 				arrayC[5].append(1.0*accuracy[platforms]/lenintent)
 				arrayC[5].append('')
 			calculateAndInsert( arrayC, totalPositives, truePositives+truePositivesNone, falseNegatives+falseNegativesNone, totalNegatives, trueNegatives+trueNegativesNone, falsePositives+falsePositivesNone, currentintent, lenintent, platforms)
-			arrayB[1].append(truePositives)
-			arrayB[1].append(truePositivesNone)
+			if currentIntent !="None":
+				arrayB[1].append(truePositives)
+			if not currentIntent or currentIntent =="None":
+				arrayB[1].append(truePositivesNone)
+			#if currentIntent :arrayB[1].append('')
 			arrayB[1].append('')
-			arrayB[2].append(trueNegatives)
-			arrayB[2].append(trueNegativesNone)
+			if currentIntent !="None":
+				arrayB[2].append(trueNegatives)
+			if not currentIntent or currentIntent =="None":
+				arrayB[2].append(trueNegativesNone)
+			#if currentIntent :arrayB[2].append('')
 			arrayB[2].append('')
-			arrayB[3].append(falseNegatives)
-			arrayB[3].append(falseNegativesNone)
+			if currentIntent !="None":
+				arrayB[3].append(falseNegatives)
+			if not currentIntent or currentIntent =="None":
+				arrayB[3].append(falseNegativesNone)
+			#if currentIntent :arrayB[3].append('')
 			arrayB[3].append('')
-			arrayB[4].append(falsePositives)
-			arrayB[4].append(falsePositivesNone)
+			if currentIntent !="None":
+				arrayB[4].append(falsePositives)
+			if not currentIntent or currentIntent =="None":
+				arrayB[4].append(falsePositivesNone)
+			#if currentIntent :arrayB[4].append('')
 			arrayB[4].append('')
 		except Exception as e:
 			print(e)
@@ -174,30 +201,27 @@ def writeCSV(fr1,currentIntent=None):
 	array=[arrayD,array1,array2,array3,array4,array5]	
 	'''printing the three result tables for all the three platforms'''
 	if currentIntent:
-	  fr1.write(currentIntent+":\n")
-	else:
-	  fr1.write("All intents:\n")
+	  insertRow(sheet,[currentIntent])
 	if( currentIntent == None):
 	  for i in range(len(array)):
-		row=''
+		row=[]
 		for j in range(len(array1)):
-			row=row+str(array[i][j])+','
-		fr1.write(row+"\n")
-	  fr1.write("\n")
+			row.append(str(array[i][j]))
+		insertRow(sheet,row)
+	  insertRow(sheet,[])
 	  for i in range(len(arrayC)):
-		row=''
+		row=[]
 		for j in range(len(arrayC[i])):
-			row=row+str(arrayC[i][j])+','
-		fr1.write(row+"\n")	
-	  fr1.write("\n")
+			row.append(str(arrayC[i][j]))
+		insertRow(sheet,row)
+	  insertRow(sheet,[])
+	  #insertFormula()
 	for i in range(len(arrayB)):
-		row=''
+		row=[]
 		for j in range(len(arrayB[i])):
-			row=row+str(arrayB[i][j])+','
-		fr1.write(row+"\n")
-	fr1.write("\n")
-	if not currentintent:
-	  fr1.write("Individual intents:\n")
+			row.append(str(arrayB[i][j]))
+		insertRow(sheet,row)
+	insertRow(sheet,[])
 
 def calculateAndInsert( arrayC, totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives,currentintent,lenintents , platforms):
 	try:
@@ -224,21 +248,11 @@ def calculateAndInsert( arrayC, totalPositives, truePositives, falseNegatives, t
 
 
 if __name__=="__main__":
-	main(sys.argv[1])
-	timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
-	fr1=open('tmp','w')
-	fr2=open('Summary-'+timestr+'.csv','w')
-	fr1.write("Individual\n\n")
-	for ints in set(intent):
-	    if ints != 'None':
-		writeCSV(fr1,ints)
-
-	writeCSV(fr1,'None')
-	fr1.close()
-
-
-	writeCSV(fr2, None)
-	fr2.close()
-	os.system("cat "+fr1.name+" >> "+fr2.name)
-	os.system("rm "+fr1.name)
+	resultsFileName = sys.argv[1]
+	try:
+		ods = opendoc(filename=resultsFileName)
+		ods.sheets[0]
+	except Exception as e:
+		print("File not found")
+	main(ods)
 

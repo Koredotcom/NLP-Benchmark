@@ -3,6 +3,7 @@ import requests, csv, os, time, sys, urllib
 from threading import Thread
 from tqdm import tqdm
 from config import *     #Calling the config file which contains all the static variables used in the code
+from odfhandle import *
 reload(sys)
 sys.setdefaultencoding('utf8')
 '''Three global arrays declared to get input from the ML csv file to get the utterance, expected task name and the type of utterance and 1 array for the output to capture the matched intent and status(success or failure)'''
@@ -45,6 +46,8 @@ def find_intent3(i,ses):
         output.append(str(MatchedIntents_Luis[1]))        
         outputs[i]=output
 
+
+
 def main():
     global outputs
     ses=map(lambda x:map(lambda y:y(),x),[[requests.session]*3]*NUM_THREADS)
@@ -63,10 +66,13 @@ def main():
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
     resultsFileName='ML_Results-'+timestr+'.csv'
+    resultsFileName="tmp.ods"
     #fp=open(resultsFileName,'w')
-    fp=open("tmp.csv",'w')
-    fp.write(",".join(['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis']) + '\n')
-    fp.flush()
+    ods = newdoc(doctype='ods', filename=resultsFileName)
+    sheet = Sheet('Results', size=(len(Utterances)+1,12))
+    ods.sheets += sheet
+    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis'])
+    ods.save()
     outputs = [None]*len(Utterances)
     th=[]
     prev=0
@@ -74,14 +80,14 @@ def main():
         th.append(Thread(target=find_intent3,args=([i,ses[i%NUM_THREADS]])))
         th[-1].start()
         if i+1==len(Utterances) or (i+1)%NUM_THREADS ==0:
-            #time.sleep(1)
-            map(lambda x:x.join(),th[:])
+            map(lambda x:x.join(),th)
+            # save the contemporary results for safety
             for output in outputs[prev:prev+len(th)]:
-                fp.write(','.join(output) + '\n')#Printing the output results
-            fp.flush()
+                insertRow(sheet,output)
+            ods.save()
             prev = prev+len(th)
             th=[]
-    fp.close()
+    ods.save()
     return resultsFileName
 
 
