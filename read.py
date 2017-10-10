@@ -4,8 +4,8 @@ from threading import Thread
 from tqdm import tqdm
 from config import *     #Calling the config file which contains all the static variables used in the code
 from odfhandle import *
-reload(sys)
-sys.setdefaultencoding('utf8')
+#reload(sys)
+#sys.setdefaultencoding('utf8')
 '''Three global arrays declared to get input from the ML csv file to get the utterance, expected task name and the type of utterance and 1 array for the output to capture the matched intent and status(success or failure)'''
 Utterances=[]
 TaskNames=[]
@@ -14,7 +14,6 @@ outputs=[]
 MatchedIntents_qabots=['','']
 MatchedIntents_Api=['','']
 MatchedIntents_Luis=['','']
-NUM_THREADS=1 # integer, >=1
 
 def find_intent3(i,ses):
         output=[]
@@ -65,9 +64,8 @@ def main():
     fr.close()
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
-    resultsFileName='ML_Results-'+timestr+'.csv'
-    resultsFileName="tmp.ods"
-    #fp=open(resultsFileName,'w')
+    resultsFileName='ML_Results-'+timestr+'.ods'
+    fp=open(resultsFileName,'w')
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,12))
     ods.sheets += sheet

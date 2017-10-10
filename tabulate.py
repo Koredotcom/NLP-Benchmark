@@ -22,50 +22,52 @@ def main(ods):
 		success[0].append(x[4].value)
 		success[1].append(x[8].value)
 		success[2].append(x[11].value)
-	numIntents=len(set(intent))
-	numrows=7*numIntents
+	numIntents=len(set(intent))+1
+	numrows=numIntents*12
+	colsMax=11
 	if len(ods.sheets) <2:ods.sheets += Sheet()
 	if len(ods.sheets) <3:ods.sheets += Sheet()
 	sheetAll=ods.sheets[1]
-	sheetAll.name="Summary All"
-	sheetAll._cellmatrix.reset((22,11))
+	sheetAll.name="Summary"
+	sheetAll._cellmatrix.reset((22,colsMax))
 	sheetInd=ods.sheets[2]
-	sheetInd.name="Summary Individual Intents"
-	sheetInd._cellmatrix.reset((numrows,11))
+	sheetInd.name="Individual Intents"
+	sheetInd._cellmatrix.reset((numrows,colsMax))
 	RowNum[0]=0 
 	for ints in set(intent):
-	    if ints != 'None':
+	    if ints != "None":
 		writeCSV(sheetInd,ints)
 
-	writeCSV(sheetInd,'None')
-	RowNum[0]=0
-	ods.save()
-	writeCSV(sheetAll, None)
+	writeCSV(sheetInd,"None")
+	writeCSV((sheetAll,sheetInd), None)
 	ods.save()
 
 def writeCSV(sheet,currentIntent=None):
 	if not currentIntent:
-		b1=['','KORE.AI: ALL','KORE.AI: NONE','','API.AI:ALL','API.AI:NONE','','LUIS.AI:ALL','LUIS.AI:NONE','']
-	elif currentIntent :
-		b1=['','KORE.AI','','API.AI','','LUIS.AI','']
-	b2=['TP']
-	b3=['TN']
-	b4=['FN']
-	b5=['FP']
-	c1=['','KORE.AI','','API.AI','','LUIS.AI']
-	c2=['Precision']
-	c3=['Recall']
-	c4=['F Measure']
-	c5=['Error']
-	c6=['Accuracy']
+		sheetInd=sheet[1]
+		sheet=sheet[0]
+		name=sheetInd.name
+		b1=["","KORE.AI: ALL","KORE.AI: NONE","","API.AI:ALL","API.AI:NONE","","LUIS.AI:ALL","LUIS.AI:NONE",""]
+	else:
+		name=sheet
+		b1=["","KORE.AI","","API.AI","","LUIS.AI",""]
+	b2=["TP"]
+	b3=["TN"]
+	b4=["FN"]
+	b5=["FP"]
+	c1=["","KORE.AI","","API.AI","","LUIS.AI"]
+	c2=["Precision"]
+	c3=["Recall"]
+	c4=["F Measure"]
+	c5=["Accuracy"]
 
-	arrayD=['Type Of Utterance','Success_Kore.ai','Failure_Kore.ai','Success_Api.ai','Failure_Api.ai','Success_Luis.ai','Failure_Luis.ai','Total Utterances']
-	array1=['Positive']
-	array2=['Negative']
-	array3=['Structurally different']
-	array4=['Stemming and Lemmatization']
-	array5=['Spell Error']
-	'''Loop for the three platforms for result table calculation'''
+	arrayD=["Type Of Utterance","Success_Kore.ai","Failure_Kore.ai","Success_Api.ai","Failure_Api.ai","Success_Luis.ai","Failure_Luis.ai","Total Utterances"]
+	array1=["Positive"]
+	array2=["Negative"]
+	array3=["Structurally different"]
+	array4=["Stemming and Lemmatization"]
+	array5=["Spell Error"]
+	"""Loop for the three platforms for result table calculation"""
 	for platforms in range(3):
 		totalPositives=0
 		truePositives=0
@@ -94,46 +96,46 @@ def writeCSV(sheet,currentIntent=None):
 		for currentintent in intentset:
 		    for i in range(len(TyOfUtt)):
 			if(currentintent==matched[platforms][i] and intent[i]==matched[platforms][i]):
-					if currentintent =='None':
+					if currentintent =="None":
 						truePositivesNone +=1
 					else:
 						truePositives +=1
 			if(currentintent==matched[platforms][i] and intent[i]!=matched[platforms][i]):
-					if currentintent == 'None':
+					if currentintent == "None":
 						falsePositivesNone +=1
 					else:
 						falsePositives +=1
 			if(currentintent!=matched[platforms][i] and currentintent != intent[i] and matched[platforms][i]==intent[i]):
-					if currentintent == 'None':
+					if currentintent == "None":
 						trueNegativesNone +=1
 					else:
 						trueNegatives +=1
 			if(currentintent!=matched[platforms][i] and currentintent == intent[i]):
-					if currentintent == 'None':
+					if currentintent == "None":
 						falseNegativesNone +=1
 					else:
 						falseNegatives += 1
-			if(TyOfUtt[i].lower()=='structurally different'):
-				if(success[platforms][i]=='pass'):
+			if(TyOfUtt[i].lower()=="structurally different"):
+				if(success[platforms][i]=="pass"):
 				    if(currentintent == None or currentintent==intent[i]):
 					strucTruePositive+=1
-				elif(success[platforms][i]=='fail'):
+				elif(success[platforms][i]=="fail"):
 				    if(currentintent == None or currentintent==intent[i]):
 					strucFalseNegative+=1
 				totalStruct=strucTruePositive+strucFalseNegative
-			elif(TyOfUtt[i].lower()=='stemming and lemmatization'):
-				if(success[platforms][i]=='pass'):
+			elif(TyOfUtt[i].lower()=="stemming and lemmatization"):
+				if(success[platforms][i]=="pass"):
 				    if(currentintent == None or currentintent==intent[i]):
 					stemTruePositive+=1
-				elif(success[platforms][i]=='fail'):
+				elif(success[platforms][i]=="fail"):
 				    if(currentintent == None or currentintent==intent[i]):
 					stemFalseNeg+=1
 				totalStem=stemTruePositive+stemFalseNeg
-			elif(TyOfUtt[i].lower()=='spell errors'):
-				if(success[platforms][i]=='pass'):
+			elif(TyOfUtt[i].lower()=="spell errors"):
+				if(success[platforms][i]=="pass"):
 				    if(currentintent == None or currentintent==intent[i]):
 					spellTruePos+=1
-				elif(success[platforms][i]=='fail'):
+				elif(success[platforms][i]=="fail"):
 				    if(currentintent == None or currentintent==intent[i]):
 					spellFalseNeg+=1
 				totalSpell=spellTruePos+spellFalseNeg
@@ -151,45 +153,49 @@ def writeCSV(sheet,currentIntent=None):
 		array5.append(spellFalseNeg)		
 		try:	
 			arrayB=[b1,b2,b3,b4,b5]
-			arrayC=[c1,c2,c3,c4,c5,c6]
+			arrayC=[c1,c2,c3,c4,c5]
 			#Calling the function for formulae calculation and result tables
 			#i.e. to identify the sum of false positives, false negatives, etc
-			if currentIntent == None:
-				arrayC[1].append(1.0*precession[platforms]/lenintent)
-				arrayC[1].append('')
-				arrayC[2].append(1.0*recall[platforms]/lenintent)
-				arrayC[2].append('')
-				arrayC[3].append(1.0*fscore[platforms]/lenintent)
-				arrayC[3].append('')
-				arrayC[4].append('')
-				arrayC[4].append('')
-				arrayC[5].append(1.0*accuracy[platforms]/lenintent)
-				arrayC[5].append('')
-			calculateAndInsert( arrayC, totalPositives, truePositives+truePositivesNone, falseNegatives+falseNegativesNone, totalNegatives, trueNegatives+trueNegativesNone, falsePositives+falsePositivesNone, currentintent, lenintent, platforms)
+			#if currentIntent == None:
+			#	print(1.0*precession[platforms]/lenintent)
+			#	print(1.0*recall[platforms]/lenintent)
+			#	print(1.0*fscore[platforms]/lenintent)
+			#	print(1.0*accuracy[platforms]/lenintent)
+			#calculateAndInsert( totalPositives, truePositives+truePositivesNone, falseNegatives+falseNegativesNone, totalNegatives, trueNegatives+trueNegativesNone, falsePositives+falsePositivesNone, currentintent, platforms)
+				
+			if currentIntent:
+				(prec,rec,acc,F) = formula(RowNum[0],colNum(len(arrayB[1])),lenintent,name)
+			else:
+				(prec,rec,acc,F) = formula(RowNum[0],colNum(len(arrayB[1])-platforms),lenintent,name)
 			if currentIntent !="None":
 				arrayB[1].append(truePositives)
 			if not currentIntent or currentIntent =="None":
 				arrayB[1].append(truePositivesNone)
-			#if currentIntent :arrayB[1].append('')
-			arrayB[1].append('')
+			arrayB[1].append("")
 			if currentIntent !="None":
 				arrayB[2].append(trueNegatives)
 			if not currentIntent or currentIntent =="None":
 				arrayB[2].append(trueNegativesNone)
-			#if currentIntent :arrayB[2].append('')
-			arrayB[2].append('')
+			arrayB[2].append("")
 			if currentIntent !="None":
 				arrayB[3].append(falseNegatives)
 			if not currentIntent or currentIntent =="None":
 				arrayB[3].append(falseNegativesNone)
-			#if currentIntent :arrayB[3].append('')
-			arrayB[3].append('')
+			arrayB[3].append("")
 			if currentIntent !="None":
 				arrayB[4].append(falsePositives)
 			if not currentIntent or currentIntent =="None":
 				arrayB[4].append(falsePositivesNone)
-			#if currentIntent :arrayB[4].append('')
-			arrayB[4].append('')
+			arrayB[4].append("")
+			if currentIntent or True:
+				arrayC[1].append(prec)
+				arrayC[1].append("")
+				arrayC[2].append(rec)
+				arrayC[2].append("")
+				arrayC[3].append(acc)
+				arrayC[3].append("")
+				arrayC[4].append(F)
+				arrayC[4].append("")
 		except Exception as e:
 			print(e)
 			continue
@@ -199,31 +205,41 @@ def writeCSV(sheet,currentIntent=None):
 	array4.append(totalStem)
 	array5.append(totalSpell)
 	array=[arrayD,array1,array2,array3,array4,array5]	
-	'''printing the three result tables for all the three platforms'''
+	"""printing the three result tables for all the three platforms"""
 	if currentIntent:
-	  insertRow(sheet,[currentIntent])
-	if( currentIntent == None):
-	  for i in range(len(array)):
-		row=[]
-		for j in range(len(array1)):
-			row.append(str(array[i][j]))
-		insertRow(sheet,row)
-	  insertRow(sheet,[])
-	  for i in range(len(arrayC)):
-		row=[]
-		for j in range(len(arrayC[i])):
-			row.append(str(arrayC[i][j]))
-		insertRow(sheet,row)
-	  insertRow(sheet,[])
-	  #insertFormula()
+		insertRow(sheet,[currentIntent])
+	else:
+		insertRow(sheetInd,["ALL"])
 	for i in range(len(arrayB)):
 		row=[]
 		for j in range(len(arrayB[i])):
 			row.append(str(arrayB[i][j]))
-		insertRow(sheet,row)
-	insertRow(sheet,[])
+		if currentIntent:
+			insertRow(sheet,row)
+		else:
+			insertRow(sheetInd,row)
+	if currentIntent:
+		insertRow(sheet,[])
+	else:
+		insertRow(sheetInd,[])
+	if not currentIntent:
+		RowNum[0]=0
+		for i in range(len(array)):
+			row=[]
+			for j in range(len(array1)):
+				row.append(str(array[i][j]))
+			insertRow(sheet,row)
+		insertRow(sheet,[])
+	for i in range(len(arrayC)):
+		row=[]
+		for j in range(len(arrayC[i])):
+			row.append(str(arrayC[i][j]))
+		insertRow(sheet,row,currentIntent)
+	insertRow(sheet,[],currentIntent)
+	insertFormula(lenintent)
 
-def calculateAndInsert( arrayC, totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives,currentintent,lenintents , platforms):
+
+def calculateAndInsert( totalPositives, truePositives, falseNegatives, totalNegatives, trueNegatives, falsePositives,currentintent, platforms):
 	try:
 		prK=round((truePositives)/float(truePositives+falsePositives),4)#Calculating Precision
 	except:
