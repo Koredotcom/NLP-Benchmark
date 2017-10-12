@@ -15,14 +15,16 @@ MatchedIntents_qabots=['','']
 MatchedIntents_Api=['','']
 MatchedIntents_Luis=['','']
 
+NUM_THREADS=1 
+
 def find_intent3(i,ses):
         output=[]
         output.append(TaskNames[i])#In the output, appending the inputs and matched intents to compare with the expected task name
         output.append(Utterances[i])
         output.append(Types[i])
         thKORE=Thread(target=callKoreBot,args=([token_QAbots, Utterances[i], ses[0]]));thKORE.start()
-        thAPI=Thread(target=callAPIBot,args=([Utterances[i]],ses[1]));thAPI.start()
-        thLUIS=Thread(target=callLUISBot,args=([Utterances[i]],ses[2]));thLUIS.start()
+        thAPI=Thread(target=callAPIBot,args=(Utterances[i],ses[1]));thAPI.start()
+        thLUIS=Thread(target=callLUISBot,args=(Utterances[i],ses[2]));thLUIS.start()
         thKORE.join();thAPI.join();thLUIS.join()
         output.append(MatchedIntents_qabots[0])
         if(MatchedIntents_qabots[0]==TaskNames[i]):
@@ -49,16 +51,18 @@ def find_intent3(i,ses):
 
 def main():
     global outputs
-    ses=map(lambda x:map(lambda y:y(),x),[[requests.session]*3]*NUM_THREADS)
+    MAP=lambda x,y:list(map(x,y))
+    ses=MAP(lambda x:MAP(lambda y:y(),x),[[requests.session]*3]*NUM_THREADS)
     fr=open(FileName,'r')
     reader=csv.reader(fr,delimiter=',')
-    reader.next()
-    for row in reader:
+    lines=[line for line in reader][1:]
+    #reader.next()
+    for row in lines:
         if len(row) <=0:
             continue
         if row[0]==None or row[0].strip()=='':
             continue
-        Utterances.append(row[1])#'''Reading from the input file i.e. ML_Testdata'''
+        Utterances.append(row[1])#Reading from the input file i.e. ML_Testdata
         TaskNames.append(row[0].replace("_"," "))
         Types.append(row[2])
     fr.close()
@@ -78,7 +82,8 @@ def main():
         th.append(Thread(target=find_intent3,args=([i,ses[i%NUM_THREADS]])))
         th[-1].start()
         if i+1==len(Utterances) or (i+1)%NUM_THREADS ==0:
-            map(lambda x:x.join(),th)
+            time.sleep(1)
+            MAP(lambda x:x.join(),th)
             # save the contemporary results for safety
             for output in outputs[prev:prev+len(th)]:
                 insertRow(sheet,output)
@@ -110,7 +115,7 @@ def callKoreBot(token_QAbots, input_data,ses):
             }
         responsejson=respjson
 
-        if not respjson=={} and respjson.has_key('intent') and not respjson['intent'] ==[] and not respjson['intent']==None and respjson['intent'][0].has_key('name'):
+        if not respjson=={} and ('intent' in respjson) and not respjson['intent'] ==[] and not respjson['intent']==None and ('name' in respjson['intent'][0]):
             matchedIntents_qabots=respjson['intent'][0]['name']
             if(responsejson['response']['intentMatch']==[]):
                 koreCSScore='Null'
@@ -139,30 +144,31 @@ def callAPIBot(input_data,ses):
     if USEGOOGLE:
         payload = {"q":input_data,"timezone":"UTC","lang":"en","sessionId":botname_API,"resetContexts":False}
         payload=str(payload)
-	params = {
-		"query":urllib.quote(input_data.replace("!","")),
+        if sys.version[0]=='2':
+                query=urllib.quote(input_data.replace("!",""))
+        else:
+                query=urllib.parse.quote(input_data.replace("!",""))
+        params = {
+		"query":query,
 		"lang":"en",
 		"sessionId":botname_API,
-		"timezone":"UTC",
+		"timezone":"UTC"
 		}
         headers = {
         'authorization': "Bearer "+Token_Api,
         'cache-control':'no-cache',
-        'content-type': "application/json;charset=utf8",
+        'content-type': "application/json;charset=utf8"
          }
         while(1):
             try:
-                #response = ses.post( url, data=payload, headers=headers,params = {"v":"20150910"})
                 response = ses.get( url,  headers=headers,params=params)
-		#Hitting the API call for api.ai
-                response.json()
                 response.raise_for_status()
+                responsejson = response.json()
                 break
             except Exception as e:
                 print("Error while finding intent in google", e)
                 time.sleep(1)
-        responsejson = response.json()
-        if not responsejson=={} and responsejson.has_key('result') and responsejson['result'].has_key('metadata') and responsejson['result']['metadata'].has_key('intentName'):
+        if not responsejson=={} and ('result' in responsejson) and ('metadata' in responsejson['result']) and ('intentName' in responsejson['result']['metadata']):
             matchedIntents_Api=responsejson['result']['metadata']['intentName']
             score=responsejson['result']['score']#Getting the confidence score.
             if(matchedIntents_Api=='Default Fallback Intent'):
@@ -170,7 +176,6 @@ def callAPIBot(input_data,ses):
         else:
             matchedIntents_Api='Empty Response Google'
             score=['null']
-            #print("GUGL","post", url, "data=",payload, "headers=",headers)
             print("GOOGLE","get", url, "headers=",headers,"params",params)
     else:
         matchedIntents_Api='None'
@@ -184,13 +189,13 @@ def callLUISBot(input_data,ses):
         while(1):
             try:
                 respLuis=ses.get(urlL+input_data)#Reading the JSON response for luis.ai
-                respluis=respLuis.json()
                 respLuis.raise_for_status()
+                respluis=respLuis.json()
                 break
             except Exception as e:
                 print("Error while finding intent in Luis", e)
                 time.sleep(1)
-        if respluis!={} and respluis.has_key('topScoringIntent') and respluis['topScoringIntent'].has_key('intent'):
+        if respluis!={} and ('topScoringIntent' in respluis) and ('intent' in respluis['topScoringIntent']):
                 matchedIntents_Luis=respluis['topScoringIntent']['intent']#Luis Output Taken Here
                 score=respluis['topScoringIntent']['score']#Getting Luis Score
                 if respluis['topScoringIntent']['intent']=='None':
@@ -199,7 +204,7 @@ def callLUISBot(input_data,ses):
                 matchedIntents_Luis='Empty Response Luis'
                 score='Null'
                 print("LUIS","get" , (urlL+input_data))
-		print(respLuis)
+                print(respLuis)
     else:
         matchedIntents_Luis='None'
         score=0.1
@@ -208,9 +213,12 @@ def callLUISBot(input_data,ses):
     MatchedIntents_Luis.extend([matchedIntents_Luis,score])
 
 if __name__ == "__main__":
-    start_time=time.time()
-    resultsFileName=main()
-    print(time.time()-start_time)
-#    tabulate.main(resultsFileName)
+    if len(sys.argv) ==1:
+        start_time=time.time()
+        resultsFileName=main()
+        print(time.time()-start_time)
+        print(resultsFileName)
+    ods = opendoc(filename=resultsFileName)
+    tabulate.main(ods)
 
 

@@ -35,7 +35,7 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
         try:
                 response1 = requests.request("POST", url1, data=payload1, headers=headersKore)
                 dgValue=addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)#Creating the default fallback intent and fetching a value necessary for further task.
-        except Exception,e:
+        except Exception as e:
                 raise Exception("Error while creating Market streams"+str(e))
 
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs"
