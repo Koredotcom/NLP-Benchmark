@@ -1,5 +1,6 @@
 import requests
 from configBot import *
+headersKore = {"content-type": "application/json;charset=UTF-8"}
 
 def loginToKore(koreUserId,KorePassword,KorePlatform):
         url = KorePlatform+"/api/1.1/oauth/token"#Calling the oauth Api for Kore

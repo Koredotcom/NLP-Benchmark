@@ -17,8 +17,6 @@ intentset=[]
 idKore=[]
 LuisIntentId=[]
 def main():
-#        botIDApi=""
-#        Token_Api=""
         fr=open(fileName,'r')
         reader=csv.reader(fr,delimiter=',')
         for row in reader:

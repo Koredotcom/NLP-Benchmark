@@ -1,5 +1,9 @@
 import requests, time
 from configBot import *
+headerLuis={ 
+        'ocp-apim-subscription-key': subscriptionToken,
+        'content-type': "application/json; charset=UTF-8",
+}
 
 def createLuisBot(botname):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"

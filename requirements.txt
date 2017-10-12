@@ -1,5 +1,6 @@
+ezodf==0.3.2
+lxml==4.0.0
 requests==2.9.1
 requests-toolbelt==0.8.0
 six==1.11.0
 tqdm==4.11.2
-ezodf==0.3.2
