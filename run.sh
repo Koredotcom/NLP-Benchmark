@@ -11,3 +11,7 @@ if [ $? -eq 0 ]
 then
 python createIntent.py
 fi
+if [ $? -eq 0 ]
+then
+python read.py
+fi

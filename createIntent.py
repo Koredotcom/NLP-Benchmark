@@ -1,4 +1,4 @@
-import requests, csv, os, time, sys, threading, getpass
+import requests, csv, os, time, sys, threading, getpass, json
 from six.moves import input
 from configBot import * #Calling the configuration file with all the static variables
 from tqdm import tqdm
@@ -30,7 +30,7 @@ def main():
         print("Finished reading training data.")
 
         if ssoKore is False:
-                koreUserId=input('Enter kore Email ID: ')#login credentials for kore
+                koreUserId=input('Enter kore Email Id: ')#login credentials for kore
                 KorePassword=getpass.getpass('Enter kore Password: ')
                 loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
                 userIdKore=loginCred[1]                                         
@@ -43,9 +43,9 @@ def main():
         botName=input('Enter Bot Name: ')
 
         intentset.extend(list(set(intents)))
-        botIDKore=createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
-        print("New bot "+botName+" has been created in Kore with botid: "+ botIDKore)
-        prepKore(intentset,intents,utterances,botIDKore,userIdKore,authTokenKore)
+        botIdKore=createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
+        print("New bot "+botName+" has been created in Kore with botid: "+ botIdKore)
+        prepKore(intentset,intents,utterances,botIdKore,userIdKore,authTokenKore)
 
         if USELUIS:
             botIdLuis=createLuisBot(botName)
@@ -65,29 +65,10 @@ def main():
         if USEGOOGLE:
           print("Training Google bot after collecting all the train utterances")
           for j in tqdm(range(len(intentset))):
-              addIntentAndUtteranceAPI(intentset[j],input2[intentset[j]])
+              addIntentAndUtteranceDF(intentset[j],input2[intentset[j]])
 
-        """
-        for i in tqdm(range(len(intents))):
-            if(intents[i]!=''):
-                    if len(input2):
-                 ###       addIntentAndUtteranceAPI(intentid,input2)#Calling googles function after collecting all the train utterances
-                        while(len(input2)>0):input2.pop() 
-             ###       LuisIntentId= addLuisIntent(intents[i],botIdLuis,subscriptionToken)#Adding Intent in Luis
-             ###       idKore=addIntentKore(intents[i],botIDKore,userIdKore,authTokenKore,KorePlatform)#Adding Intent in Kore
-                    print("New Intent "+intents[i]+" has been created")
-                    intentid=intents[i]
-                    addKoreUtterances(utterances[i],idKore[0],botIDKore,intentid,userIdKore,authTokenKore,KorePlatform)#Adding train utterances in Luis
-                    addLuisUtterance(utterances[i],LuisIntentId,botIdLuis,intentid,subscriptionToken)#Adding train utterances in Kore
-                    input2.append(utterances[i])#Adding training utterances for the google platform
-            elif(intents[i]=='' or intents[i]==intentid):
-                    input2.append(utterances[i])
-                    addKoreUtterances(utterances[i],idKore[0],botIDKore,intentid,userIdKore,authTokenKore,KorePlatform)
-                    addLuisUtterance(utterances[i],LuisIntentId,botIdLuis,intentid,subscriptionToken)
-        addIntentAndUtteranceAPI(intentid,input2)#Calling function for the last Intent
-        """
         print("Creating the config file for the read.py file.")
-        createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,urlL[-1],botIDApi,Token_Api)
+        createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[-1],botIdDF,Token_DF)
 
 def prepLuis(intentset,intents,utterances,botIdLuis):
         print("Creating intents in luis")
@@ -108,39 +89,40 @@ def prepLuis(intentset,intents,utterances,botIdLuis):
         urlL.append(getLuisEndPointUrl(botIdLuis))
 
 
-def prepKore(intentset, intents, utterances,botIDKore,userIdKore,authTokenKore):
+def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore):
         print("Creating intents in kore")
         for i in tqdm(range(len(intentset))):
-            idKore.append(addIntentKore(intentset[i],botIDKore,userIdKore,authTokenKore,KorePlatform))
+            idKore.append(addIntentKore(intentset[i],botIdKore,userIdKore,authTokenKore,KorePlatform))
 
         th=[]
         print("Adding train utterances in Kore")
         for i in range(len(intents)):
-            th.append(threading.Thread(target=addKoreUtterances,args=([utterances[i],idKore[intentset.index(intents[i])][0],botIDKore,intents[i],userIdKore,authTokenKore,KorePlatform])))
+            th.append(threading.Thread(target=addKoreUtterances,args=([utterances[i],idKore[intentset.index(intents[i])][0],botIdKore,intents[i],userIdKore,authTokenKore,KorePlatform])))
             th[i].start()
         for i in tqdm(range(len(intents))):
-            #addKoreUtterances(utterances[i],idKore[intentset.index(intents[i])][0],botIDKore,intents[i],userIdKore,authTokenKore,KorePlatform)
+            #addKoreUtterances(utterances[i],idKore[intentset.index(intents[i])][0],botIdKore,intents[i],userIdKore,authTokenKore,KorePlatform)
             th[i].join()
         print("training the Kore bot")
-        trainKore(botIDKore,userIdKore,authTokenKore,KorePlatform)
+        trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
 
 
-def createConfigFile(botName,botIDKore,userIdKore,authTokenKore,KorePlatform,urlL,botIDApi,Token_Api):
-        fr=open('config.py','w')#Creating a config file for read, so as to be able to call read seperately
-        fr.write("botname_QAbots=	\""+botName+"\"\n")
-        fr.write("uid_QAbots=		\""+userIdKore+"\"\n")
-        fr.write("token_QAbots=		\""+authTokenKore+"\"\n")
-        fr.write("streamid_QAbots=	\""+botIDKore+"\"\n")
-        fr.write("urlKa=		\""+KorePlatform+"/api/1.1/users/\"\n")
-        fr.write("urlKb=		\"/builder/streams/\"\n")
-        fr.write("urlKc=		\"/findIntend\"\n")
-        fr.write("FileName=		\"ML_TestData.csv\"\n")
-        fr.write("Token_Api=		\""+Token_Api+"\"\n")
-        fr.write("url=			\"https://console.api.ai/api/query\"\n")
-        fr.write("botname_API=		\""+botIDApi+"\"\n")
-        fr.write("urlL=			\""+urlL+"\"\n")	
-        fr.write("USEGOOGLE="+str(USEGOOGLE)+"\n")	
-        fr.write("USELUIS="+str(USELUIS)+"\n")	
+def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF):
+	config= {
+		"botname_Kore":	botName,
+		"uid_Kore":userIdKore,
+		"token_Kore":authTokenKore,
+		"streamid_Kore":botIdKore,
+		"urlKa":KorePlatform+"/api/1.1/users/",
+		"FileName":"ML_TestData.csv",
+		"Token_DF":Token_DF,
+		"botname_DF":	botIdDF,
+		"urlL":	urlL,
+		"USEGOOGLE":USEGOOGLE,
+		"USELUIS":USELUIS
+		}
+	f=open("testconfig.json","w")
+	json.dump(config,f)
+	f.close()
 
 if __name__ == '__main__':
         main()

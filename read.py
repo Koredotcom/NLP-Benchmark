@@ -1,44 +1,42 @@
 import tabulate
-import requests, csv, os, time, sys, urllib
+import requests, csv, os, time, sys, urllib, json
 from threading import Thread
 from tqdm import tqdm
-from config import *     #Calling the config file which contains all the static variables used in the code
 from odfhandle import *
-#reload(sys)
-#sys.setdefaultencoding('utf8')
 '''Three global arrays declared to get input from the ML csv file to get the utterance, expected task name and the type of utterance and 1 array for the output to capture the matched intent and status(success or failure)'''
 Utterances=[]
 TaskNames=[]
 Types=[]
 outputs=[]
-MatchedIntents_qabots=['','']
-MatchedIntents_Api=['','']
+MatchedIntents_Kore=['','']
+MatchedIntents_DF=['','']
 MatchedIntents_Luis=['','']
+urlDF=		"https://console.dialogflow.com/v1/query"
 
 NUM_THREADS=1 
-
+config={}
 def find_intent3(i,ses):
         output=[]
         output.append(TaskNames[i])#In the output, appending the inputs and matched intents to compare with the expected task name
         output.append(Utterances[i])
         output.append(Types[i])
-        thKORE=Thread(target=callKoreBot,args=([token_QAbots, Utterances[i], ses[0]]));thKORE.start()
-        thAPI=Thread(target=callAPIBot,args=(Utterances[i],ses[1]));thAPI.start()
+        thKORE=Thread(target=callKoreBot,args=([Utterances[i], ses[0]]));thKORE.start()
+        thDF=Thread(target=callDFBot,args=(Utterances[i],ses[1]));thDF.start()
         thLUIS=Thread(target=callLUISBot,args=(Utterances[i],ses[2]));thLUIS.start()
-        thKORE.join();thAPI.join();thLUIS.join()
-        output.append(MatchedIntents_qabots[0])
-        if(MatchedIntents_qabots[0]==TaskNames[i]):
+        thKORE.join();thDF.join();thLUIS.join()
+        output.append(MatchedIntents_Kore[0])
+        if(MatchedIntents_Kore[0]==TaskNames[i]):
             output.append('pass')
         else:
             output.append('fail')
-        output.append(str(MatchedIntents_qabots[1]))
-        output.append(str(MatchedIntents_qabots[2]))    
-        output.append(MatchedIntents_Api[0])
-        if(MatchedIntents_Api[0]==TaskNames[i]):
+        output.append(str(MatchedIntents_Kore[1]))
+        output.append(str(MatchedIntents_Kore[2]))    
+        output.append(MatchedIntents_DF[0])
+        if(MatchedIntents_DF[0]==TaskNames[i]):
             output.append('pass')
         else:
             output.append('fail')
-        output.append(str(MatchedIntents_Api[1]))    
+        output.append(str(MatchedIntents_DF[1]))    
         output.append(MatchedIntents_Luis[0])
         if(MatchedIntents_Luis[0]==TaskNames[i]):
                 output.append('pass')
@@ -50,10 +48,11 @@ def find_intent3(i,ses):
 
 
 def main():
-    global outputs
+    global outputs, config
     MAP=lambda x,y:list(map(x,y))
     ses=MAP(lambda x:MAP(lambda y:y(),x),[[requests.session]*3]*NUM_THREADS)
-    fr=open(FileName,'r')
+    config=json.load(open("testconfig.json","r"))
+    fr=open(config["FileName"],'r')
     reader=csv.reader(fr,delimiter=',')
     lines=[line for line in reader][1:]
     #reader.next()
@@ -73,7 +72,7 @@ def main():
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,12))
     ods.sheets += sheet
-    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) API','Status','ScoreApi','Matched Intent(s) Luis','Status,ScoresLuis'])
+    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status,ScoresLuis'])
     ods.save()
     outputs = [None]*len(Utterances)
     th=[]
@@ -94,11 +93,12 @@ def main():
     return resultsFileName
 
 
-def callKoreBot(token_QAbots, input_data,ses):
+def callKoreBot(input_data,ses):
         while(1):
             try:
-                resp=ses.post(urlKa+uid_QAbots+urlKb+streamid_QAbots+urlKc,headers={'authorization':token_QAbots},\
-                    data={ "input":input_data,"streamName":botname_QAbots})#Hitting find intent API call for kore.ai
+                resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]\
+                    +"/findIntend",headers={'authorization':config["token_Kore"]},\
+                    data={ "input":input_data,"streamName":config["botname_Kore"]})
                 respjson=resp.json()
                 resp.raise_for_status()
                 break
@@ -106,89 +106,72 @@ def callKoreBot(token_QAbots, input_data,ses):
                 print("Error while finding intent kore", e)
                 time.sleep(1)
 
-        url = urlKa+uid_QAbots+urlKb+streamid_QAbots+"/getTrainLogs"#Hitting the trainLogs api for kore to get the CS score and the ML Score
-        querystring = {"rnd":"6ye6to"}
-        payload = "{\"input\":\""+input_data+"&#160;\",\"streamName\":\""+botname_QAbots+"\"}"
-        headers = {
-    'authorization': token_QAbots,
-    'content-type': "application/json;charset=UTF-8",
-            }
-        responsejson=respjson
-
         if not respjson=={} and ('intent' in respjson) and not respjson['intent'] ==[] and not respjson['intent']==None and ('name' in respjson['intent'][0]):
-            matchedIntents_qabots=respjson['intent'][0]['name']
-            if(responsejson['response']['intentMatch']==[]):
+            matchedIntents_Kore=respjson['intent'][0]['name']
+            if(respjson['response']['intentMatch']==[]):
                 koreCSScore='Null'
                 koreMLScore='Null'
             else:
                 try:
-                    koreCSScore=responsejson['response']['intentMatch'][0]['totalScore']#Getting CS Score
+                    koreCSScore=respjson['response']['intentMatch'][0]['totalScore']#Getting CS Score
                 except:
                     koreCSScore='Null'
                 try:
-                    koreMLScore=responsejson['response']['intentMatch'][0]['mlScore']#Getting ML Score
+                    koreMLScore=respjson['response']['intentMatch'][0]['mlScore']#Getting ML Score
                 except:    
                     koreMLScore='Null'              
 
         else:
-            matchedIntents_qabots='Empty Response Kore'
+            matchedIntents_Kore='Empty Response Kore'
             koreCSScore='Null'
             koreMLScore='Null'
-        if(matchedIntents_qabots=='Default Fallback Intent'):
-                matchedIntents_qabots='None'
-        while(len(MatchedIntents_qabots)):
-            MatchedIntents_qabots.pop()
-        MatchedIntents_qabots.extend([matchedIntents_qabots,koreCSScore,koreMLScore])
+        if(matchedIntents_Kore=='Default Fallback Intent'):
+                matchedIntents_Kore='None'
+        while(len(MatchedIntents_Kore)):
+            MatchedIntents_Kore.pop()
+        MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore])
 
-def callAPIBot(input_data,ses):
-    if USEGOOGLE:
-        payload = {"q":input_data,"timezone":"UTC","lang":"en","sessionId":botname_API,"resetContexts":False}
-        payload=str(payload)
-        if sys.version[0]=='2':
-                query=urllib.quote(input_data.replace("!",""))
-        else:
-                query=urllib.parse.quote(input_data.replace("!",""))
+def callDFBot(input_data,ses):
+    if config["USEGOOGLE"]:
+        query=urllib.parse.quote(input_data.replace("!",""))
         params = {
 		"query":query,
 		"lang":"en",
-		"sessionId":botname_API,
+		"sessionId":config["botname_DF"],
 		"timezone":"UTC"
 		}
-        headers = {
-        'authorization': "Bearer "+Token_Api,
-        'cache-control':'no-cache',
-        'content-type': "application/json;charset=utf8"
-         }
+        headers = {"authorization": "Bearer "+config["Token_DF"]}
         while(1):
             try:
-                response = ses.get( url,  headers=headers,params=params)
+                response = ses.get( urlDF,  headers=headers,params=params)
                 response.raise_for_status()
                 responsejson = response.json()
                 break
             except Exception as e:
                 print("Error while finding intent in google", e)
+                print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
                 time.sleep(1)
         if not responsejson=={} and ('result' in responsejson) and ('metadata' in responsejson['result']) and ('intentName' in responsejson['result']['metadata']):
-            matchedIntents_Api=responsejson['result']['metadata']['intentName']
+            matchedIntents_DF=responsejson['result']['metadata']['intentName']
             score=responsejson['result']['score']#Getting the confidence score.
-            if(matchedIntents_Api=='Default Fallback Intent'):
-                matchedIntents_Api='None'
+            if(matchedIntents_DF=='Default Fallback Intent'):
+                matchedIntents_DF='None'
         else:
-            matchedIntents_Api='Empty Response Google'
+            matchedIntents_DF='Empty Response Google'
             score=['null']
-            print("GOOGLE","get", url, "headers=",headers,"params",params)
+            print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
     else:
-        matchedIntents_Api='None'
+        matchedIntents_DF='None'
         score=0.1
-    while(MatchedIntents_Api):
-        MatchedIntents_Api.pop()
-    MatchedIntents_Api.extend([matchedIntents_Api,score])
+    while(MatchedIntents_DF):
+        MatchedIntents_DF.pop()
+    MatchedIntents_DF.extend([matchedIntents_DF,score])
             
 def callLUISBot(input_data,ses):
-    if USELUIS:
+    if config["USELUIS"]:
         while(1):
             try:
-                respLuis=ses.get(urlL+input_data)#Reading the JSON response for luis.ai
+                respLuis=ses.get(config["urlL"]+input_data)#Reading the JSON response for luis.ai
                 respLuis.raise_for_status()
                 respluis=respLuis.json()
                 break
@@ -203,7 +186,7 @@ def callLUISBot(input_data,ses):
         else:
                 matchedIntents_Luis='Empty Response Luis'
                 score='Null'
-                print("LUIS","get" , (urlL+input_data))
+                print("LUIS","get" , (config["urlL"]+input_data))
                 print(respLuis)
     else:
         matchedIntents_Luis='None'
