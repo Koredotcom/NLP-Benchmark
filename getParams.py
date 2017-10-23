@@ -43,7 +43,7 @@ fileName="ML_Train.csv"
 
 fr=open('configBot.py','w')
 fr.write("fileName=	\""+fileName+"\"\n")
-fr.write("ssoKore=		\""+str(ssoKore)+"\"\n")
+fr.write("ssoKore=		"+str(ssoKore)+"\n")
 fr.write("KorePlatform=\""+str(KorePlatform)+"\"\n")	
 fr.write("USEGOOGLE="+str(USEDF)+"\n")	
 fr.write("USELUIS="+str(USELUIS)+"\n")	
