@@ -19,7 +19,7 @@ def loginToKore(koreUserId,KorePassword,KorePlatform):
 
 def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams"#Calling the builder Api for Kore
-        payload = "{\"name\":\""+Input+"\",\"type\":\"taskbot\",\"description\":\"faq\",\"color\":\"#1B3880\",\"categoryIds\":[\"451902a073c071463e2ce7c6\"],\"skipMakeEditLinks\":false,\"purpose\":\"customer\",\"errorCodes\":{\"pollError\":[]},\"visibility\":{\"namespace\":[],\"namespaceIds\":[]}}"
+        payload = "{\"name\":\""+Input+"\",\"type\":\"taskbot\",\"description\":\"drfgd\",\"color\":\"#FF7A00\",\"categoryIds\":[\"451902a073c071463e2fe7f6\"],\"skipMakeEditLinks\":false,\"purpose\":\"customer\",\"errorCodes\":{\"pollError\":[]},\"visibility\":{\"namespace\":[],\"namespaceIds\":[]},\"defaultLanguage\":\"en\"}"
         try:
                 response = requests.post(url, data=payload, headers=headersKore)
                 streamid=response.json()['_id']
