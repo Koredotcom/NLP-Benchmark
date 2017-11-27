@@ -92,7 +92,7 @@ def getLuisEndPointUrl(botIdLuis):
                 raise Exception("Error while publishing app in Luis")        
 
             try:
-                endpointURL=response.json()['endpointUrl']+"?subscription-key="+response.json()['assignedEndpointKey']+"&timezoneOffset=0&verbose=true&q="
+                endpointURL=response.json()['endpointUrl']+"?subscription-key="+subscriptionToken+"&timezoneOffset=0&verbose=true&q="
                 return endpointURL
             except:
                 print("Could not fetch the endpoint in Luis:: trying to get end point after 5 seconds")

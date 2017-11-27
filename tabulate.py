@@ -213,7 +213,7 @@ def writeCSV(sheet,currentIntent=None):
         for i in range(len(arrayB)):
                 row=[]
                 for j in range(len(arrayB[i])):
-                        row.append(str(arrayB[i][j]))
+                        row.append(arrayB[i][j])
                 if currentIntent:
                         insertRow(sheet,row)
                 else:
@@ -227,13 +227,13 @@ def writeCSV(sheet,currentIntent=None):
                 for i in range(len(array)):
                         row=[]
                         for j in range(len(array1)):
-                                row.append(str(array[i][j]))
+                                row.append(array[i][j])
                         insertRow(sheet,row)
                 insertRow(sheet,[])
         for i in range(len(arrayC)):
                 row=[]
                 for j in range(len(arrayC[i])):
-                        row.append(str(arrayC[i][j]))
+                        row.append(arrayC[i][j])
                 insertRow(sheet,row,currentIntent)
         insertRow(sheet,[],currentIntent)
         insertFormula(lenintent)

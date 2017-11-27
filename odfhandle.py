@@ -11,7 +11,7 @@ def insertRow(sheet,row,visibility=None):
 	if not row:
 		row=[]
 	for cell,val in zip(cells,row):
-		if len(val)>0 and val[0]=="=":
+		if type(val)==type("") and len(val)>0 and val[0]=="=":
 			cell.formula=val
 		else:
 			cell.set_value(val)
@@ -42,7 +42,7 @@ def formula(row,col,lenintent,name):
 		tn=col+str(row+1)
 		fn=col+str(row+2)
 		fp=col+str(row+3)
-		prec+= tp+"/("+tp+"+"+fp+"), 0)"
+		prec+= tp+" / ( "+tp+" + "+fp+" ) , 0 )"
 		rec+= tp+"/("+tp+"+"+fn+"), 0)"
 		acc+="("+tp+"+"+tn+")/("+tp+"+"+fn+"+"+tn+"+"+fp+"), 0)"
 		F+="("+"2*"+tp+")/(2*"+tp+"+"+fp+"+"+fn+"), 0)"
