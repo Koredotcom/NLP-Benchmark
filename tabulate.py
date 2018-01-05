@@ -141,8 +141,8 @@ def writeCSV(sheet,currentIntent=None):
                                 totalSpell=spellTruePos+spellFalseNeg
                 totalPositives=truePositives+falseNegatives+truePositivesNone+falseNegativesNone
                 totalNegatives=trueNegatives+falsePositives+trueNegativesNone+falsePositivesNone
-                array1.append(truePositives)
-                array1.append(falseNegatives)
+                array1.append(truePositives+truePositivesNone)
+                array1.append(falseNegatives+falseNegativesNone)
                 array2.append(trueNegatives)
                 array2.append(falsePositives)
                 array3.append(strucTruePositive)

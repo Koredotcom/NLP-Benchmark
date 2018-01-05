@@ -122,7 +122,7 @@ def callKoreBot(input_data,ses):
                     koreMLScore='Null'              
 
         else:
-            matchedIntents_Kore='Empty Response Kore'
+            matchedIntents_Kore='None'
             koreCSScore='Null'
             koreMLScore='Null'
         if(matchedIntents_Kore=='Default Fallback Intent'):
