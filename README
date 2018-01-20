@@ -69,3 +69,5 @@ First of all create a new bot(referred as agent in api.ai). Press on the gear ic
 
 KorePlatform="https://bots.kore.ai"
 
+Previously run results can be found at https://github.com/Koredotcom/NLP-Benchmark/blob/master/previous-test-results/ML_Results-13-12-2017--21-45-17.ods.xlsx
+
