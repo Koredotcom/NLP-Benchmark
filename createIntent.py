@@ -1,6 +1,6 @@
 import requests, csv, os, time, sys, threading, getpass, json
 from six.moves import input
-from configBot import * #Calling the configuration file with all the static variables
+from configBot import *
 from tqdm import tqdm
 from google import *
 from kore import *
@@ -22,10 +22,13 @@ def main():
         for row in reader:
                 if len(row)<=0:
                         continue
+                row[0] =row[0].strip().lower()
                 if row[0]==None or row[0].strip()=='':
                         continue
-                intents.append(row[1])
-                utterances.append(row[2])
+                while '  ' in row[0]: row[0] =row[0].replace('  ',' ')
+                if not row[1] in utterances:
+                        intents.append(row[0])
+                        utterances.append(row[1])
         fr.close()
         print("Finished reading training data.")
 
@@ -33,7 +36,7 @@ def main():
                 koreUserId=input('Enter kore Email Id: ')#login credentials for kore
                 KorePassword=getpass.getpass('Enter kore Password: ')
                 loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
-                userIdKore=loginCred[1]                                         
+                userIdKore=loginCred[1]
                 authTokenKore=loginCred[0]
 
         else:
@@ -77,14 +80,15 @@ def prepLuis(intentset,intents,utterances,botIdLuis):
 
         print("Adding train utterances in Luis")
         th=[]
-        for i in range(len(intents)):
+        for i in tqdm(range(len(intents))):
             #addLuisUtterance(utterances[i],LuisIntentId[intentset.index(intents[i])],botIdLuis,intents[i])
             th.append(threading.Thread(target=addLuisUtterance,
                  args=([utterances[i],LuisIntentId[intentset.index(intents[i])],botIdLuis,intents[i]])))
             th[-1].start()
+            if not i%10:
+                [thread.join() for thread in th]
+                th.clear()
             
-        for i in tqdm(range(len(intents))):
-            th[i].join()
         print("Fetching the endpoint URL to hit, for Luis, to check response by its bot")           
         urlL.append(getLuisEndPointUrl(botIdLuis))
 
@@ -96,12 +100,12 @@ def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore):
 
         th=[]
         print("Adding train utterances in Kore")
-        for i in range(len(intents)):
-            th.append(threading.Thread(target=addKoreUtterances,args=([utterances[i],idKore[intentset.index(intents[i])][0],botIdKore,intents[i],userIdKore,authTokenKore,KorePlatform])))
-            th[i].start()
         for i in tqdm(range(len(intents))):
-            #addKoreUtterances(utterances[i],idKore[intentset.index(intents[i])][0],botIdKore,intents[i],userIdKore,authTokenKore,KorePlatform)
-            th[i].join()
+            th.append(threading.Thread(target=addKoreUtterances,args=([utterances[i],idKore[intentset.index(intents[i])][0],botIdKore,intents[i],userIdKore,authTokenKore,KorePlatform])))
+            th[-1].start()
+            if not i%10:
+                [thread.join() for thread in th]
+                th.clear()
         print("training the Kore bot")
         trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
 
