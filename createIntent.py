@@ -22,7 +22,7 @@ def main():
         for row in reader:
                 if len(row)<=0:
                         continue
-                row[0] =row[0].strip().lower()
+                row[0] =row[0].strip().lower().replace("-","")
                 if row[0]==None or row[0].strip()=='':
                         continue
                 while '  ' in row[0]: row[0] =row[0].replace('  ',' ')
@@ -30,6 +30,8 @@ def main():
                         intents.append(row[0])
                         utterances.append(row[1])
         fr.close()
+        intentset.extend(list(set(intents)))
+        print(len(intentset), len(utterances),"distinct intents, distinct utterances")
         print("Finished reading training data.")
 
         if ssoKore is False:
@@ -45,10 +47,9 @@ def main():
         headersKore['authorization']=authTokenKore #passing the authorization token to the configBot.py file
         botName=input('Enter Bot Name: ')
 
-        intentset.extend(list(set(intents)))
-        botIdKore=createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
+        botIdKore, dgValue = createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
         print("New bot "+botName+" has been created in Kore with botid: "+ botIdKore)
-        prepKore(intentset,intents,utterances,botIdKore,userIdKore,authTokenKore)
+        prepKore(intentset,intents,utterances,botIdKore,userIdKore,authTokenKore, dgValue)
 
         if USELUIS:
             botIdLuis=createLuisBot(botName)
@@ -93,10 +94,11 @@ def prepLuis(intentset,intents,utterances,botIdLuis):
         urlL.append(getLuisEndPointUrl(botIdLuis))
 
 
-def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore):
+def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, dgValue):
         print("Creating intents in kore")
         for i in tqdm(range(len(intentset))):
-            idKore.append(addIntentKore(intentset[i],botIdKore,userIdKore,authTokenKore,KorePlatform))
+            if "default fallback intent" == intentset[i]:idKore.append(dgValue)
+            else:idKore.append(addIntentKore(intentset[i],botIdKore,userIdKore,authTokenKore,KorePlatform))
 
         th=[]
         print("Adding train utterances in Kore")

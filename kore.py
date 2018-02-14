@@ -48,7 +48,6 @@ def marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streami
                 #print("market streams 1",response1.text)
         except Exception as e:
                 raise Exception("Error while creating Market streams"+str(e))
-        return addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)
 
 def builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid):
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs"
@@ -65,15 +64,11 @@ def builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dg
         #Setting the Default Dialog Task to Default Fallback Intent. 
         querystring = {"rnd":"jw4tcv"}
         payload = "{\"defaultDialogId\":\""+dgValue[1]+"\"}"
-        headers = {}
-        headers['content-type'] = headersKore['content-type']
-        headers['authorization'] = authTokenKore
-        headers['x-http-method-override'] = 'put'
         try:
-                response = requests.post(url, data=payload, headers=headers, params=querystring)             
+                response = requests.put(url, data=payload, headers=headersKore, params=querystring)
                 response.raise_for_status()
-                print("RESP post",response)
         except:
+                print("RESP post",response)
                 raise Exception("Error while creating Setting Default dialog task streams")        
 
 def getAccountId(userIdKore, authTokenKore, KorePlatform):
@@ -88,7 +83,6 @@ def getAccountId(userIdKore, authTokenKore, KorePlatform):
     response = json.loads(response.text)
     #print(response.text)
     ret =  response["associatedAccounts"][0]["accountId"]
-    print(ret)
     return ret
 
 def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
@@ -102,36 +96,39 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
         headersKore['accountid']= getAccountId(userIdKore,authTokenKore,KorePlatform)
         name, streamid = builderStreams1(Input, userIdKore, authTokenKore, KorePlatform)
 
-        dgValue = marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streamid)
+        marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streamid)
+        dgValue = addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)
 
         builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
         builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue)
 
 
-        return streamid
+        return streamid, dgValue
 
 def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
+        querystring = {"rnd":"tjywhl"}
+
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components"
         payload = json.dumps({"desc":"","type":"intent","intent":Input})
         try:
                 response = requests.post( url+"?rnd=h3uyn", data=payload, headers=headersKore)
                 response.raise_for_status()
+                name=response.json()['name']
+                component=response.json()['_id']
         except:
-                print(response.text)
+                print(response.text, Input)
                 raise Exception("Error while Adding intent to kore 1")
 
-        name=response.json()['name']
-        component=response.json()['_id']
 
         url2 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs"
         payload2 = "{\"name\":\""+name+"\",\"shortDesc\":\"News updates\",\"nodes\":[{\"nodeId\":\"intent0\",\"type\":\"intent\",\"componentId\":\""+component+"\",\"transitions\":[{\"default\":\"\",\"metadata\":{\"color\":\"#f3a261\",\"connId\":\"dummy0\"}}],\"metadata\":{\"left\":30,\"top\":170}}],\"visibility\":{\"namespace\":\"private\",\"namespaceIds\":[\"\"]}}"
         try:
                 response2 = requests.post( url2, data=payload2, headers=headersKore)
+                name=response2.json()['name']
+                dialogId=response2.json()['_id']
         except:
                 raise Exception("Error while Adding intent to kore 2")
 
-        name=response2.json()['name']
-        dialogId=response2.json()['_id']
 
         url3 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components/"+component+""
         payload3 = "{\"name\":\""+name+"\",\"dialogId\":\""+dialogId+"\"}"
@@ -141,6 +138,21 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
                 raise Exception("Error while Adding intent to kore 3")
 
         idKores=[component,dialogId]
+
+        payload = {"name":"ResponseFor"+Input.replace(" ",""),"type":"message","message":[{"channel":"default","text":Input+" has been recognized.","type":"basic"}]}
+        try:
+            response = requests.post(url, data=json.dumps(payload), headers=headersKore)
+            response.raise_for_status()
+            msgId=response.json()['_id']
+            idKores+=[msgId]
+        except Exception as e:
+                print(e)
+                print(url, payload)
+                raise Exception("Error while Adding intent to kore 4")
+
+        url4 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs/"+dialogId
+        payload ={"streamId":streamid,"name":name,"nodes":[{"nodeId":"intent0","type":"intent","componentId":component,"transitions":[{"default":"message1","metadata":{"color":"#299d8e","connId":"dummy0"}}],"metadata":{"left":21,"top":20},"nodeOptions":{"transitionType":"auto"}},{"nodeId":"message1","type":"message","componentId":msgId,"transitions":[{"default":"message1","metadata":{"color":"#299d8e","connId":"dummy1"}}],"nodeOptions":{"transitionType":"auto"}}],"visibility":{"namespaceIds":[userIdKore],"namespace":"private"}}
+        response = requests.put(url4, data=json.dumps(payload), headers=headersKore)
         return idKores
 
 def addKoreUtterances(Input, idKore, streamid, intentid, userIdKore, authTokenKore, KorePlatform):
