@@ -23,7 +23,7 @@ def main(ods):
                 success[1].append(x[8].value)
                 success[2].append(x[11].value)
         numIntents=len(set(intent))+1
-        numrows=numIntents*12
+        numrows=numIntents*16
         colsMax=11
         if len(ods.sheets) <2:ods.sheets += Sheet()
         if len(ods.sheets) <3:ods.sheets += Sheet()
