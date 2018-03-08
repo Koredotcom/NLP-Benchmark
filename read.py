@@ -13,8 +13,14 @@ MatchedIntents_DF=['','']
 MatchedIntents_Luis=['','']
 urlDF=		"https://console.dialogflow.com/v1/query"
 
-NUM_THREADS=1 
+NUM_THREADS=10
 config={}
+
+def printif(*args):
+    if config.get("debug", False):
+        print(*args)
+
+
 def find_intent3(i,ses):
         output=[]
         output.append(TaskNames[i])#In the output, appending the inputs and matched intents to compare with the expected task name
@@ -63,7 +69,7 @@ def main():
             continue
         Utterances.append(row[1])#Reading from the input file i.e. ML_Testdata
         TaskNames.append(row[0].replace("_"," ").lower())
-        Types.append(row[2])
+        Types.append("Positive")
     fr.close()
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
@@ -96,13 +102,22 @@ def main():
 def callKoreBot(input_data,ses):
         while(1):
             try:
-                resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]\
-                    +"/findIntent",headers={'authorization':config["token_Kore"]},\
+                resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
+                    headers={'authorization':config["token_Kore"]},
                     json={ "input":input_data,"streamName":config["botname_Kore"]})
                 respjson=resp.json()
+                if resp.status_code == 400:
+                  matchedIntents_Kore = "None"
+                  koreMLScore = "Null"
+                  koreCSScore = "Null"
+                  printif("Null", input_data)
+                  break
                 resp.raise_for_status()
                 break
             except Exception as e:
+                print(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
+                    {'authorization':config["token_Kore"]},
+                    { "input":input_data,"streamName":config["botname_Kore"]})
                 print("Error while finding intent kore", e)
                 time.sleep(1)
 
@@ -113,17 +128,19 @@ def callKoreBot(input_data,ses):
                 koreCSScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"]["score"]
             elif ('fm' in respjson['response'].keys()) and respjson['response']["fm"].get("possible",[]):
                 matchedIntents_Kore = respjson["response"]["fm"]["possible"][0]["task"].replace("_"," ")
-                koreMLScore =respjson["response"]["fm"]["possible"][0]["score"]
-                koreCSScore = respjson["response"]["fm"]["possible"][0]["mlScore"]
+                koreMLScore = respjson["response"]["fm"]["possible"][0]["mlScore"]
+                koreCSScore = respjson["response"]["fm"]["possible"][0]["score"]
             elif ('ml' in respjson['response'].keys()) and respjson['response']["ml"].get("possible",[]):
                 matchedIntents_Kore = respjson["response"]["ml"]["possible"][0]["task"].replace("_"," ")
-                koreMLScore = 'Null'
-                koreCSScore = respjson["response"]["ml"]["possible"][0]["score"]
+                koreMLScore = respjson["response"]["ml"]["possible"][0]["score"]
+                koreCSScore = 0.0
             else:
                 matchedIntents_Kore='None'
                 koreCSScore='Null'
                 koreMLScore='Null'
+                printif("NULL2",input_data)
         else:
+            printif("NULL3",input_data)
             matchedIntents_Kore='None'
             koreCSScore='Null'
             koreMLScore='Null'

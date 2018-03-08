@@ -119,7 +119,7 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"token_Kore":authTokenKore,
 		"streamid_Kore":botIdKore,
 		"urlKa":KorePlatform+"/api/1.1/users/",
-		"FileName":"ML_TestData.csv",
+		"FileName": TestFileName,
 		"Token_DF":Token_DF,
 		"botname_DF":	botIdDF,
 		"urlL":	urlL,

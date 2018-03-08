@@ -1,8 +1,10 @@
 fileName=	"ML_Train.csv"
-ssoKore=		False
+TestFileName=	"ML_TestData.csv"
+ssoKore=		True
 KorePlatform="https://bots.kore.ai"
 USEGOOGLE=True
 USELUIS=False
 subscriptionToken=	""
-Token_DF=		"aa4a0553bace496381996825642af66f"
-botIdDF=		"3a5e472e-8744-4495-8b63-312039612167"
+Token_DF=		"ad227f2d230446e19ad16b4e31437889"
+botIdDF=		"0a8657c0-0a38-4c27-b61e-b7592bbb865a"
+debug=True
