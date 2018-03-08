@@ -62,7 +62,7 @@ def main():
         if row[0]==None or row[0].strip()=='':
             continue
         Utterances.append(row[1])#Reading from the input file i.e. ML_Testdata
-        TaskNames.append(row[0].replace("_"," "))
+        TaskNames.append(row[0].replace("_"," ").lower())
         Types.append(row[2])
     fr.close()
     print("Test data sheet is running")
@@ -106,21 +106,23 @@ def callKoreBot(input_data,ses):
                 print("Error while finding intent kore", e)
                 time.sleep(1)
 
-        if not respjson=={} and ('intent' in respjson) and not respjson['intent'] ==[] and not respjson['intent']==None and ('name' in respjson['intent'][0]):
-            matchedIntents_Kore=respjson['intent'][0]['name']
-            if(respjson['response']['intentMatch']==[]):
+        if respjson and ('response' in respjson) and respjson['response']:
+            if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
+                matchedIntents_Kore = respjson["response"]["finalResolver"]["ranking"][0]["intent"].replace("_"," ")
+                koreMLScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"]["mlScore"]
+                koreCSScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"]["score"]
+            elif ('fm' in respjson['response'].keys()) and respjson['response']["fm"].get("possible",[]):
+                matchedIntents_Kore = respjson["response"]["fm"]["possible"][0]["task"].replace("_"," ")
+                koreMLScore =respjson["response"]["fm"]["possible"][0]["score"]
+                koreCSScore = respjson["response"]["fm"]["possible"][0]["mlScore"]
+            elif ('ml' in respjson['response'].keys()) and respjson['response']["ml"].get("possible",[]):
+                matchedIntents_Kore = respjson["response"]["ml"]["possible"][0]["task"].replace("_"," ")
+                koreMLScore = 'Null'
+                koreCSScore = respjson["response"]["ml"]["possible"][0]["score"]
+            else:
+                matchedIntents_Kore='None'
                 koreCSScore='Null'
                 koreMLScore='Null'
-            else:
-                try:
-                    koreCSScore=respjson['response']['intentMatch'][0]['totalScore']#Getting CS Score
-                except:
-                    koreCSScore='Null'
-                try:
-                    koreMLScore=respjson['response']['intentMatch'][0]['mlScore']#Getting ML Score
-                except:    
-                    koreMLScore='Null'              
-
         else:
             matchedIntents_Kore='None'
             koreCSScore='Null'
@@ -152,7 +154,7 @@ def callDFBot(input_data,ses):
                 print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
                 time.sleep(1)
         if not responsejson=={} and ('result' in responsejson) and ('metadata' in responsejson['result']) and ('intentName' in responsejson['result']['metadata']):
-            matchedIntents_DF=responsejson['result']['metadata']['intentName']
+            matchedIntents_DF=responsejson['result']['metadata']['intentName'].lower()
             score=responsejson['result']['score']#Getting the confidence score.
             if(matchedIntents_DF=='Default Fallback Intent'):
                 matchedIntents_DF='None'
@@ -179,7 +181,7 @@ def callLUISBot(input_data,ses):
                 print("Error while finding intent in Luis", e)
                 time.sleep(1)
         if respluis!={} and ('topScoringIntent' in respluis) and ('intent' in respluis['topScoringIntent']):
-                matchedIntents_Luis=respluis['topScoringIntent']['intent']#Luis Output Taken Here
+                matchedIntents_Luis=respluis['topScoringIntent']['intent'].lower()#Luis Output Taken Here
                 score=respluis['topScoringIntent']['score']#Getting Luis Score
                 if respluis['topScoringIntent']['intent']=='None':
                         matchedIntents_Luis='None'
