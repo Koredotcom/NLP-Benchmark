@@ -97,8 +97,8 @@ def callKoreBot(input_data,ses):
         while(1):
             try:
                 resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]\
-                    +"/findIntend",headers={'authorization':config["token_Kore"]},\
-                    data={ "input":input_data,"streamName":config["botname_Kore"]})
+                    +"/findIntent",headers={'authorization':config["token_Kore"]},\
+                    json={ "input":input_data,"streamName":config["botname_Kore"]})
                 respjson=resp.json()
                 resp.raise_for_status()
                 break
