@@ -1,1 +1,13 @@
-{"uid_Kore": "u-1f6862e3-8292-5edc-89e7-cbb0d3a03cd3", "botname_DF": "24c84366-2b52-47e1-82c8-8fe939924ed8", "urlKa": "https://bots.kore.ai/api/1.1/users/", "USELUIS": false, "FileName": "ML_TestData.csv", "USEGOOGLE": true, "streamid_Kore": "st-0ea4de45-eb8f-5ee6-8bb5-8d288c0cc54e", "urlL": "", "botname_Kore": "EasternPenguins", "token_Kore": "bearer h_6EPCaORcyqpRygHADAtnh0g8LvQjrGhUw29ry4WptEEOs0VnEnE6NDtRn-kiBT", "Token_DF": "b8317e8d6a694eab9f8c03b2a3d7ad08"}
+{
+  "FileName": "ML_TestData.csv",
+  "Token_DF": "16ff4a3ca5e140f6b37ffb70db9e9853",
+  "USEGOOGLE": true,
+  "USELUIS": false,
+  "botname_DF": "783b446f-cf25-4492-a2f2-70ef2fac4e05",
+  "botname_Kore": "volt",
+  "streamid_Kore": "st-3a4ea0dc-ed4c-57af-ae70-33f1dda52468",
+  "token_Kore": "bearer gcCkW3E9ujw_dYnG7Pv-OxYDKLDxWb2a_vyve-ND9enIwWo7iMtepnAqy-o22Ngm",
+  "uid_Kore": "u-1f6862e3-8292-5edc-89e7-cbb0d3a03cd3",
+  "urlKa": "https://bots.kore.ai/api/1.1/users/",
+  "urlL": ""
+}

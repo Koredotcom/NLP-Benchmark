@@ -6,5 +6,5 @@ USEGOOGLE=True
 USELUIS=False
 subscriptionToken=	""
 Token_DF=		"ad227f2d230446e19ad16b4e31437889"
-botIdDF=		"0a8657c0-0a38-4c27-b61e-b7592bbb865a"
+botIdDF=		"783b446f-cf25-4492-a2f2-70ef2fac4e05"
 debug=True

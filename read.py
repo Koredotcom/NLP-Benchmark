@@ -20,10 +20,11 @@ def printif(*args):
     if config.get("debug", False):
         print(*args)
 
-
 def find_intent3(i,ses):
         output=[]
-        output.append(TaskNames[i])#In the output, appending the inputs and matched intents to compare with the expected task name
+        #In the output, appending the inputs and matched intents to compare with the expected task name
+        TaskNames[i] = TaskNames[i].replace("\xa0"," ")
+        output.append(TaskNames[i])
         output.append(Utterances[i])
         output.append(Types[i])
         thKORE=Thread(target=callKoreBot,args=([Utterances[i], ses[0]]));thKORE.start()
@@ -35,8 +36,9 @@ def find_intent3(i,ses):
             output.append('pass')
         else:
             output.append('fail')
-        output.append(str(MatchedIntents_Kore[1]))
-        output.append(str(MatchedIntents_Kore[2]))    
+        output.append(str(MatchedIntents_Kore[1])) # CS score
+        output.append(str(MatchedIntents_Kore[2])) # ML score
+        output.append(str(MatchedIntents_Kore[3])) # FAQ score
         output.append(MatchedIntents_DF[0])
         if(MatchedIntents_DF[0]==TaskNames[i]):
             output.append('pass')
@@ -67,18 +69,20 @@ def main():
             continue
         if row[0]==None or row[0].strip()=='':
             continue
-        Utterances.append(row[1])#Reading from the input file i.e. ML_Testdata
-        TaskNames.append(row[0].replace("_"," ").lower())
-        Types.append("Positive")
+        TaskName = row[0].replace("_"," ").lower()
+        if TaskName == "none":TaskName="None"
+        Utterances.append(row[1])
+        Types.append(row[2])
+        TaskNames.append(TaskName)
     fr.close()
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
     resultsFileName='ML_Results-'+timestr+'.ods'
     fp=open(resultsFileName,'w')
     ods = newdoc(doctype='ods', filename=resultsFileName)
-    sheet = Sheet('Results', size=(len(Utterances)+1,12))
+    sheet = Sheet('Results', size=(len(Utterances)+1,14))
     ods.sheets += sheet
-    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis'])
+    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis'])
     ods.save()
     outputs = [None]*len(Utterances)
     th=[]
@@ -123,32 +127,47 @@ def callKoreBot(input_data,ses):
 
         if respjson and ('response' in respjson) and respjson['response']:
             if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
-                matchedIntents_Kore = respjson["response"]["finalResolver"]["ranking"][0]["intent"].replace("_"," ")
-                koreMLScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"]["mlScore"]
-                koreCSScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"]["score"]
+                matchedIntents_Kore = respjson["response"]["finalResolver"]["ranking"][0]["intent"].replace("_"," ").lower()
+                if "scoring" in respjson["response"]["finalResolver"]["ranking"][0]:
+                    koreMLScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"].get("mlScore",0.0)
+                    koreCSScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"].get("score",0.0)
+                    koreFAQScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"].get("faqScore",0.0)
+                else:
+                    koreMLScore = 0.0
+                    koreCSScore = 0.0
+                    koreFAQScore = respjson["response"]["finalResolver"]["ranking"][0].get("faqScore",0.0)
             elif ('fm' in respjson['response'].keys()) and respjson['response']["fm"].get("possible",[]):
-                matchedIntents_Kore = respjson["response"]["fm"]["possible"][0]["task"].replace("_"," ")
+                matchedIntents_Kore = respjson["response"]["fm"]["possible"][0]["task"].replace("_"," ").lower()
                 koreMLScore = respjson["response"]["fm"]["possible"][0]["mlScore"]
                 koreCSScore = respjson["response"]["fm"]["possible"][0]["score"]
+                koreFAQScore = respjson["response"]["fm"]["possible"][0].get("faqScore",0.0)
             elif ('ml' in respjson['response'].keys()) and respjson['response']["ml"].get("possible",[]):
-                matchedIntents_Kore = respjson["response"]["ml"]["possible"][0]["task"].replace("_"," ")
+                matchedIntents_Kore = respjson["response"]["ml"]["possible"][0]["task"].replace("_"," ").lower()
                 koreMLScore = respjson["response"]["ml"]["possible"][0]["score"]
                 koreCSScore = 0.0
+                koreFAQScore = 0.0
+            elif ('faq' in respjson['response'].keys()) and respjson['response']["faq"].get("possible",[]):
+                matchedIntents_Kore = respjson["response"]["faq"]["definitive"]["task"].replace("_"," ").lower()
+                koreMLScore = 0.0
+                koreCSScore = 0.0
+                koreFAQScore = respjson["response"]["faq"]["definitive"]["faqScore"]
             else:
                 matchedIntents_Kore='None'
                 koreCSScore='Null'
                 koreMLScore='Null'
+                koreFAQScore = 'Null'
                 printif("NULL2",input_data)
         else:
             printif("NULL3",input_data)
             matchedIntents_Kore='None'
             koreCSScore='Null'
             koreMLScore='Null'
-        if(matchedIntents_Kore=='Default Fallback Intent'):
+            koreFAQScore = 'Null'
+        if(matchedIntents_Kore=='Default Fallback Intent'.lower()):
                 matchedIntents_Kore='None'
         while(len(MatchedIntents_Kore)):
             MatchedIntents_Kore.pop()
-        MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore])
+        MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore, koreFAQScore])
 
 def callDFBot(input_data,ses):
     if config["USEGOOGLE"]:
@@ -177,7 +196,7 @@ def callDFBot(input_data,ses):
                 matchedIntents_DF='None'
         else:
             matchedIntents_DF='None'
-            score=['null']
+            score='null'
             print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
     else:
         matchedIntents_DF='None'
