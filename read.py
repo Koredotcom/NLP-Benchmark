@@ -127,13 +127,13 @@ def callKoreBot(input_data,ses):
 
         if respjson and ('response' in respjson) and respjson['response']:
             if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
-                rankedMaxScore = 0.0
-                rankedMaxObj = respjson["response"]["finalResolver"]["ranking"][0]
-                for rankedObj in respjson["response"]["finalResolver"]["ranking"]:
-                    rankedScore = rankedObj["totalScore"]
-                    if rankedScore > rankedMaxScore:
-                       rankedMaxScore = rankedScore
-                       rankedMaxObj = rankedObj
+                rankingMaxScore = 0.0
+                rankingMaxObj = respjson["response"]["finalResolver"]["ranking"][0]
+                for rankingObj in respjson["response"]["finalResolver"]["ranking"]:
+                    rankingScore = rankingObj["totalScore"]
+                    if rankingScore > rankingMaxScore:
+                       rankingMaxScore = rankingScore
+                       rankingMaxObj = rankingObj
                 matchedIntents_Kore = rankingMaxObj["intent"].replace("_"," ").lower()
                 if "scoring" in rankingMaxObj:
                     koreMLScore = rankingMaxObj["scoring"].get("mlScore",0.0)
