@@ -13,7 +13,7 @@ MatchedIntents_DF=['','']
 MatchedIntents_Luis=['','']
 urlDF=		"https://console.dialogflow.com/v1/query"
 
-NUM_THREADS=10
+NUM_THREADS=1
 config={}
 
 def printif(*args):
@@ -176,7 +176,7 @@ def callDFBot(input_data,ses):
             if(matchedIntents_DF=='Default Fallback Intent'):
                 matchedIntents_DF='None'
         else:
-            matchedIntents_DF='Empty Response Google'
+            matchedIntents_DF='None'
             score=['null']
             print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
     else:
@@ -203,7 +203,7 @@ def callLUISBot(input_data,ses):
                 if respluis['topScoringIntent']['intent']=='None':
                         matchedIntents_Luis='None'
         else:
-                matchedIntents_Luis='Empty Response Luis'
+                matchedIntents_Luis='None'
                 score='Null'
                 print("LUIS","get" , (config["urlL"]+input_data))
                 print(respLuis)
