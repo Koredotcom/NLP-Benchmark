@@ -39,10 +39,11 @@ else:
 	ssoKore=False
 
 fileName="ML_Train.csv"
-
+TestFileName = "ML_TestData.csv"
 
 fr=open('configBot.py','w')
 fr.write("fileName=	\""+fileName+"\"\n")
+fr.write("TestFileName=	\""+TestFileName+"\"\n")
 fr.write("ssoKore=		"+str(ssoKore)+"\n")
 fr.write("KorePlatform=\""+str(KorePlatform)+"\"\n")	
 fr.write("USEGOOGLE="+str(USEDF)+"\n")	
