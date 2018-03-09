@@ -127,15 +127,22 @@ def callKoreBot(input_data,ses):
 
         if respjson and ('response' in respjson) and respjson['response']:
             if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
-                matchedIntents_Kore = respjson["response"]["finalResolver"]["ranking"][0]["intent"].replace("_"," ").lower()
-                if "scoring" in respjson["response"]["finalResolver"]["ranking"][0]:
-                    koreMLScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"].get("mlScore",0.0)
-                    koreCSScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"].get("score",0.0)
-                    koreFAQScore = respjson["response"]["finalResolver"]["ranking"][0]["scoring"].get("faqScore",0.0)
+                rankedMaxScore = 0.0
+                rankedMaxObj = respjson["response"]["finalResolver"]["ranking"][0]
+                for rankedObj in respjson["response"]["finalResolver"]["ranking"]:
+                    rankedScore = rankedObj["totalScore"]
+                    if rankedScore > rankedMaxScore:
+                       rankedMaxScore = rankedScore
+                       rankedMaxObj = rankedObj
+                matchedIntents_Kore = rankingMaxObj["intent"].replace("_"," ").lower()
+                if "scoring" in rankingMaxObj:
+                    koreMLScore = rankingMaxObj["scoring"].get("mlScore",0.0)
+                    koreCSScore = rankingMaxObj["scoring"].get("score",0.0)
+                    koreFAQScore = rankingMaxObj["scoring"].get("faqScore",0.0)
                 else:
-                    koreMLScore = 0.0
-                    koreCSScore = 0.0
-                    koreFAQScore = respjson["response"]["finalResolver"]["ranking"][0].get("faqScore",0.0)
+                    koreMLScore = rankingMaxObj("mlScore", 0.0)
+                    koreCSScore = rankingMaxObj(score, 0.0)
+                    koreFAQScore = rankingMaxObj.get("faqScore", 0.0)
             elif ('fm' in respjson['response'].keys()) and respjson['response']["fm"].get("possible",[]):
                 matchedIntents_Kore = respjson["response"]["fm"]["possible"][0]["task"].replace("_"," ").lower()
                 koreMLScore = respjson["response"]["fm"]["possible"][0]["mlScore"]
