@@ -11,14 +11,17 @@ outputs=[]
 MatchedIntents_Kore=['','']
 MatchedIntents_DF=['','']
 MatchedIntents_Luis=['','']
-urlDF=		"https://console.dialogflow.com/v1/query"
+urlDF="https://console.dialogflow.com/v1/query"
 
 NUM_THREADS=1
 config={}
 
 def printif(*args):
+    return
     if config.get("debug", False):
         print(*args)
+
+#tqdm = lambda x:x
 
 def find_intent3(i,ses):
         output=[]
@@ -44,13 +47,13 @@ def find_intent3(i,ses):
             output.append('pass')
         else:
             output.append('fail')
-        output.append(str(MatchedIntents_DF[1]))    
+        output.append(str(MatchedIntents_DF[1]))
         output.append(MatchedIntents_Luis[0])
         if(MatchedIntents_Luis[0]==TaskNames[i]):
                 output.append('pass')
         else:
                 output.append('fail')
-        output.append(str(MatchedIntents_Luis[1]))        
+        output.append(str(MatchedIntents_Luis[1]))
         outputs[i]=output
 
 
@@ -72,12 +75,13 @@ def main():
         TaskName = row[0].replace("_"," ").lower()
         if TaskName == "none":TaskName="None"
         Utterances.append(row[1])
-        Types.append(row[2])
+        Types.append("Positive")
         TaskNames.append(TaskName)
     fr.close()
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
     resultsFileName='ML_Results-'+timestr+'.ods'
+    print(resultsFileName)
     fp=open(resultsFileName,'w')
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,14))
@@ -104,18 +108,27 @@ def main():
 
 
 def callKoreBot(input_data,ses):
-        while(1):
+        if not config["USEKORE"]:
+            respjson={}
+        while(config["USEKORE"]):
             try:
-                resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
-                    headers={'authorization':config["token_Kore"]},
-                    json={ "input":input_data,"streamName":config["botname_Kore"]})
-                respjson=resp.json()
-                if resp.status_code == 400:
-                  matchedIntents_Kore = "None"
-                  koreMLScore = "Null"
-                  koreCSScore = "Null"
-                  printif("Null", input_data)
-                  break
+                code = 1
+                while code == 401 or code == 1:
+                  if code == 401:
+                    config["token_kore"] = str(input(json.dumps(respjson)+"\nplease enter new kore token:"))
+                    code=1
+                  resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
+                      headers={'authorization':config["token_Kore"]},
+                      json={ "input":input_data,"streamName":config["botname_Kore"]})
+                  respjson=resp.json()
+                  if resp.status_code == 400:
+                    matchedIntents_Kore = "None"
+                    koreMLScore = "Null"
+                    koreCSScore = "Null"
+                    printif("Null", input_data)
+                    break
+                  code = resp.status_code
+                if resp.status_code==400:break
                 resp.raise_for_status()
                 break
             except Exception as e:
@@ -172,8 +185,7 @@ def callKoreBot(input_data,ses):
             koreFAQScore = 'Null'
         if(matchedIntents_Kore=='Default Fallback Intent'.lower()):
                 matchedIntents_Kore='None'
-        while(len(MatchedIntents_Kore)):
-            MatchedIntents_Kore.pop()
+        MatchedIntents_Kore.clear()
         MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore, koreFAQScore])
 
 def callDFBot(input_data,ses):
@@ -208,8 +220,7 @@ def callDFBot(input_data,ses):
     else:
         matchedIntents_DF='None'
         score=0.1
-    while(MatchedIntents_DF):
-        MatchedIntents_DF.pop()
+    MatchedIntents_DF.clear()
     MatchedIntents_DF.extend([matchedIntents_DF,score])
             
 def callLUISBot(input_data,ses):
@@ -236,8 +247,7 @@ def callLUISBot(input_data,ses):
     else:
         matchedIntents_Luis='None'
         score=0.1
-    while(len(MatchedIntents_Luis)):
-        MatchedIntents_Luis.pop()
+    MatchedIntents_Luis.clear()
     MatchedIntents_Luis.extend([matchedIntents_Luis,score])
 
 if __name__ == "__main__":

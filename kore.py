@@ -2,20 +2,6 @@ import requests, time, json
 from configBot import *
 headersKore = {"content-type": "application/json;charset=UTF-8"}
 
-def loginToKore(koreUserId,KorePassword,KorePlatform):
-        url = KorePlatform+"/api/1.1/oauth/token"#Calling the oauth Api for Kore
-        payload = "{\"client_id\":\"1\",\"client_secret\":\"1\",\"scope\":\"1\",\"grant_type\":\"password\",\"username\":\""+koreUserId+"\",\"password\":\""+KorePassword+"\"}"
-        headers = {'content-type': "application/json;charset=UTF-8"}
-        try:
-                response = requests.post(url, data=payload, headers=headers)
-        except:
-                print(response.text)
-
-        authTokenKore= "bearer "+response.json()['authorization']['accessToken']
-        userIdKore=response.json()['authorization']['resourceOwnerID']
-        loginResp=[authTokenKore, userIdKore]
-
-        return loginResp
 
 def builderStreams1(Input, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams"#Calling the builder Api for Kore

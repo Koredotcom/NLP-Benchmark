@@ -16,6 +16,11 @@ input2={}
 intentset=[]
 idKore=[]
 LuisIntentId=[]
+botName=""
+userIdKore=""
+authTokenKore=""
+botIdKore=""
+
 def main():
         fr=open(fileName,'r')
         reader=csv.reader(fr,delimiter=',')
@@ -34,22 +39,15 @@ def main():
         print(len(intentset), len(utterances),"distinct intents, distinct utterances")
         print("Finished reading training data.")
 
-        if ssoKore is False:
-                koreUserId=input('Enter kore Email Id: ')#login credentials for kore
-                KorePassword=getpass.getpass('Enter kore Password: ')
-                loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
-                userIdKore=loginCred[1]
-                authTokenKore=loginCred[0]
 
-        else:
-                userIdKore=input('Enter kore userid: ')
-                authTokenKore=input('Enter authorization token for kore: ')
         headersKore['authorization']=authTokenKore #passing the authorization token to the configBot.py file
         botName=input('Enter Bot Name: ')
 
-        botIdKore, dgValue = createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
-        print("New bot "+botName+" has been created in Kore with botid: "+ botIdKore)
-        prepKore(intentset,intents,utterances,botIdKore,userIdKore,authTokenKore, dgValue)
+        botIdKore, dgValue = ("","")
+        if USEKORE:
+            botIdKore, dgValue = createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
+            print("New bot "+botName+" has been created in Kore with botid: "+ botIdKore)
+            prepKore(intentset,intents,utterances,botIdKore,userIdKore,authTokenKore, dgValue)
 
         if USELUIS:
             botIdLuis=createLuisBot(botName)

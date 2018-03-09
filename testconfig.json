@@ -1,13 +1,15 @@
 {
   "FileName": "ML_TestData.csv",
-  "Token_DF": "16ff4a3ca5e140f6b37ffb70db9e9853",
+  "Token_DF": "ecf2caaa9841447ba330d73306f976d7",
   "USEGOOGLE": true,
   "USELUIS": false,
-  "botname_DF": "783b446f-cf25-4492-a2f2-70ef2fac4e05",
-  "botname_Kore": "volt",
-  "streamid_Kore": "st-3a4ea0dc-ed4c-57af-ae70-33f1dda52468",
-  "token_Kore": "bearer gcCkW3E9ujw_dYnG7Pv-OxYDKLDxWb2a_vyve-ND9enIwWo7iMtepnAqy-o22Ngm",
-  "uid_Kore": "u-1f6862e3-8292-5edc-89e7-cbb0d3a03cd3",
-  "urlKa": "https://bots.kore.ai/api/1.1/users/",
-  "urlL": ""
+  "USEKORE": false,
+  "botname_DF": "15d93a17-4cfa-489d-9058-2f720a88ac7a",
+  "botname_Kore": "nakdjnkas",
+  "streamid_Kore": "",
+  "token_Kore": "",
+  "uid_Kore": "",
+  "urlKa": "https://qa1-bots.kore.ai/api/1.1/users/",
+  "urlL": "",
+  "debug":true
 }
