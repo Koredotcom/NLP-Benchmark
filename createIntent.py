@@ -127,7 +127,7 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"USELUIS":USELUIS
 		}
 	f=open("testconfig.json","w")
-	json.dump(config,f)
+	json.dump(config,f, indent=2, ensure_ascii=False,sort_keys=True)
 	f.close()
 
 if __name__ == '__main__':
