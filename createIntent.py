@@ -16,10 +16,6 @@ input2={}
 intentset=[]
 idKore=[]
 LuisIntentId=[]
-botName=""
-userIdKore=""
-authTokenKore=""
-botIdKore=""
 
 def main():
         fr=open(fileName,'r')
