@@ -14,6 +14,7 @@ def main(ods):
         for sheet in sheets: del sheet
         rows=[r for r in ods.sheets[0].rows()][1:]
         for x in rows:
+                if not x[0]:continue
                 intent.append(x[0].value)
                 TyOfUtt.append(x[2].value)
                 matched[0].append(x[3].value)
@@ -166,7 +167,7 @@ def writeCSV(sheet,currentIntent=None):
                         if currentIntent:
                                 (prec,rec,acc,F) = formula(RowNum[0],colNum(len(arrayB[1])),lenintent,name)
                         else:
-                                (prec,rec,acc,F) = formula(RowNum[0],colNum(len(arrayB[1])-platforms),lenintent,name)
+                                (prec,rec,acc,F) = formula(RowNum[0],colNum(len(arrayB[1])),lenintent,name)
                         if currentIntent !="None":
                                 arrayB[1].append(truePositives)
                         if not currentIntent or currentIntent =="None":

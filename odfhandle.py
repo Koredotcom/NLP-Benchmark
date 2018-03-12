@@ -28,34 +28,20 @@ def next_set(i,col):
 	return (col+str(13*i+9),col+str(13*i+10),col+str(13*i+11),col+str(13*i+12))
 
 def formula(row,col,lenintent,name):
-	prec="=("
-	rec="=("
-	acc="=("
-	F="=("
-	if lenintent == 1:
-		prec="=IFERROR("
-		rec="=IFERROR("
-		acc="=IFERROR("
-		F="=IFERROR("
-		row=row+3
-		tp=col+str(row)
-		tn=col+str(row+1)
-		fn=col+str(row+2)
-		fp=col+str(row+3)
-		prec+= tp+" / ( "+tp+" + "+fp+" ) , 0 )"
-		rec+= tp+"/("+tp+"+"+fn+"), 0)"
-		acc+="("+tp+"+"+tn+")/("+tp+"+"+fn+"+"+tn+"+"+fp+"), 0)"
-		F+="("+"2*"+tp+")/(2*"+tp+"+"+fp+"+"+fn+"), 0)"
-	else:
-		for i in range(lenintent):
-			n=next_set(i,col)
-			prec+="'"+name+"'."+n[0]+"+"
-			rec+="'"+name+"'."+n[1]+"+"
-			F+="+'"+name+"'."+n[2]+"+"
-			acc+="'"+name+"'."+n[3]+"+"
-		prec+="0.0)/"+str(lenintent)
-		rec+="0.0)/"+str(lenintent)
-		F+="0.0)/"+str(lenintent)
-		acc+="0.0)/"+str(lenintent)
+	prec="=IFERROR("
+	rec="=IFERROR("
+	acc="=IFERROR("
+	F="=IFERROR("
+	row=row+3
+	if type(name)==type(""):name = "'"+name+"'."
+	else:name=""
+	tp=name+col+str(row)
+	tn=name+col+str(row+1)
+	fn=name+col+str(row+2)
+	fp=name+col+str(row+3)
+	prec+= tp+" / ( "+tp+" + "+fp+" ) , 0 )"
+	rec+= tp+"/("+tp+"+"+fn+"), 0)"
+	acc+="("+tp+"+"+tn+")/("+tp+"+"+fn+"+"+tn+"+"+fp+"), 0)"
+	F+="("+"2*"+tp+")/(2*"+tp+"+"+fp+"+"+fn+"), 0)"
 	return (prec,rec,acc,F)
 

@@ -2,19 +2,19 @@
 import os,sys,time,io,re,requests,json
 
 def loginToKore(koreUserId,KorePassword,KorePlatform):
-        url = KorePlatform+"/api/1.1/oauth/token"#Calling the oauth Api for Kore
-        payload = "{\"client_id\":\"1\",\"client_secret\":\"1\",\"scope\":\"1\",\"grant_type\":\"password\",\"username\":\""+koreUserId+"\",\"password\":\""+KorePassword+"\"}"
-        headers = {'content-type': "application/json;charset=UTF-8"}
-        try:
-                response = requests.post(url, data=payload, headers=headers)
-        except:
-                print(response.text)
+		url = KorePlatform+"/api/1.1/oauth/token"#Calling the oauth Api for Kore
+		payload = "{\"client_id\":\"1\",\"client_secret\":\"1\",\"scope\":\"1\",\"grant_type\":\"password\",\"username\":\""+koreUserId+"\",\"password\":\""+KorePassword+"\"}"
+		headers = {'content-type': "application/json;charset=UTF-8"}
+		try:
+				response = requests.post(url, data=payload, headers=headers)
+		except:
+				print(response.text)
 
-        authTokenKore= "bearer "+response.json()['authorization']['accessToken']
-        userIdKore=response.json()['authorization']['resourceOwnerID']
-        loginResp=[authTokenKore, userIdKore]
+		authTokenKore= "bearer "+response.json()['authorization']['accessToken']
+		userIdKore=response.json()['authorization']['resourceOwnerID']
+		loginResp=[authTokenKore, userIdKore]
 
-        return loginResp
+		return loginResp
 
 if sys.version[0]==2:
 	print("Use python3")
@@ -56,10 +56,10 @@ else:
 	ssoKore=False
 	koreUserId=input('Enter kore Email Id: ')#login credentials for kore
 	KorePassword=getpass.getpass('Enter kore Password: ')
-        if ssoKore is False:
-                loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
-                userIdKore=loginCred[1]
-                authTokenKore=loginCred[0]
+	if ssoKore is False:
+		loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
+		userIdKore=loginCred[1]
+		authTokenKore=loginCred[0]
 
 fileName="ML_Train.csv"
 TestFileName = "ML_TestData.csv"
