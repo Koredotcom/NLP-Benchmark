@@ -115,7 +115,7 @@ def callKoreBot(input_data,ses):
                 code = 1
                 while code == 401 or code == 1:
                   if code == 401:
-                    config["token_kore"] = str(input(json.dumps(respjson)+"\nplease enter new kore token:"))
+                    config["token_Kore"] = str(input(json.dumps(respjson)+"\nplease enter new kore token:"))
                     code=1
                   resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
                       headers={'authorization':config["token_Kore"]},

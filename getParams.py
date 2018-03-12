@@ -31,7 +31,7 @@ if USELUIS == "y":
 	subscriptionToken=input("Please give your luis.ai subscription token:").strip()
 else: USELUIS=False
 
-USEDF=input("Use Dialog Flow?").lower().strip()
+USEDF=input("Use Dialog Flow?(y/n)").lower().strip()
 while USEDF not in ["y","n"]: USEDF=input("please enter y/n only:").lower().strip()
 
 if USEDF in ["Y","y"]:
@@ -41,25 +41,29 @@ if USEDF in ["Y","y"]:
 else: USEDF=False
 
 
-KorePlatform=input("Please give the kore.ai environment you want to use(default:https://bots.kore.ai):").lower().strip()
-if not KorePlatform:KorePlatform="https://bots.kore.ai"
+USEKORE=input("Use Kore?(y/n)").lower().strip()
+while USEKORE not in ["y","n"]: USEKORE=input("please enter y/n only:").lower().strip()
 
-#If running with company account id, please mark ssoKore as 'True' and enter the user-Id along with Authorization bearer in the command prompt. Else, enter you login credentials in the terminal.
+if USEKORE:
+	KorePlatform=input("Please give the kore.ai environment you want to use(default:https://bots.kore.ai):").lower().strip()
+	if not KorePlatform:KorePlatform="https://bots.kore.ai"
 
-ssoKore=input("How do you want to login to kore.ai?(bearer/password):").lower().strip()
-while ssoKore not in ["bearer","password"]: ssoKore=input("please enter bearer/password only:").lower().strip()
-if ssoKore == "bearer":
-	ssoKore=True
-	userIdKore=input('Enter userId for kore: ')
-	authTokenKore=input('Enter authorization token for kore: ')
-else:
-	ssoKore=False
-	koreUserId=input('Enter kore Email Id: ')#login credentials for kore
-	KorePassword=getpass.getpass('Enter kore Password: ')
-	if ssoKore is False:
-		loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
-		userIdKore=loginCred[1]
-		authTokenKore=loginCred[0]
+	#If running with company account id, please mark ssoKore as 'True' and enter the user-Id along with Authorization bearer in the command prompt. Else, enter you login credentials in the terminal.
+
+	ssoKore=input("How do you want to login to kore.ai?(bearer/password):").lower().strip()
+	while ssoKore not in ["bearer","password"]: ssoKore=input("please enter bearer/password only:").lower().strip()
+	if ssoKore == "bearer":
+		ssoKore=True
+		userIdKore=input('Enter userId for kore: ')
+		authTokenKore=input('Enter authorization token for kore: ')
+	else:
+		ssoKore=False
+		koreUserId=input('Enter kore Email Id: ')#login credentials for kore
+		KorePassword=getpass.getpass('Enter kore Password: ')
+		if ssoKore is False:
+			loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
+			userIdKore=loginCred[1]
+			authTokenKore=loginCred[0]
 
 fileName="ML_Train.csv"
 TestFileName = "ML_TestData.csv"
@@ -68,9 +72,10 @@ fr=open('configBot.py','w')
 fr.write("fileName=	\""+fileName+"\"\n")
 fr.write("TestFileName=	\""+TestFileName+"\"\n")
 fr.write("ssoKore=		"+str(ssoKore)+"\n")
-fr.write("KorePlatform=\""+str(KorePlatform)+"\"\n")	
-fr.write("USEGOOGLE="+str(USEDF)+"\n")	
-fr.write("USELUIS="+str(USELUIS)+"\n")	
+fr.write("KorePlatform=\""+str(KorePlatform)+"\"\n")
+fr.write("USEKORE="+str(USEKORE)+"\n")
+fr.write("USEGOOGLE="+str(USEDF)+"\n")
+fr.write("USELUIS="+str(USELUIS)+"\n")
 fr.write("subscriptionToken=	\""+subscriptionToken+"\"\n")
 fr.write("Token_DF=		\""+Token_DF+"\"\n")
 fr.write("botIdDF=		\""+botIdDF+"\"\n")
