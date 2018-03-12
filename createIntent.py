@@ -117,6 +117,7 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"Token_DF":Token_DF,
 		"botname_DF":	botIdDF,
 		"urlL":	urlL,
+		"USEKORE":USEKORE,
 		"USEGOOGLE":USEGOOGLE,
 		"USELUIS":USELUIS
 		}
