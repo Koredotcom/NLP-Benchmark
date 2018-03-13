@@ -141,7 +141,7 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
                 raise Exception("Error while Adding intent to kore 4")
 
         url4 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs/"+dialogId
-        payload ={"streamId":streamid,"name":name,"nodes":[{"nodeId":"intent0","type":"intent","componentId":component,"transitions":[{"default":"message1","metadata":{"color":"#299d8e","connId":"dummy0"}}],"metadata":{"left":21,"top":20},"nodeOptions":{"transitionType":"auto"}},{"nodeId":"message1","type":"message","componentId":msgId,"transitions":[{"default":"message1","metadata":{"color":"#299d8e","connId":"dummy1"}}],"nodeOptions":{"transitionType":"auto"}}],"visibility":{"namespaceIds":[userIdKore],"namespace":"private"}}
+        payload ={"streamId":streamid,"name":name,"nodes":[{"nodeId":"intent0","type":"intent","componentId":component,"transitions":[{"default":"message1","metadata":{"color":"#299d8e","connId":"dummy0"}}],"metadata":{"left":21,"top":20},"nodeOptions":{"transitionType":"auto"}},{"nodeId":"message1","type":"message","componentId":msgId,"transitions":[{"default":"end","metadata":{"color":"#299d8e","connId":"dummy1"}}],"nodeOptions":{"transitionType":"auto"}}],"visibility":{"namespaceIds":[userIdKore],"namespace":"private"}}
         response = requests.put(url4, data=json.dumps(payload), headers=headersKore)
         return idKores
 
