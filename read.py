@@ -8,12 +8,9 @@ Utterances=[]
 TaskNames=[]
 Types=[]
 outputs=[]
-MatchedIntents_Kore=['','']
-MatchedIntents_DF=['','']
-MatchedIntents_Luis=['','']
 urlDF="https://console.dialogflow.com/v1/query"
 
-NUM_THREADS=1
+NUM_THREADS=10
 config={}
 
 def printif(*args):
@@ -24,15 +21,18 @@ def printif(*args):
 #tqdm = lambda x:x
 
 def find_intent3(i,ses):
+        MatchedIntents_Kore=['None','Null','Null','Null']
+        MatchedIntents_DF=['None','Null']
+        MatchedIntents_Luis=['None','Null']
         output=[]
         #In the output, appending the inputs and matched intents to compare with the expected task name
         TaskNames[i] = TaskNames[i].replace("\xa0"," ")
         output.append(TaskNames[i])
         output.append(Utterances[i])
         output.append(Types[i])
-        thKORE=Thread(target=callKoreBot,args=([Utterances[i], ses[0]]));thKORE.start()
-        thDF=Thread(target=callDFBot,args=(Utterances[i],ses[1]));thDF.start()
-        thLUIS=Thread(target=callLUISBot,args=(Utterances[i],ses[2]));thLUIS.start()
+        thKORE=Thread(target=callKoreBot,args=(MatchedIntents_Kore,Utterances[i], ses[0]));thKORE.start()
+        thDF=Thread(target=callDFBot,args=(MatchedIntents_DF,Utterances[i],ses[1]));thDF.start()
+        thLUIS=Thread(target=callLUISBot,args=(MatchedIntents_Luis,Utterances[i],ses[2]));thLUIS.start()
         thKORE.join();thDF.join();thLUIS.join()
         output.append(MatchedIntents_Kore[0])
         if(MatchedIntents_Kore[0]==TaskNames[i]):
@@ -62,11 +62,10 @@ def main():
     global outputs, config
     MAP=lambda x,y:list(map(x,y))
     ses=MAP(lambda x:MAP(lambda y:y(),x),[[requests.session]*3]*NUM_THREADS)
-    config=json.load(open("testconfig.json","r"))
+    config=json.load(open(sys.argv[1],"r"))
     fr=open(config["FileName"],'r')
     reader=csv.reader(fr,delimiter=',')
     lines=[line for line in reader][1:]
-    #reader.next()
     for row in lines:
         if len(row) <=0:
             continue
@@ -81,7 +80,8 @@ def main():
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
     resultsFileName='ML_Results-'+timestr+'.ods'
-    print(resultsFileName)
+    resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
+    if not resultsFileName:resultsFileName='ML_Results-'+timestr+'.ods'
     fp=open(resultsFileName,'w')
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,14))
@@ -107,7 +107,7 @@ def main():
     return resultsFileName
 
 
-def callKoreBot(input_data,ses):
+def callKoreBot(MatchedIntents_Kore, input_data,ses):
         if not config["USEKORE"]:
             respjson={}
         while(config["USEKORE"]):
@@ -188,7 +188,7 @@ def callKoreBot(input_data,ses):
         MatchedIntents_Kore.clear()
         MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore, koreFAQScore])
 
-def callDFBot(input_data,ses):
+def callDFBot(MatchedIntents_DF, input_data,ses):
     if config["USEGOOGLE"]:
         query=urllib.parse.quote(input_data.replace("!",""))
         params = {
@@ -216,6 +216,7 @@ def callDFBot(input_data,ses):
         else:
             matchedIntents_DF='None'
             score='null'
+            print("null score google")
             print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
     else:
         matchedIntents_DF='None'
@@ -223,7 +224,7 @@ def callDFBot(input_data,ses):
     MatchedIntents_DF.clear()
     MatchedIntents_DF.extend([matchedIntents_DF,score])
             
-def callLUISBot(input_data,ses):
+def callLUISBot(MatchedIntents_Luis,input_data,ses):
     if config["USELUIS"]:
         while(1):
             try:
@@ -251,11 +252,10 @@ def callLUISBot(input_data,ses):
     MatchedIntents_Luis.extend([matchedIntents_Luis,score])
 
 if __name__ == "__main__":
-    if len(sys.argv) ==1:
-        start_time=time.time()
-        resultsFileName=main()
-        print(time.time()-start_time)
-        print(resultsFileName)
+    start_time=time.time()
+    resultsFileName=main()
+    print(time.time()-start_time)
+    print(resultsFileName)
     ods = opendoc(filename=resultsFileName)
     tabulate.main(ods)
 
