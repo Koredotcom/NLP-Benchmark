@@ -35,10 +35,10 @@ More customisable use:
      $ python read.py
      $ python tabulate.py
 
-Do not give spaces in bot name. It is not tested with spaces.
-Note that kore platform access token expires in finite time. so if you plan to run the testing at a later time, please update the token in config.py (not configBot.py)
+Do not give spaces in bot name. It is not tested with spaces, in all platforms.
+Note that kore platform access token expires in finite time. so if you plan to run the testing at a later time, please update the token in testconfig.json (not configBot.py). The testing script (read.py) will prompt if kore token expires.
 
-Currently it is possible to configure the tool to enable or disable running against Luis and DialogFlow, via configBot.py
+Currently it is possible to configure the tool to enable or disable running against Kore, Luis and DialogFlow, via configBot.py
 
 HOW TO EVALUATE THE RESULTS-
 
