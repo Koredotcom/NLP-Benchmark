@@ -44,7 +44,7 @@ def formula(row,col,lenintent,name):
 	fp=name+col+str(row+3)
 	prec+= tp+" / ( "+tp+" + "+fp+" ) , 0 )"
 	rec+= tp+"/("+tp+"+"+fn+"), 0)"
-	acc+="("+tp+"+"+tn+")/("+tp+"+"+fn+"+"+tn+"+"+fp+"), 0)"
+	acc+="("+tp+")/("+tp+"+"+fn+"+"+fp+"), 0)"
 	F+="("+"2*"+tp+")/(2*"+tp+"+"+fp+"+"+fn+"), 0)"
 	return (prec,rec,acc,F)
 
