@@ -16,3 +16,15 @@ def addIntentAndUtteranceDF(DFIntent,DFUtterances):
                 response = requests.request("POST", url, data=payload, headers=headers)
         except:
                 raise Exception("Error while adding intent and utterances for google")
+
+
+def getIntentsInBot():
+	url = "https://console.dialogflow.com/api/intents"
+
+	headers = {
+    'authorization': "Bearer "+botIdDF,
+    'cookie': "zUserAccessToken=55222461-14c3-4d71-ad86-39df2d2b6a81"
+    }
+
+	response = requests.get( url, headers=headers)
+	print(response.text)
