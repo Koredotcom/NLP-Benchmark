@@ -20,7 +20,7 @@ def printif(*args):
 
 #tqdm = lambda x:x
 
-def find_intent3(i,ses):
+def find_intent3(sheet,i,ses):
         MatchedIntents_Kore=['None','Null','Null','Null']
         MatchedIntents_DF=['None','Null']
         MatchedIntents_Luis=['None','Null']
@@ -54,14 +54,15 @@ def find_intent3(i,ses):
         else:
                 output.append('fail')
         output.append(str(MatchedIntents_Luis[1]))
-        outputs[i]=output
-
+        # save the contemporary results for safety
+        replaceRow(sheet,output,i+1)
 
 
 def main():
     global outputs, config
     MAP=lambda x,y:list(map(x,y))
     ses=MAP(lambda x:MAP(lambda y:y(),x),[[requests.session]*3]*NUM_THREADS)
+    th=[None]*NUM_THREADS
     config=json.load(open(sys.argv[1],"r"))
     fr=open(config["FileName"],'r')
     reader=csv.reader(fr,delimiter=',')
@@ -89,20 +90,23 @@ def main():
     insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis'])
     ods.save()
     outputs = [None]*len(Utterances)
-    th=[]
     prev=0
     for i in tqdm(range(len(Utterances))):
-        th.append(Thread(target=find_intent3,args=([i,ses[i%NUM_THREADS]])))
-        th[-1].start()
-        if i+1==len(Utterances) or (i+1)%NUM_THREADS ==0:
-            time.sleep(1)
-            MAP(lambda x:x.join(),th)
-            # save the contemporary results for safety
-            for output in outputs[prev:prev+len(th)]:
-                insertRow(sheet,output)
-            ods.save()
-            prev = prev+len(th)
-            th=[]
+        while len([x for x in th if x]) == NUM_THREADS:
+            for x in th:
+                if x and not x.isAlive():
+                  x.join()
+                  th[th.index(x)]=None
+            time.sleep(0.1)
+        for j in range(len(th)):
+          if th[j] == None:
+            break
+        ods.save()
+        if j == len(th):input("j==len th!!! How can this be?!")
+        th[j] = Thread(target=find_intent3,args=([sheet,i,ses[j]]))
+        th[j].start()
+        if i+1==len(Utterances):
+            for x in th:x.join()
     ods.save()
     return resultsFileName
 

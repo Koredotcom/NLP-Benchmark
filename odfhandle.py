@@ -4,10 +4,10 @@ RowNum = [0] #row number to replace row
 def colNum(colNo):
 	return chr(colNo+65)
 
-def insertRow(sheet,row,visibility=None):
+def replaceRow(sheet, row, index, visibility=None):
 	if visibility:
-		sheet.row_info(RowNum[0]).visibility=u"collapse"
-	cells=sheet.row(RowNum[0])
+		sheet.row_info(index).visibility=u"collapse"
+	cells=sheet.row(index)
 	if not row:
 		row=[]
 	for cell,val in zip(cells,row):
@@ -15,6 +15,9 @@ def insertRow(sheet,row,visibility=None):
 			cell.formula=val
 		else:
 			cell.set_value(val)
+
+def insertRow(sheet,row,visibility=None):
+	replaceRow(sheet, row, RowNum[0], visibility)
 	RowNum[0] =RowNum[0]+ 1
 
 def insertFormula(lenintents):
