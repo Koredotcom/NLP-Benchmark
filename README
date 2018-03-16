@@ -32,7 +32,7 @@ More customisable use:
      $ "python pipeline.py"
 4. To do these steps separately,
      $ python createIntent.py
-     $ python read.py
+     $ python read.py testconfig.json
      $ python tabulate.py
 
 Do not give spaces in bot name. It is not tested with spaces, in all platforms.

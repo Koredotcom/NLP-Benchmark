@@ -13,5 +13,5 @@ python createIntent.py
 fi
 if [ $? -eq 0 ]
 then
-python read.py
+python read.py testconfig.json
 fi

@@ -256,6 +256,9 @@ def callLUISBot(MatchedIntents_Luis,input_data,ses):
     MatchedIntents_Luis.extend([matchedIntents_Luis,score])
 
 if __name__ == "__main__":
+    if len(sys.argv) !=2:
+        print("Usage: python read.py <testconfig file>")
+        exit()
     start_time=time.time()
     resultsFileName=main()
     print(time.time()-start_time)
