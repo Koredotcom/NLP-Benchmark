@@ -144,14 +144,11 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
 
         if respjson and ('response' in respjson) and respjson['response']:
             if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
-                rankingMaxScore = 0.0
-                rankingMaxObj = respjson["response"]["finalResolver"]["ranking"][0]
+              if len(respjson['response']["finalResolver"].get("winningIntent",[]))==1:
+                matchedIntents_Kore = respjson['response']["finalResolver"]["winningIntent"][0]["intent"].replace("_"," ").lower()
                 for rankingObj in respjson["response"]["finalResolver"]["ranking"]:
-                    rankingScore = rankingObj["totalScore"]
-                    if rankingScore > rankingMaxScore:
-                       rankingMaxScore = rankingScore
+                    if matchedIntents_Kore == rankingObj["intent"].replace("_"," ").lower():
                        rankingMaxObj = rankingObj
-                matchedIntents_Kore = rankingMaxObj["intent"].replace("_"," ").lower()
                 if "scoring" in rankingMaxObj:
                     koreMLScore = rankingMaxObj["scoring"].get("mlScore",0.0)
                     koreCSScore = rankingMaxObj["scoring"].get("score",0.0)
@@ -160,27 +157,19 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                     koreMLScore = rankingMaxObj("mlScore", 0.0)
                     koreCSScore = rankingMaxObj(score, 0.0)
                     koreFAQScore = rankingMaxObj.get("faqScore", 0.0)
-            elif ('fm' in respjson['response'].keys()) and respjson['response']["fm"].get("possible",[]):
-                matchedIntents_Kore = respjson["response"]["fm"]["possible"][0]["task"].replace("_"," ").lower()
-                koreMLScore = respjson["response"]["fm"]["possible"][0]["mlScore"]
-                koreCSScore = respjson["response"]["fm"]["possible"][0]["score"]
-                koreFAQScore = respjson["response"]["fm"]["possible"][0].get("faqScore",0.0)
-            elif ('ml' in respjson['response'].keys()) and respjson['response']["ml"].get("possible",[]):
-                matchedIntents_Kore = respjson["response"]["ml"]["possible"][0]["task"].replace("_"," ").lower()
-                koreMLScore = respjson["response"]["ml"]["possible"][0]["score"]
-                koreCSScore = 0.0
+              else:
+                matchedIntents_Kore="Ambiguity:"
+                koreCSScore  = 0.0
+                koreMLScore  = 0.0
                 koreFAQScore = 0.0
-            elif ('faq' in respjson['response'].keys()) and respjson['response']["faq"].get("possible",[]):
-                matchedIntents_Kore = respjson["response"]["faq"]["definitive"]["task"].replace("_"," ").lower()
-                koreMLScore = 0.0
-                koreCSScore = 0.0
-                koreFAQScore = respjson["response"]["faq"]["definitive"]["faqScore"]
+                for winningObj in respjson['response']["finalResolver"]["winningIntent"]:
+                    matchedIntents_Kore+=winningObj.get("intent","").replace("_"," ").lower()+"|"
+                matchedIntents_Kore=matchedIntents_Kore[:-1]
             else:
-                matchedIntents_Kore='None'
-                koreCSScore='Null'
-                koreMLScore='Null'
-                koreFAQScore = 'Null'
-                printif("NULL2",input_data)
+                matchedIntents_Kore = "None"
+                koreCSScore  = 0.0
+                koreMLScore  = 0.0
+                koreFAQScore = 0.0
         else:
             printif("NULL3",input_data)
             matchedIntents_Kore='None'
