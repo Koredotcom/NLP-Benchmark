@@ -144,7 +144,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
 
         if respjson and ('response' in respjson) and respjson['response']:
             if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
-              if len(respjson['response']["finalResolver"].get("winningIntent",[]))==1:
+              if len(respjson['response']["finalResolver"].get("winningIntent",[]))==1 and respjson["response"]["result"]=="successintent":
                 matchedIntents_Kore = respjson['response']["finalResolver"]["winningIntent"][0]["intent"].replace("_"," ").lower()
                 for rankingObj in respjson["response"]["finalResolver"]["ranking"]:
                     if matchedIntents_Kore == rankingObj["intent"].replace("_"," ").lower():
