@@ -107,7 +107,7 @@ def main():
         th[j].start()
         if i+1==len(Utterances):
             for x in th:
-              if x:x.join()
+                if x:x.join()
     ods.save()
     return resultsFileName
 
@@ -124,6 +124,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                     code=1
                   resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
                       headers={'authorization':config["token_Kore"]},
+                      params={"noNLAnalysis":"true"},
                       json={ "input":input_data,"streamName":config["botname_Kore"]})
                   respjson=resp.json()
                   if resp.status_code == 400:
@@ -144,28 +145,11 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                 time.sleep(1)
 
         if respjson and ('response' in respjson) and respjson['response']:
-            if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
-              if len(respjson['response']["finalResolver"].get("winningIntent",[]))==1 and respjson["response"]["result"]=="successintent":
-                matchedIntents_Kore = respjson['response']["finalResolver"]["winningIntent"][0]["intent"].replace("_"," ").lower()
-                for rankingObj in respjson["response"]["finalResolver"]["ranking"]:
-                    if matchedIntents_Kore == rankingObj["intent"].replace("_"," ").lower():
-                       rankingMaxObj = rankingObj
-                if "scoring" in rankingMaxObj:
-                    koreMLScore = rankingMaxObj["scoring"].get("mlScore",0.0)
-                    koreCSScore = rankingMaxObj["scoring"].get("score",0.0)
-                    koreFAQScore = rankingMaxObj["scoring"].get("faqScore",0.0)
-                else:
-                    koreMLScore = rankingMaxObj("mlScore", 0.0)
-                    koreCSScore = rankingMaxObj(score, 0.0)
-                    koreFAQScore = rankingMaxObj.get("faqScore", 0.0)
-              else:
-                matchedIntents_Kore="Ambiguity:"
-                koreCSScore  = 0.0
-                koreMLScore  = 0.0
+            if respjson["response"]["result"]=="successintent":
+                matchedIntents_Kore = respjson["response"]["task"]
+                koreCSScore = 0.0
+                koreMLScore = 0.0
                 koreFAQScore = 0.0
-                for winningObj in respjson['response']["finalResolver"]["winningIntent"]:
-                    matchedIntents_Kore+=winningObj.get("intent","").replace("_"," ").lower()+"|"
-                matchedIntents_Kore=matchedIntents_Kore[:-1]
             else:
                 matchedIntents_Kore = "None"
                 koreCSScore  = 0.0
