@@ -106,7 +106,8 @@ def main():
         th[j] = Thread(target=find_intent3,args=([sheet,i,ses[j]]))
         th[j].start()
         if i+1==len(Utterances):
-            for x in th:x.join()
+            for x in th:
+              if x:x.join()
     ods.save()
     return resultsFileName
 
