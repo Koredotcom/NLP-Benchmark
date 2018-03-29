@@ -30,7 +30,8 @@ def find_intent3(sheet,i,ses):
         output.append(TaskNames[i])
         output.append(Utterances[i])
         output.append(Types[i])
-        thKORE=Thread(target=callKoreBot,args=(MatchedIntents_Kore,Utterances[i], ses[0]));thKORE.start()
+        if config.get("NONLanalysis",False)==True:thKORE=Thread(target=callKoreBotNoNL,args=(MatchedIntents_Kore,Utterances[i], ses[0]));thKORE.start()
+        else:thKORE=Thread(target=callKoreBot,args=(MatchedIntents_Kore,Utterances[i], ses[0]));thKORE.start()
         thDF=Thread(target=callDFBot,args=(MatchedIntents_DF,Utterances[i],ses[1]));thDF.start()
         thLUIS=Thread(target=callLUISBot,args=(MatchedIntents_Luis,Utterances[i],ses[2]));thLUIS.start()
         thKORE.join();thDF.join();thLUIS.join()
@@ -111,6 +112,59 @@ def main():
     ods.save()
     return resultsFileName
 
+def callKoreBotNoNL(MatchedIntents_Kore, input_data,ses):
+        if not config["USEKORE"]:
+            respjson={}
+        while(config["USEKORE"]):
+            try:
+                code = 1
+                while code == 401 or code == 1:
+                  if code == 401:
+                    config["token_Kore"] = str(input(json.dumps(respjson)+"\nplease enter new kore token:"))
+                    code=1
+                  resp=ses.post(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
+                      headers={'authorization':config["token_Kore"]},
+                      params={"noNLAnalysis":"true"},
+                      json={ "input":input_data,"streamName":config["botname_Kore"]})
+                  respjson=resp.json()
+                  if resp.status_code == 400:
+                    matchedIntents_Kore = "None"
+                    koreMLScore = "Null"
+                    koreCSScore = "Null"
+                    printif("Null", input_data)
+                    break
+                  code = resp.status_code
+                if resp.status_code==400:break
+                resp.raise_for_status()
+                break
+            except Exception as e:
+                print(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
+                    {'authorization':config["token_Kore"]},
+                    { "input":input_data,"streamName":config["botname_Kore"]})
+                print("Error while finding intent kore", e)
+                time.sleep(1)
+
+        if respjson and ('response' in respjson) and respjson['response']:
+            if respjson["response"]["result"]=="successintent":
+                matchedIntents_Kore = respjson["response"]["task"].replace("_"," ").lower()
+                koreCSScore = 0.0
+                koreMLScore = 0.0
+                koreFAQScore = 0.0
+            else:
+                matchedIntents_Kore = "None"
+                koreCSScore  = 0.0
+                koreMLScore  = 0.0
+                koreFAQScore = 0.0
+        else:
+            printif("NULL3",input_data)
+            matchedIntents_Kore='None'
+            koreCSScore='Null'
+            koreMLScore='Null'
+            koreFAQScore = 'Null'
+        if(matchedIntents_Kore=='Default Fallback Intent'.lower()):
+                matchedIntents_Kore='None'
+        MatchedIntents_Kore.clear()
+        MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore, koreFAQScore])
 
 def callKoreBot(MatchedIntents_Kore, input_data,ses):
         if not config["USEKORE"]:
