@@ -159,9 +159,10 @@ def addKoreUtterances(Input, idKore, streamid, intentid, userIdKore, authTokenKo
                 if not 'response' in locals(): response={}
                 else: print("addKoreUtterances", Input, idKore, streamid, intentid, userIdKore, authTokenKore, KorePlatform, response.status_code, response.text)
 
-def trainKore(streamid,userIdKore,authTokenKore,KorePlatform):
+
+def initiateTrainingKore(streamId,userIdKore,authTokenKore,KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/ml/train"
-        querystring = {"streamId":streamid,"rnd":"8ff5ai"}
+        querystring = {"streamId":streamId,"rnd":"8ff5ai"}
         payload = "{}"
         headers = {'authorization': authTokenKore}
         try:
@@ -171,3 +172,20 @@ def trainKore(streamid,userIdKore,authTokenKore,KorePlatform):
 
         return response
 
+def pollTrainingStatusKore(streamId,userIdKore,authTokenKore,KorePlatform):
+        url = KorePlatform+"/api/1.1/users/"+userIdKore+"/bt/streams/"+streamId+"/autoTrainStatus"
+        querystring = {"sentences":"true","speech":"false","rnd":"ilzym"}
+        headers = {'authorization': authTokenKore}
+        response = requests.get( url, headers=headers, params=querystring).json()
+        status = response.get("trainingStatus",None)
+        if not status: raise Exception("poll status kore gave empty status")
+        return status
+
+def trainKore(streamId,userIdKore,authTokenKore,KorePlatform):
+        initiateresp = initiateTrainingKore(streamId,userIdKore,authTokenKore,KorePlatform)
+        poll = "Waiting"
+        while poll == "Waiting": poll = pollTrainingStatusKore(streamId,userIdKore,authTokenKore,KorePlatform)
+        if poll == "Finished":
+                return
+        else:
+                raise Exception("kore training Failed")

@@ -103,8 +103,10 @@ def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, 
                 [thread.join() for thread in th]
                 th.clear()
         print("training the Kore bot")
-        trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
-
+        try:
+            trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
+        except Exception as e:
+            print(e)
 
 def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF):
 	config= {
