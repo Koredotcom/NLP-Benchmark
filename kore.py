@@ -70,8 +70,11 @@ def getAccountId(userIdKore, authTokenKore, KorePlatform):
     'content-type': "application/json",
     }
     response = requests.get( url, headers=headers)
-    response = json.loads(response.text)
+    if response.status_code == 401:
+        print("token is invalid:"+response.text)
+        exit()
     #print(response.text)
+    response = response.json()
     ret =  response["associatedAccounts"][0]["accountId"]
     return ret
 
