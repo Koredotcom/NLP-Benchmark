@@ -64,6 +64,9 @@ if USEKORE:
 			loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
 			userIdKore=loginCred[1]
 			authTokenKore=loginCred[0]
+koreClientId=input("koreClientId:")
+koreClientName=input("koreClientName:")
+koreClientSecret=input("koreClientSecret:")
 
 fileName="ML_Train.csv"
 TestFileName = "ML_TestData.csv"
