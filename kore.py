@@ -141,6 +141,16 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
         response = requests.put(url4, data=json.dumps(payload), headers=headersKore)
         return idKores
 
+def addKoreUtterancesBulk(utterances, streamid, intents, userIdKore, authTokenKore, KorePlatform):
+        url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/stream/"+streamid+"/bulk/import"
+        querystring = {"rnd":"547gde"}
+        payload = [ {"sentence":utterance,"taskName":intent, "type":"DialogIntent"} for utterance,intent in zip(utterances,intents) ]
+        #print(json.dumps(payload,indent=2))
+        response = requests.post(url, json=payload, headers=headersKore, params=querystring)
+        if not response.status_code == 200:
+            raise Exception("bulk add utterances to kore failed:"+str(response.status_code)+json.dumps(response.text,indent=2))
+
+
 def addKoreUtterances(Input, idKore, streamid, intentid, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences"
         #payload = "{\"taskId\":\""+idKore+"\",\"sentence\":\""+Input+"\",\"streamId\":\""+streamid+"\",\"taskName\":\""+intentid+"\",\"type\":\"DialogIntent\"}"
