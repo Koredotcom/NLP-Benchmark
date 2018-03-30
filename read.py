@@ -113,6 +113,7 @@ def main():
 
 
 def callKoreBot(MatchedIntents_Kore, input_data,ses):
+        koreUrl=config["urlKa"]+"v1.1/rest/streams/"+config["streamid_Kore"]+"/findIntent"
         if not config["USEKORE"]:
             respjson={}
         while(config["USEKORE"]):
@@ -122,7 +123,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                   if code == 401:
                     config["token_Kore"] = str(input(json.dumps(respjson)+"\nplease enter new kore token:"))
                     code=1
-                  resp=ses.post("https://bots.kore.ai/api/v1.1/rest/streams/"+config["streamid_Kore"]+"/findIntent",
+                  resp=ses.post(koreUrl,
                       headers={'auth':config["token_Kore"]},
                       json={ "input":input_data,"streamName":config["botname_Kore"]})
                   respjson=resp.json()
@@ -137,7 +138,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                 resp.raise_for_status()
                 break
             except Exception as e:
-                print(config["urlKa"]+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent",
+                print(koreUrl,
                     {'authorization':config["token_Kore"]},
                     { "input":input_data,"streamName":config["botname_Kore"]})
                 print("Error while finding intent kore", e)

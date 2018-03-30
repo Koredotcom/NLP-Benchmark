@@ -106,7 +106,7 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"uid_Kore":userIdKore,
 		"token_Kore":koreClientSecret,
 		"streamid_Kore":botIdKore,
-		"urlKa":KorePlatform+"/api/1.1/users/",
+		"urlKa":KorePlatform+"/api/",
 		"FileName": TestFileName,
 		"Token_DF":Token_DF,
 		"botname_DF":	botIdDF,
