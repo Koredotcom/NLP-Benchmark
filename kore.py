@@ -195,4 +195,4 @@ def trainKore(streamId,userIdKore,authTokenKore,KorePlatform):
         if poll == "Finished":
                 print("kore training finished")
         else:
-                raise Exception("kore training Failed:"+poll)
+                print("kore training Failed:"+poll)

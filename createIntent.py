@@ -98,10 +98,7 @@ def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, 
         print("Adding train utterances in Kore")
         addKoreUtterancesBulk(utterances,botIdKore,intents,userIdKore,authTokenKore,KorePlatform)
         print("training the Kore bot")
-        try:
-            trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
-        except Exception as e:
-            print(e)
+        trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
 
 def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF):
 	config= {
