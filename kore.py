@@ -78,6 +78,56 @@ def getAccountId(userIdKore, authTokenKore, KorePlatform):
     ret =  response["associatedAccounts"][0]["accountId"]
     return ret
 
+def createKoreSDKBot(Input, userIdKore, authTokenKore, KorePlatform): # should not be called. reuse existing.
+	url = "https://bots.kore.ai/api/1.1/users/"+userIdKore+"/sdk/apps"
+	querystring = {"rnd":"urtxr3"}
+	payload = {
+		"appName": "benchmark",
+		"algorithm": "HS256",
+		"scope": [],
+		"pushNotifications": {
+			"enable": False,
+			"webhookUrl": ""
+		},
+		"bots": ["st-1b50d8bc-5c5b-5ea0-bfba-a84ff5def717"]
+	}
+
+	response = requests.post( url, data=payload, headers=headersKore, params=querystring)
+	status = response.status_code
+	response = response.json()
+	clientId = response["clientId"]
+	clientSecret = response["clientSecret"]
+	return status, clientId, clientSecret
+
+def decodeJWT(clientSecret): # should be modified, need not be used
+	from jose import jwt
+	idtoken = "<id token passed to server from firebase auth>"
+	target_audience = "<firebase app id>"
+	certificate_url = 'https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com'
+	#will throw error if not valid
+	user = jwt.decode(idtoken, certs, algorithms='RS256', audience=target_audience)
+	print(user)
+
+def addKoreSDKBotCallback(Input, KorePlatform, streamId, clientId):
+	url = "https://bots.kore.ai/api/1.1/builder/streams/"+streamId+"/sdkSubscription"
+	querystring = {"rnd":"addde"}
+	payload = {
+		"subscribedFor": [
+			"onMessage"
+		],
+		"sdkClientId": clientId,
+		"sdkHostUri": "https://snjf.com",
+		"connectorEnabled": False
+	}
+	response = requests.put( url, data=payload, headers=headersKore, params=querystring)
+
+def publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform, clientId, clientName):
+	url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams/"+streamid+"/channels/rtm"
+	querystring = {"rnd":"1o81jh"}
+	payload = {"type":"rtm","name":"Web / Mobile Client","app":{"clientId":clientId,"appName":clientName},"isAlertsEnabled":False,"enable":True,"sttEnabled":False,"sttEngine":"kore"}
+	response = requests.post( url, json=payload, headers=headersKore, params=querystring)
+	#print(response.text)
+
 def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
         headersKore['host']= "localhost"
         headersKore['user-agent']= "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0"
@@ -94,6 +144,8 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
 
         builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
         builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue)
+        addKoreSDKBotCallback(Input, KorePlatform, streamid, koreClientId)
+        publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform, koreClientId, koreClientName)
 
 
         return streamid, dgValue
