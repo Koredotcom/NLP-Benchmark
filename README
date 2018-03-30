@@ -1,5 +1,5 @@
 DEPENDENCIES-
-
+python3, pip modules specified in requirements.txt
 
 INTRODUCTION-
 
@@ -7,7 +7,7 @@ This tool helps for comparing the ML Capability in intent recognition for the pl
 
 PREPARATION OF DATA-
 1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
-2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization. 
+2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
 
 HOW TO CONFIGURE-
 
@@ -42,7 +42,7 @@ Currently it is possible to configure the tool to enable or disable running agai
 
 HOW TO EVALUATE THE RESULTS-
 
-1. The Results sheet has the status pass or fail depending on the intent identified matched with expected intent. 
+1. The Results sheet has the status pass or fail depending on the intent identified matched with expected intent.
 2. The Summary sheet shows Precision, Recall, F Measure and Accuracy Values for all the three platforms.
 3. The IndividualIntents sheet shows the True Positives, True Negatives, False Positives and False Negatives for all the three platforms for individual tasks.
 
@@ -65,9 +65,20 @@ First of all create a new bot(referred as agent in api.ai). Press on the gear ic
 
 #Configuration for Kore.ai -:
 
-#Enter the name of the environment for which the Benchmark tool needs to be run.  
+#Enter the name of the environment for which the Benchmark tool needs to be run.
 
 KorePlatform="https://bots.kore.ai"
+
+#Manually create an sdk client by navigating into apps and agents.
+#click on add to create a new agent. Dont create if it already exists.
+#copy client id, name and secret.
+#encode the secret at a jwt encoder, such as jwt.io
+
+koreClientId="cs-d153937f-02de-5e5a-972f-3a2d3dc4d17d"
+koreClientName="test"
+koreClientSecret="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.O8ofkkOdeu7h27BzhrpsdvLqhAWAao8Az3zrrNJo1vI"
+
+
 
 Previously run results can be found at https://github.com/Koredotcom/NLP-Benchmark/blob/master/previous-test-results/ML_Results-13-12-2017--21-45-17.ods.xlsx
 
