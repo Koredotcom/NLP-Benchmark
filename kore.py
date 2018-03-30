@@ -169,6 +169,7 @@ def initiateTrainingKore(streamId,userIdKore,authTokenKore,KorePlatform):
         return response
 
 def pollTrainingStatusKore(streamId,userIdKore,authTokenKore,KorePlatform):
+        time.sleep(10)
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/bt/streams/"+streamId+"/autoTrainStatus"
         querystring = {"sentences":"true","speech":"false","rnd":"ilzym"}
         headers = {'authorization': authTokenKore}
@@ -180,8 +181,8 @@ def pollTrainingStatusKore(streamId,userIdKore,authTokenKore,KorePlatform):
 def trainKore(streamId,userIdKore,authTokenKore,KorePlatform):
         initiateresp = initiateTrainingKore(streamId,userIdKore,authTokenKore,KorePlatform)
         poll = "Waiting"
-        while poll == "Waiting": poll = pollTrainingStatusKore(streamId,userIdKore,authTokenKore,KorePlatform)
+        while poll == "Waiting" or poll == "In Progress": poll = pollTrainingStatusKore(streamId,userIdKore,authTokenKore,KorePlatform)
         if poll == "Finished":
-                return
+                print("kore training finished")
         else:
-                raise Exception("kore training Failed")
+                raise Exception("kore training Failed:"+poll)
