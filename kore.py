@@ -238,6 +238,7 @@ def pollTrainingStatusKore(streamId,userIdKore,authTokenKore,KorePlatform):
         response = requests.get( url, headers=headers, params=querystring).json()
         status = response.get("trainingStatus",None)
         if not status: raise Exception("poll status kore gave empty status")
+        print("Polling kore training status:"+status)
         return status
 
 def trainKore(streamId,userIdKore,authTokenKore,KorePlatform):
