@@ -114,19 +114,23 @@ def main():
 
 def callKoreBot(MatchedIntents_Kore, input_data,ses):
         koreUrl=config["urlKa"]+"v1.1/rest/streams/"+config["streamid_Kore"]+"/findIntent"
-        if not config["USEKORE"]:
-            respjson={}
+        respjson={}
+        loops = 0
         while(config["USEKORE"]):
+            if loops > 20:
+                print("Max retries exceeded for utterance\n"+input_data)
+                break
+            loops += 1
             try:
                 code = 1
-                while code == 401 or code == 1:
+                while code == 401 or code == 1 or code == 504:
+                  if code == 504:time.sleep(3)
                   if code == 401:
-                    config["token_Kore"] = str(input(json.dumps(respjson)+"\nplease enter new kore token:"))
+                    config["token_Kore"] = str(input(resp.text+"\nplease enter new kore token:"))
                     code=1
                   resp=ses.post(koreUrl,
                       headers={'auth':config["token_Kore"]},
                       json={ "input":input_data,"streamName":config["botname_Kore"]})
-                  respjson=resp.json()
                   if resp.status_code == 400:
                     matchedIntents_Kore = "None"
                     koreMLScore = "Null"
@@ -136,6 +140,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                   code = resp.status_code
                 if resp.status_code==400:break
                 resp.raise_for_status()
+                respjson=resp.json()
                 break
             except Exception as e:
                 print(koreUrl,
