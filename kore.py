@@ -29,6 +29,10 @@ def marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streami
             icon = "5aa1181126295e40159f6bd7"
         elif KorePlatform.split("//")[1].split(".")[0] == "localhost":
             icon = "5aa1163a7776c04cd2b37f3c"
+        elif KorePlatform.split("//")[1].split(".")[0] == "bots-kore":
+            icon = "5ac1d393b2d6ed4bc5ac75ae"
+        elif KorePlatform.split("//")[1].split(".")[0] == "uat-bots":
+            icon = "5ac1d9bbbbbe130e6cffb9e8"
         else:
             icon = "58d2376ab99576e94c2daf2c"
         payload1 = "{\"_id\":\""+streamid+"\",\"name\":\""+name+"\",\"description\":\"faq\",\"categoryIds\":[\"451902a073c071463e2fe7f6\"],\"icon\":\""+icon+"\",\"keywords\":[],\"languages\":[],\"price\":1,\"screenShots\":[],\"namespace\":\"private\",\"namespaceIds\":[],\"color\":\"#3AB961\",\"bBanner\":\"\",\"sBanner\":\"\",\"bBannerColor\":\"#3AB961\",\"sBannerColor\":\"#3AB961\",\"profileRequired\":true,\"sendVcf\":false}"
