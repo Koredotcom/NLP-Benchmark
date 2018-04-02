@@ -21,23 +21,20 @@ def builderStreams1_5(Input, userIdKore, authTokenKore, KorePlatform):
         response = requests.get( url, headers=headers, params=querystring)
         print(response.text)
 
-def marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streamid):
+def iconUpload( userIdKore, authTokenKore, KorePlatform):
+        url = KorePlatform+"/api/1.1/users/"+userIdKore+"/file"
+        files={"file":open("newBot.png","rb")}
+        data={"fileContext":"marketplace","fileExtension":"png"}
+        headers = {"authorization":headersKore["authorization"]}
+        resp = requests.post(url, headers = headers, files=files, data=data)
+        resp=resp.json()
+        return resp["fileId"]
+
+def marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streamid, iconFileId):
         url1 = KorePlatform+"/api/1.1/market/streams"#Calling the Market streams Api
-        if KorePlatform.split("//")[1].split(".")[0] == "pilot-bots":
-            icon = "59c0f641da89738e6f467d82"
-        elif KorePlatform.split("//")[1].split(".")[0] == "bots":
-            icon = "5aa1181126295e40159f6bd7"
-        elif KorePlatform.split("//")[1].split(".")[0] == "localhost":
-            icon = "5aa1163a7776c04cd2b37f3c"
-        elif KorePlatform.split("//")[1].split(".")[0] == "bots-kore":
-            icon = "5ac1d393b2d6ed4bc5ac75ae"
-        elif KorePlatform.split("//")[1].split(".")[0] == "uat-bots":
-            icon = "5ac1d9bbbbbe130e6cffb9e8"
-        else:
-            icon = "58d2376ab99576e94c2daf2c"
-        payload1 = "{\"_id\":\""+streamid+"\",\"name\":\""+name+"\",\"description\":\"faq\",\"categoryIds\":[\"451902a073c071463e2fe7f6\"],\"icon\":\""+icon+"\",\"keywords\":[],\"languages\":[],\"price\":1,\"screenShots\":[],\"namespace\":\"private\",\"namespaceIds\":[],\"color\":\"#3AB961\",\"bBanner\":\"\",\"sBanner\":\"\",\"bBannerColor\":\"#3AB961\",\"sBannerColor\":\"#3AB961\",\"profileRequired\":true,\"sendVcf\":false}"
+        payload1 = {"_id":streamid,"name":name,"description":"faq","categoryIds":["451902a073c071463e2fe7f6"],"icon":iconFileId,"keywords":[],"languages":[],"price":1,"screenShots":[],"namespace":"private","namespaceIds":[],"color":"#3AB961","bBanner":"","sBanner":"","bBannerColor":"#3AB961","sBannerColor":"#3AB961","profileRequired":True,"sendVcf":False}
         try:
-                response1 = requests.post(url1, data=payload1, headers=headersKore)
+                response1 = requests.post(url1, json=payload1, headers=headersKore)
                 response1.raise_for_status()
                 #print("market streams 1",response1.text)
         except Exception as e:
@@ -147,9 +144,11 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
         headersKore['authorization']= authTokenKore
         headersKore['bot-language']= "en"
         headersKore['accountid']= getAccountId(userIdKore,authTokenKore,KorePlatform)
+        iconFileId = iconUpload( userIdKore, authTokenKore, KorePlatform)
+
         name, streamid = builderStreams1(Input, userIdKore, authTokenKore, KorePlatform)
 
-        marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streamid)
+        marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streamid, iconFileId)
         dgValue = addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)
 
         builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
@@ -215,7 +214,6 @@ def addKoreUtterancesBulk(utterances, streamid, intents, userIdKore, authTokenKo
 
 def addKoreUtterances(Input, idKore, streamid, intentid, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences"
-        #payload = "{\"taskId\":\""+idKore+"\",\"sentence\":\""+Input+"\",\"streamId\":\""+streamid+"\",\"taskName\":\""+intentid+"\",\"type\":\"DialogIntent\"}"
         payload = json.dumps({"taskId":idKore,"sentence":Input,"streamId":streamid,"taskName":intentid,"type":"DialogIntent"})
         while 1:
             try:
