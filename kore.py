@@ -112,6 +112,12 @@ def decodeJWT(clientSecret): # should be modified, need not be used
 	user = jwt.decode(idtoken, certs, algorithms='RS256', audience=target_audience)
 	print(user)
 
+def getKoreSDKAppList(KorePlatform, userIdKore):
+	url = KorePlatform+"/api/1.1/users/u-31ef77ec-3a8c-5e7a-964e-ddbf546825bb/sdk/apps"
+	headers = {'authorization': headersKore["authorization"]}
+	response = requests.get(url, headers=headers)
+	#print(response.text)
+
 def addKoreSDKBotCallback(Input, KorePlatform, streamId, clientId):
 	url = "https://bots.kore.ai/api/1.1/builder/streams/"+streamId+"/sdkSubscription"
 	querystring = {"rnd":"addde"}
