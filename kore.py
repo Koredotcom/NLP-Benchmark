@@ -5,9 +5,9 @@ headersKore = {"content-type": "application/json;charset=UTF-8"}
 
 def builderStreams1(Input, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams"#Calling the builder Api for Kore
-        payload = "{\"name\":\""+Input+"\",\"type\":\"taskbot\",\"description\":\"drfgd\",\"color\":\"#FF7A00\",\"categoryIds\":[\"451902a073c071463e2fe7f6\"],\"skipMakeEditLinks\":false,\"purpose\":\"customer\",\"errorCodes\":{\"pollError\":[]},\"visibility\":{\"namespace\":[],\"namespaceIds\":[]},\"defaultLanguage\":\"en\"}"
+        payload = {"name":Input,"type":"taskbot","description":"drfgd","color":"#FF7A00","categoryIds":["451902a073c071463e2fe7f6"],"skipMakeEditLinks":False,"purpose":"customer","errorCodes":{"pollError":[]},"visibility":{"namespace":[],"namespaceIds":[]},"defaultLanguage":"en"}
         try:
-                response = requests.post(url, data=payload, headers=headersKore)
+                response = requests.post(url, json=payload, headers=headersKore)
                 streamid=response.json()['_id']
                 name=response.json()['name']
                 #print("builder streams 1", response.text)
@@ -54,9 +54,9 @@ def builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dg
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/defaultDialogSettings"
         #Setting the Default Dialog Task to Default Fallback Intent. 
         querystring = {"rnd":"jw4tcv"}
-        payload = "{\"defaultDialogId\":\""+dgValue[1]+"\"}"
+        payload = {"defaultDialogId":dgValue[1]}
         try:
-                response = requests.put(url, data=payload, headers=headersKore, params=querystring)
+                response = requests.put(url, json=payload, headers=headersKore, params=querystring)
                 response.raise_for_status()
         except:
                 print("RESP post",response)
@@ -93,7 +93,7 @@ def createKoreSDKBot(Input, userIdKore, authTokenKore, KorePlatform): # should n
 		"bots": ["st-1b50d8bc-5c5b-5ea0-bfba-a84ff5def717"]
 	}
 
-	response = requests.post( url, data=payload, headers=headersKore, params=querystring)
+	response = requests.post( url, json=payload, headers=headersKore, params=querystring)
 	status = response.status_code
 	response = response.json()
 	clientId = response["clientId"]
@@ -126,7 +126,7 @@ def addKoreSDKBotCallback(Input, KorePlatform, streamId, clientId):
 		"sdkHostUri": "https://snjf.com",
 		"connectorEnabled": False
 	}
-	response = requests.put( url, data=payload, headers=headersKore, params=querystring)
+	response = requests.put( url, json=payload, headers=headersKore, params=querystring)
 
 def publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform, clientId, clientName):
 	url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams/"+streamid+"/channels/rtm"
@@ -163,9 +163,9 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
         querystring = {"rnd":"tjywhl"}
 
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components"
-        payload = json.dumps({"desc":"","type":"intent","intent":Input})
+        payload = {"desc":"","type":"intent","intent":Input}
         try:
-                response = requests.post( url+"?rnd=h3uyn", data=payload, headers=headersKore)
+                response = requests.post( url+"?rnd=h3uyn", json=payload, headers=headersKore)
                 response.raise_for_status()
                 name=response.json()['name']
                 component=response.json()['_id']
@@ -175,9 +175,9 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
 
 
         url2 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs"
-        payload2 = "{\"name\":\""+Input+"\",\"shortDesc\":\"News updates\",\"nodes\":[{\"nodeId\":\"intent0\",\"type\":\"intent\",\"componentId\":\""+component+"\",\"transitions\":[{\"default\":\"\",\"metadata\":{\"color\":\"#f3a261\",\"connId\":\"dummy0\"}}],\"metadata\":{\"left\":30,\"top\":170}}],\"visibility\":{\"namespace\":\"private\",\"namespaceIds\":[\"\"]}}"
+        payload2 = {"name":Input,"shortDesc":"News updates","nodes":[{"nodeId":"intent0","type":"intent","componentId":component,"transitions":[{"default":"","metadata":{"color":"#f3a261","connId":"dummy0"}}],"metadata":{"left":30,"top":170}}],"visibility":{"namespace":"private","namespaceIds":[""]}}
         try:
-                response2 = requests.post( url2, data=payload2, headers=headersKore)
+                response2 = requests.post( url2, json=payload2, headers=headersKore)
                 name=response2.json()['name']
                 dialogId=response2.json()['_id']
         except:
@@ -188,7 +188,7 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
 
         payload = {"name":"ResponseFor"+Input.replace(" ",""),"type":"message","message":[{"channel":"default","text":Input+" has been recognized.","type":"basic"}]}
         try:
-            response = requests.post(url, data=json.dumps(payload), headers=headersKore)
+            response = requests.post(url, json=payload, headers=headersKore)
             response.raise_for_status()
             msgId=response.json()['_id']
             idKores+=[msgId]
@@ -199,7 +199,7 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
 
         url4 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs/"+dialogId
         payload ={"streamId":streamid,"name":name,"nodes":[{"nodeId":"intent0","type":"intent","componentId":component,"transitions":[{"default":"message1","metadata":{"color":"#299d8e","connId":"dummy0"}}],"metadata":{"left":21,"top":20},"nodeOptions":{"transitionType":"auto"}},{"nodeId":"message1","type":"message","componentId":msgId,"transitions":[{"default":"end","metadata":{"color":"#299d8e","connId":"dummy1"}}],"nodeOptions":{"transitionType":"auto"}}],"visibility":{"namespaceIds":[userIdKore],"namespace":"private"}}
-        response = requests.put(url4, data=json.dumps(payload), headers=headersKore)
+        response = requests.put(url4, json=payload, headers=headersKore)
         return idKores
 
 def addKoreUtterancesBulk(utterances, streamid, intents, userIdKore, authTokenKore, KorePlatform):
@@ -214,10 +214,10 @@ def addKoreUtterancesBulk(utterances, streamid, intents, userIdKore, authTokenKo
 
 def addKoreUtterances(Input, idKore, streamid, intentid, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences"
-        payload = json.dumps({"taskId":idKore,"sentence":Input,"streamId":streamid,"taskName":intentid,"type":"DialogIntent"})
+        payload = {"taskId":idKore,"sentence":Input,"streamId":streamid,"taskName":intentid,"type":"DialogIntent"}
         while 1:
             try:
-                response = requests.post( url, data=payload, headers=headersKore)
+                response = requests.post( url, json=payload, headers=headersKore)
                 if response.status_code==409: break
                 response.raise_for_status()
             except:
@@ -229,10 +229,10 @@ def addKoreUtterances(Input, idKore, streamid, intentid, userIdKore, authTokenKo
 def initiateTrainingKore(streamId,userIdKore,authTokenKore,KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/ml/train"
         querystring = {"streamId":streamId,"rnd":"8ff5ai"}
-        payload = "{}"
+        payload = {}
         headers = {'authorization': authTokenKore}
         try:
-                response = requests.post(url, data=payload, headers=headers, params=querystring)
+                response = requests.post(url, json=payload, headers=headers, params=querystring)
         except:
                 raise Exception("Error while training Utterances")        
 

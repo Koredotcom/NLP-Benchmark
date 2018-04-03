@@ -7,9 +7,9 @@ headerLuis={
 
 def createLuisBot(botname):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"
-        payload = str({"name":botname,"description":"","culture":"en-us","domain":"","usageScenario":""})
+        payload = {"name":botname,"description":"","culture":"en-us","domain":"","usageScenario":""}
         try:
-            response = requests.request("POST", url, data=payload, headers=headerLuis)
+            response = requests.post( url, json=payload, headers=headerLuis)
             response.raise_for_status()
         except Exception as e:
             raise Exception("Error while creating a bot in Luis: ",str(e))        
@@ -17,9 +17,9 @@ def createLuisBot(botname):
 
 def addLuisIntent(Input,botIdLuis):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/intents"
-        payload = str({"name":Input})
+        payload = {"name":Input}
         try:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
+                response = requests.post(url, json=payload, headers=headerLuis)
         except:
                 raise Exception("Error while creating an Intent in Luis")        
 
@@ -27,10 +27,10 @@ def addLuisIntent(Input,botIdLuis):
 
 def addLuisUtterance(Input,LuisIntentId,botIdLuis,intentid):
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/examples"
-        payload = "[{\"text\":\""+Input+"\",\"intentName\":\""+intentid+"\",\"entityLabels\":[]}]"
+        payload = [{"text":Input,"intentName":intentid,"entityLabels":[]}]
         while(1):
             try:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
+                response = requests.post(url, json=payload, headers=headerLuis)
                 response.raise_for_status()
                 return
             except:
@@ -45,14 +45,14 @@ def getLuisEndPointUrl(botIdLuis):
             'origin': "https://www.luis.ai",
             }
         try:    
-                response = requests.request("OPTIONS", url, headers=headers)
+                response = requests.options( url, headers=headers)
         except:
                 raise Exception("Error while trianing utterances in Luis")        
 
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/versions/0.1/assignedkey/"
         payload = "\""+subscriptionToken+"\""
         try:
-                response = requests.request("PUT", url, data=payload, headers=headerLuis)
+                response = requests.put(url, data=payload, headers=headerLuis)
         except:
                 raise Exception("Error while trianing utterances in Luis")        
 
@@ -63,15 +63,15 @@ def getLuisEndPointUrl(botIdLuis):
             }
         payload = "{}"
         try:
-                response = requests.request("OPTIONS", url, headers=headers)
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
+                response = requests.options( url, headers=headers)
+                response = requests.post( url, data=payload, headers=headerLuis)
         except:
                 raise Exception("Error while trianing utterances in Luis")        
 
         while(1):
             try:
-                response = requests.request("OPTIONS", url, headers=headers)
-                response = requests.request("GET", url, headers=headerLuis)
+                response = requests.options( url, headers=headers)
+                response = requests.get(url, headers=headerLuis)
 #                if response.json()[0]['details']['status'] !='UpToDate':
 #                    print(response.json()[0]['details']['status'])
 #                    raise Exception("NOT UPTODATE")
@@ -84,10 +84,10 @@ def getLuisEndPointUrl(botIdLuis):
 #        time.sleep(60) #Leaving 1 minute time for training the Luis bot
 
         url = "https://westus.api.cognitive.microsoft.com/luis/api/v2.0//apps/"+botIdLuis+"/publish"
-        payload = "{\"versionId\":\"0.1\",\"isStaging\":false}"
+        payload = {"versionId":"0.1","isStaging":False}
         while(1):
             try:
-                response = requests.request("POST", url, data=payload, headers=headerLuis)
+                response = requests.post(url, json=payload, headers=headerLuis)
             except:
                 raise Exception("Error while publishing app in Luis")        
 
