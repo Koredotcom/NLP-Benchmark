@@ -89,7 +89,6 @@ def main():
     resultsFileName='ML_Results-'+timestr+'.ods'
     resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
     if not resultsFileName:resultsFileName='ML_Results-'+timestr+'.ods'
-    fp=open(resultsFileName,'w')
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,14))
     ods.sheets += sheet
