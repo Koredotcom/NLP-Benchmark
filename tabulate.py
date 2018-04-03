@@ -18,11 +18,11 @@ def main(ods):
 		intent.append(x[0].value)
 		TyOfUtt.append(x[2].value)
 		matched[0].append(x[3].value)
-		matched[1].append(x[8].value)
-		matched[2].append(x[11].value)
+		matched[1].append(x[10].value)
+		matched[2].append(x[13].value)
 		success[0].append(x[4].value)
-		success[1].append(x[9].value)
-		success[2].append(x[12].value)
+		success[1].append(x[11].value)
+		success[2].append(x[14].value)
 	numIntents=len(set(intent))+1
 	numrows=numIntents*16
 	colsMax=11

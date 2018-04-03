@@ -48,6 +48,8 @@ def find_intent3(sheet,i,ses):
         output.append(str(MatchedIntents_Kore[1])) # CS score
         output.append(str(MatchedIntents_Kore[2])) # ML score
         output.append(str(MatchedIntents_Kore[3])) # FAQ score
+        output.append(str(MatchedIntents_Kore[4])) # MLTopIntent
+        output.append(str(MatchedIntents_Kore[5])) # MLTopScore
         output.append(MatchedIntents_DF[0])
         if(MatchedIntents_DF[0]==TaskNames[i]):
             output.append('pass')
@@ -90,9 +92,9 @@ def main():
     resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
     if not resultsFileName:resultsFileName='ML_Results-'+timestr+'.ods'
     ods = newdoc(doctype='ods', filename=resultsFileName)
-    sheet = Sheet('Results', size=(len(Utterances)+1,14))
+    sheet = Sheet('Results', size=(len(Utterances)+1,16))
     ods.sheets += sheet
-    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis'])
+    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','MLTopIntent ','MLTopScore','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis'])
     ods.save()
     outputs = [None]*len(Utterances)
     prev=0
@@ -187,6 +189,16 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                 koreCSScore  = 0.0
                 koreMLScore  = 0.0
                 koreFAQScore = 0.0
+            if "ml" in respjson["response"]:
+                allML = []
+                allML += respjson["response"]["ml"].get("definitive",[])
+                allML += respjson["response"]["ml"].get("possible",[])
+                allML += respjson["response"]["ml"].get("eliminated",[])
+                bestML = [None,-1500.0]
+                for recognized in allML:
+                    score = recognized.get("score",0.0)
+                    if score > bestML[1]:
+                       bestML = [recognized["task"],score]
         else:
             printif("NULL3",input_data)
             matchedIntents_Kore='None'
@@ -196,7 +208,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
         if(matchedIntents_Kore=='Default Fallback Intent'.lower()):
                 matchedIntents_Kore='None'
         MatchedIntents_Kore.clear()
-        MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore, koreFAQScore])
+        MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore, koreFAQScore]+bestML)
 
 def callDFBot(MatchedIntents_DF, input_data,ses):
     if config["USEGOOGLE"]:
