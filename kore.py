@@ -175,7 +175,7 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
 
 
         url2 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs"
-        payload2 = {"name":Input,"shortDesc":"News updates","nodes":[{"nodeId":"intent0","type":"intent","componentId":component,"transitions":[{"default":"","metadata":{"color":"#f3a261","connId":"dummy0"}}],"metadata":{"left":30,"top":170}}],"visibility":{"namespace":"private","namespaceIds":[""]}}
+        payload2 = {"name":Input,"shortDesc":Input,"nodes":[{"nodeId":"intent0","type":"intent","componentId":component,"transitions":[{"default":"","metadata":{"color":"#f3a261","connId":"dummy0"}}],"metadata":{"left":30,"top":170}}],"visibility":{"namespace":"private","namespaceIds":[""]}}
         try:
                 response2 = requests.post( url2, json=payload2, headers=headersKore)
                 name=response2.json()['name']
