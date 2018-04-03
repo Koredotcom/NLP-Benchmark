@@ -1,5 +1,5 @@
 import tabulate
-import requests, csv, os, time, sys, urllib, json
+import requests, csv, os, time, sys, urllib, json, base64, hashlib, hmac
 from threading import Thread
 from tqdm import tqdm
 from odfhandle import *
@@ -19,6 +19,12 @@ def printif(*args):
         print(*args)
 
 #tqdm = lambda x:x
+
+def getJWT(clientSecret): # should be modified, need not be used
+	ID = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
+	dig = hmac.new(clientSecret.encode("utf-8"), msg=ID.encode("utf-8"), digestmod=hashlib.sha256).digest()
+	H=base64.b64encode(dig).decode()
+	return ID+"."+H[:-1]
 
 def find_intent3(sheet,i,ses):
         MatchedIntents_Kore=['None','Null','Null','Null']
@@ -116,6 +122,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
         koreUrl=config["urlKa"]+"v1.1/rest/streams/"+config["streamid_Kore"]+"/findIntent"
         respjson={}
         loops = 0
+        jwtToken = getJWT(config["token_Kore"])
         while(config["USEKORE"]):
             if loops > 20:
                 print("Max retries exceeded for utterance\n"+input_data)
@@ -129,7 +136,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                     config["token_Kore"] = str(input(resp.text+"\nplease enter new kore token:"))
                     code=1
                   resp=ses.post(koreUrl,
-                      headers={'auth':config["token_Kore"]},
+                      headers={'auth':jwtToken},
                       json={ "input":input_data,"streamName":config["botname_Kore"]})
                   if resp.status_code == 400:
                     matchedIntents_Kore = "None"

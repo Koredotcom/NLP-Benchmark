@@ -72,11 +72,10 @@ KorePlatform="https://bots.kore.ai"
 #Manually create an sdk client by navigating into apps and agents.
 #click on add to create a new agent. Dont create if it already exists.
 #copy client id, name and secret.
-#encode the secret at a jwt encoder, such as jwt.io
 
 koreClientId="cs-d153937f-02de-5e5a-972f-3a2d3dc4d17d"
 koreClientName="test"
-koreClientSecret="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.O8ofkkOdeu7h27BzhrpsdvLqhAWAao8Az3zrrNJo1vI"
+koreClientSecret="bh14HjKM/qtNz3MZkn6D6JQvbVInysYvZXDtp6A0qz4="
 
 
 

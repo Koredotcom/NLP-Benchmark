@@ -100,14 +100,6 @@ def createKoreSDKBot(Input, userIdKore, authTokenKore, KorePlatform): # should n
 	clientSecret = response["clientSecret"]
 	return status, clientId, clientSecret
 
-def decodeJWT(clientSecret): # should be modified, need not be used
-	from jose import jwt
-	idtoken = "<id token passed to server from firebase auth>"
-	target_audience = "<firebase app id>"
-	certificate_url = 'https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com'
-	#will throw error if not valid
-	user = jwt.decode(idtoken, certs, algorithms='RS256', audience=target_audience)
-	print(user)
 
 def getKoreSDKAppList(KorePlatform, userIdKore):
 	url = KorePlatform+"/api/1.1/users/u-31ef77ec-3a8c-5e7a-964e-ddbf546825bb/sdk/apps"
