@@ -30,10 +30,10 @@ def main(ods):
 		if len(ods.sheets) <3:ods.sheets += Sheet()
 		sheetAll=ods.sheets[1]
 		sheetAll.name="Summary"
-		sheetAll._cellmatrix.reset((22,colsMax))
+		sheetAll._cellmatrix.reset((22+10,colsMax+10))
 		sheetInd=ods.sheets[2]
 		sheetInd.name="Individual Intents"
-		sheetInd._cellmatrix.reset((numrows,colsMax))
+		sheetInd._cellmatrix.reset((numrows+10,colsMax+10))
 		RowNum[0]=0 
 		for ints in set(intent):
 			if ints != "None":
