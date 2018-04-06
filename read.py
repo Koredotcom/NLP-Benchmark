@@ -5,6 +5,7 @@ from tqdm import tqdm
 from odfhandle import *
 '''Three global arrays declared to get input from the ML csv file to get the utterance, expected task name and the type of utterance and 1 array for the output to capture the matched intent and status(success or failure)'''
 Utterances=[]
+Entities=[]
 TaskNames=[]
 Types=[]
 outputs=[]
@@ -20,6 +21,23 @@ def printif(*args):
 
 #tqdm = lambda x:x
 
+
+def entityLoads(entityString):
+	entityObj = {}
+	entityString = entityString.lower()
+	for entity in entityString.split("|"):
+		if not entity.strip():continue
+		entity = entity.split(":")
+		entityObj[entity[0]] = ":".join(entity[1:])
+	return entityObj
+
+def entityDumps(entityObj):
+	entityString = []
+	for entityId in entityObj:
+		entityString += [entityId+":"+entityObj[entityId]]
+	return "|".join(entityString).lower()
+
+
 def getJWT(clientSecret): # should be modified, need not be used
 	ID = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
 	dig = hmac.new(clientSecret.encode("utf-8"), msg=ID.encode("utf-8"), digestmod=hashlib.sha256).digest()
@@ -34,6 +52,8 @@ def find_intent3(sheet,i,ses):
         #In the output, appending the inputs and matched intents to compare with the expected task name
         TaskNames[i] = TaskNames[i].replace("\xa0"," ")
         output.append(TaskNames[i])
+        Entities[i] = entityDumps(entityLoads(Entities[i])) # keep entity tags sorted, lower case, for later comparision
+        output.append(Entities[i])
         output.append(Utterances[i])
         output.append(Types[i])
         thKORE=Thread(target=callKoreBot,args=(MatchedIntents_Kore,Utterances[i], ses[0]));thKORE.start()
@@ -41,13 +61,15 @@ def find_intent3(sheet,i,ses):
         thLUIS=Thread(target=callLUISBot,args=(MatchedIntents_Luis,Utterances[i],ses[2]));thLUIS.start()
         thKORE.join();thDF.join();thLUIS.join()
         output.append(MatchedIntents_Kore[0])
-        if(MatchedIntents_Kore[0]==TaskNames[i]):
+        MatchedIntents_Kore[1] = entityDumps(MatchedIntents_Kore[1])
+        output.append(MatchedIntents_Kore[1])
+        if MatchedIntents_Kore[0]==TaskNames[i] and MatchedIntents_Kore[1] == Entities[i]:
             output.append('pass')
         else:
             output.append('fail')
-        output.append(str(MatchedIntents_Kore[1])) # CS score
-        output.append(str(MatchedIntents_Kore[2])) # ML score
-        output.append(str(MatchedIntents_Kore[3])) # FAQ score
+        output.append(str(MatchedIntents_Kore[2])) # CS score
+        output.append(str(MatchedIntents_Kore[3])) # ML score
+        output.append(str(MatchedIntents_Kore[4])) # FAQ score
         output.append(MatchedIntents_DF[0])
         if(MatchedIntents_DF[0]==TaskNames[i]):
             output.append('pass')
@@ -80,8 +102,9 @@ def main():
             continue
         TaskName = row[0].replace("_"," ").lower()
         if TaskName == "none":TaskName="None"
-        Utterances.append(row[1])
-        Types.append(row[2])
+        Entities.append(row[1])
+        Utterances.append(row[2])
+        Types.append(row[3])
         TaskNames.append(TaskName)
     fr.close()
     print("Test data sheet is running")
@@ -90,9 +113,9 @@ def main():
     resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
     if not resultsFileName:resultsFileName='ML_Results-'+timestr+'.ods'
     ods = newdoc(doctype='ods', filename=resultsFileName)
-    sheet = Sheet('Results', size=(len(Utterances)+1,14))
+    sheet = Sheet('Results', size=(len(Utterances)+1,18))
     ods.sheets += sheet
-    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis'])
+    insertRow(sheet,['Expected Task Name','ExpectedEntities','Utterance','Type of Utterance','Matched Intent(s) Kore','Matched Entities Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis'])
     ods.save()
     outputs = [None]*len(Utterances)
     prev=0
@@ -126,6 +149,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
             koreUrl=config["urlKa"]+"/api/1.1/users/"+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent"
             headers={'authorization':config["token_Kore"]}
         respjson={}
+        matchedEntities_Kore = {}
         loops = 0
         while(config["USEKORE"]):
             if loops > 20:
@@ -143,6 +167,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                   resp=ses.post(koreUrl, headers=headers,json={ "input":input_data,"streamName":config["botname_Kore"]})
                   if resp.status_code == 400:
                     matchedIntents_Kore = "None"
+                    matchedEntities_Kore = {}
                     koreMLScore = "Null"
                     koreCSScore = "Null"
                     printif("Null", input_data)
@@ -187,16 +212,20 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                 koreCSScore  = 0.0
                 koreMLScore  = 0.0
                 koreFAQScore = 0.0
+            if "entities" in respjson["response"].get("finalResolver",{}):
+                for entity in respjson["response"]["finalResolver"]["entities"]:
+                    matchedEntities_Kore[entity["field"]] = str(entity["value"])
         else:
             printif("NULL3",input_data)
             matchedIntents_Kore='None'
             koreCSScore='Null'
             koreMLScore='Null'
             koreFAQScore = 'Null'
+            matchedEntities_Kore = {}
         if(matchedIntents_Kore=='Default Fallback Intent'.lower()):
                 matchedIntents_Kore='None'
         MatchedIntents_Kore.clear()
-        MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore, koreFAQScore])
+        MatchedIntents_Kore.extend([matchedIntents_Kore, matchedEntities_Kore, koreCSScore,koreMLScore, koreFAQScore])
 
 def callDFBot(MatchedIntents_DF, input_data,ses):
     if config["USEGOOGLE"]:
