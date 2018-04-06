@@ -39,12 +39,14 @@ def formula(row,col,lenintent,name):
 	if type(name)==type(""):name = "'"+name+"'."
 	else:name=""
 	tp=name+col+str(row)
+	if type(name)==type(""):tp+= " + " + name+chr(ord(col)+1)+str(row)
+	tp = "("+tp+")"
 	tn=name+col+str(row+1)
 	fn=name+col+str(row+2)
 	fp=name+col+str(row+3)
-	prec+= tp+" / ( "+tp+" + "+fp+" ) , 0 )"
+	prec+= tp+"/( "+tp+" + "+fp+" ) , 0 )"
 	rec+= tp+"/("+tp+"+"+fn+"), 0)"
-	acc+="("+tp+")/("+tp+"+"+fn+"+"+fp+"), 0)"
-	F+="("+"2*"+tp+")/(2*"+tp+"+"+fp+"+"+fn+"), 0)"
+	acc+=tp+"/("+tp+"+"+fn+"+"+fp+"), 0)"
+	F+="2*"+tp+"/(2*"+tp+"+"+fp+"+"+fn+"), 0)"
 	return (prec,rec,acc,F)
 
