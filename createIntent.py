@@ -16,6 +16,8 @@ input2={}
 intentset=[]
 idKore=[]
 LuisIntentId=[]
+KorePublicApi = False
+
 
 def main():
         fr=open(fileName,'r')
@@ -41,7 +43,7 @@ def main():
 
         botIdKore, dgValue = ("","")
         if USEKORE:
-            botIdKore, dgValue = createKoreBot(botName,userIdKore,authTokenKore,KorePlatform)#Bots creation for Luis and Kore
+            botIdKore, dgValue = createKoreBot(botName,userIdKore,authTokenKore,KorePlatform,KorePublicApi)
             print("New bot "+botName+" has been created in Kore with botid: "+ botIdKore)
             prepKore(intentset,intents,utterances,botIdKore,userIdKore,authTokenKore, dgValue)
 
@@ -104,9 +106,9 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 	config= {
 		"botname_Kore":	botName,
 		"uid_Kore":userIdKore,
-		"token_Kore":koreClientSecret,
 		"streamid_Kore":botIdKore,
-		"urlKa":KorePlatform+"/api/",
+		"urlKa":KorePlatform,
+		"KorePublicApi":KorePublicApi,
 		"FileName": TestFileName,
 		"Token_DF":Token_DF,
 		"botname_DF":	botIdDF,
@@ -115,6 +117,8 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"USEGOOGLE":USEGOOGLE,
 		"USELUIS":USELUIS
 		}
+	if config["KorePublicApi"]:config["token_Kore"] = koreClientSecret
+	else:config["token_Kore"] = authTokenKore
 	f=open("testconfig.json","w")
 	json.dump(config,f, indent=2, ensure_ascii=False,sort_keys=True)
 	f.close()

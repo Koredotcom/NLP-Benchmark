@@ -69,13 +69,7 @@ First of all create a new bot(referred as agent in api.ai). Press on the gear ic
 
 KorePlatform="https://bots.kore.ai"
 
-#Manually create an sdk client by navigating into apps and agents.
-#click on add to create a new agent. Dont create if it already exists.
-#copy client id, name and secret.
 
-koreClientId="cs-d153937f-02de-5e5a-972f-3a2d3dc4d17d"
-koreClientName="test"
-koreClientSecret="bh14HjKM/qtNz3MZkn6D6JQvbVInysYvZXDtp6A0qz4="
 
 
 

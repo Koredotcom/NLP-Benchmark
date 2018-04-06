@@ -127,7 +127,7 @@ def publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform,
 	response = requests.post( url, json=payload, headers=headersKore, params=querystring)
 	#print(response.text)
 
-def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
+def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
         headersKore['host']= "localhost"
         headersKore['user-agent']= "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0"
         headersKore['accept']= "application/json, text/plain, */*"
@@ -145,8 +145,9 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform):
 
         builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
         builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue)
-        addKoreSDKBotCallback(Input, KorePlatform, streamid, koreClientId)
-        publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform, koreClientId, koreClientName)
+        if KorePublicApi:
+            addKoreSDKBotCallback(Input, KorePlatform, streamid, koreClientId)
+            publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform, koreClientId, koreClientName)
 
 
         return streamid, dgValue
