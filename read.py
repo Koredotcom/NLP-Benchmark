@@ -23,7 +23,7 @@ def printif(*args):
 def getJWT(clientSecret): # should be modified, need not be used
 	ID = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
 	dig = hmac.new(clientSecret.encode("utf-8"), msg=ID.encode("utf-8"), digestmod=hashlib.sha256).digest()
-	H=base64.b64encode(dig).decode()
+	H=base64.urlsafe_b64encode(dig).decode()
 	return ID+"."+H[:-1]
 
 def find_intent3(sheet,i,ses):
