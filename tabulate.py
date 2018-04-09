@@ -16,13 +16,13 @@ def main(ods):
 	for x in rows:
 		if not x[0]:continue
 		intent.append(x[0].value)
-		TyOfUtt.append(x[2].value)
-		matched[0].append(x[3].value)
-		matched[1].append(x[8].value)
-		matched[2].append(x[11].value)
-		success[0].append(x[4].value)
-		success[1].append(x[9].value)
-		success[2].append(x[12].value)
+		TyOfUtt.append(x[3].value)
+		matched[0].append(x[4].value) # intent only
+		matched[1].append(x[10].value)
+		matched[2].append(x[13].value)
+		success[0].append(x[6].value) # intent + entities
+		success[1].append(x[11].value)
+		success[2].append(x[14].value)
 	numIntents=len(set(intent))+1
 	numrows=numIntents*16
 	colsMax=11
@@ -97,10 +97,16 @@ def writeCSV(sheet,currentIntent=None):
 		for currentintent in intentset:
 			for i in range(len(TyOfUtt)):
 				if(currentintent==matched[platforms][i] and intent[i]==matched[platforms][i]):
-					if currentintent =="None":
-						truePositivesNone +=1
+					if(success[platforms][i] == "pass"):
+						if currentintent =="None":
+							truePositivesNone +=1
+						else:
+							truePositives +=1
 					else:
-						truePositives +=1
+						if currentintent =="None":
+							falseNegativesNone +=1
+						else:
+							falseNegatives +=1
 				if(currentintent==matched[platforms][i] and intent[i]!=matched[platforms][i]):
 					if currentintent == "None":
 						falsePositivesNone +=1
