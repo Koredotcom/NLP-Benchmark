@@ -112,7 +112,7 @@ def addKoreSDKBotCallback(Input, KorePlatform, streamId, clientId):
 	querystring = {"rnd":"addde"}
 	payload = {
 		"subscribedFor": [
-			"onMessage"
+			"onHook"
 		],
 		"sdkClientId": clientId,
 		"sdkHostUri": "https://snjf.com",
