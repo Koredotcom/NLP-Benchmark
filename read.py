@@ -81,7 +81,7 @@ def main():
         TaskName = row[0].replace("_"," ").lower()
         if TaskName == "none":TaskName="None"
         Utterances.append(row[1])
-        Types.append("Positive")
+        Types.append(row[2])
         TaskNames.append(TaskName)
     fr.close()
     print("Test data sheet is running")
