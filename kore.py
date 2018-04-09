@@ -176,7 +176,12 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
         except:
                 raise Exception("Error while Adding intent to kore 2")
 
-
+        url3 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components/"+component+""
+        payload3 = "{\"name\":\""+name+"\",\"dialogId\":\""+dialogId+"\"}"
+        try:
+                response3 = requests.put(url3, data=payload3, headers=headersKore)
+        except:
+                raise Exception("Error while Adding intent to kore 3")
         idKores=[component,dialogId]
 
         payload = {"name":"ResponseFor"+Input.replace(" ",""),"type":"message","message":[{"channel":"default","text":Input+" has been recognized.","type":"basic"}]}
