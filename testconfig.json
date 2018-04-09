@@ -6,10 +6,10 @@
   "USEKORE": true,
   "USELUIS": false,
   "botname_DF": "15d93a17-4cfa-489d-9058-2f720a88ac7a",
-  "botname_Kore": "Testsdk",
+  "botname_Kore": "temp",
   "streamid_Kore": "st-3ce71a74-6c30-5505-a607-f64478d6a466",
-  "token_Kore": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.O8ofkkOdeu7h27BzhrpsdvLqhAWAao8Az3zrrNJo1vI",
+  "token_Kore": "bearer xowAczxCrk4-bSpj3-lQNgcBmGdtIseQxFb6dyFIBZ1cheL6Vdj_1fW-e7R8MgMV",
   "uid_Kore": "u-f5047708-1b41-5dfe-960a-64fef9638329",
-  "urlKa": "https://bots.kore.ai/api/",
+  "urlKa": "https://bots.kore.ai",
   "urlL": ""
 }
