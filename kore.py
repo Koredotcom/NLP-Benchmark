@@ -36,9 +36,8 @@ def marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streami
 
 def builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid):
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/dialogs"
-        querystring = {"rnd":"7hl7dm"}
         try:
-                response = requests.get(url, headers=headersKore, params=querystring)
+                response = requests.get(url, headers=headersKore)
                 response.raise_for_status()
                 #print("builderstreams 2",response.text)
         except:
@@ -47,10 +46,9 @@ def builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid):
 def builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue):
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/defaultDialogSettings"
         #Setting the Default Dialog Task to Default Fallback Intent. 
-        querystring = {"rnd":"jw4tcv"}
         payload = {"defaultDialogId":dgValue[1]}
         try:
-                response = requests.put(url, json=payload, headers=headersKore, params=querystring)
+                response = requests.put(url, json=payload, headers=headersKore)
                 response.raise_for_status()
         except:
                 print("RESP post",response)
@@ -75,7 +73,6 @@ def getAccountId(userIdKore, authTokenKore, KorePlatform):
 
 def createKoreSDKBot(Input, userIdKore, authTokenKore, KorePlatform): # should not be called. reuse existing.
 	url = "https://bots.kore.ai/api/1.1/users/"+userIdKore+"/sdk/apps"
-	querystring = {"rnd":"urtxr3"}
 	payload = {
 		"appName": "benchmark",
 		"algorithm": "HS256",
@@ -87,7 +84,7 @@ def createKoreSDKBot(Input, userIdKore, authTokenKore, KorePlatform): # should n
 		"bots": ["st-1b50d8bc-5c5b-5ea0-bfba-a84ff5def717"]
 	}
 
-	response = requests.post( url, json=payload, headers=headersKore, params=querystring)
+	response = requests.post( url, json=payload, headers=headersKore)
 	status = response.status_code
 	response = response.json()
 	clientId = response["clientId"]
@@ -103,7 +100,6 @@ def getKoreSDKAppList(KorePlatform, userIdKore):
 
 def addKoreSDKBotCallback(Input, KorePlatform, streamId, clientId):
 	url = "https://bots.kore.ai/api/1.1/builder/streams/"+streamId+"/sdkSubscription"
-	querystring = {"rnd":"addde"}
 	payload = {
 		"subscribedFor": [
 			"onHook"
@@ -112,13 +108,12 @@ def addKoreSDKBotCallback(Input, KorePlatform, streamId, clientId):
 		"sdkHostUri": "https://snjf.com",
 		"connectorEnabled": False
 	}
-	response = requests.put( url, json=payload, headers=headersKore, params=querystring)
+	response = requests.put( url, json=payload, headers=headersKore)
 
 def publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform, clientId, clientName):
 	url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams/"+streamid+"/channels/rtm"
-	querystring = {"rnd":"1o81jh"}
 	payload = {"type":"rtm","name":"Web / Mobile Client","app":{"clientId":clientId,"appName":clientName},"isAlertsEnabled":False,"enable":True,"sttEnabled":False,"sttEngine":"kore"}
-	response = requests.post( url, json=payload, headers=headersKore, params=querystring)
+	response = requests.post( url, json=payload, headers=headersKore)
 	#print(response.text)
 
 def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
@@ -149,14 +144,11 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
 def deleteMessageNode(streamid, messageComponentId):
 
 	url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components/"+messageComponentId
-	querystring = {"rnd":"i2q5gf"}
 	payload = "{}"
-	response = requests.post( url, data=payload, headers=headersKore, params=querystring)
+	response = requests.post( url, data=payload, headers=headersKore)
 
 
 def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
-        querystring = {"rnd":"tjywhl"}
-
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components"
         payload = {"desc":"","type":"intent","intent":Input}
         try:
@@ -204,10 +196,9 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
 
 def addKoreUtterancesBulk(utterances, streamid, intents, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/stream/"+streamid+"/bulk/import"
-        querystring = {"rnd":"547gde"}
         payload = [ {"sentence":utterance,"taskName":intent, "type":"DialogIntent"} for utterance,intent in zip(utterances,intents) ]
         #print(json.dumps(payload,indent=2))
-        response = requests.post(url, json=payload, headers=headersKore, params=querystring)
+        response = requests.post(url, json=payload, headers=headersKore)
         if not response.status_code == 200:
             raise Exception("bulk add utterances to kore failed:"+str(response.status_code)+json.dumps(response.text,indent=2))
 
@@ -228,7 +219,7 @@ def addKoreUtterances(Input, idKore, streamid, intentid, userIdKore, authTokenKo
 
 def initiateTrainingKore(streamId,userIdKore,authTokenKore,KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/ml/train"
-        querystring = {"streamId":streamId,"rnd":"8ff5ai"}
+        querystring = {"streamId":streamId}
         payload = {}
         headers = {'authorization': authTokenKore}
         try:
@@ -241,7 +232,7 @@ def initiateTrainingKore(streamId,userIdKore,authTokenKore,KorePlatform):
 def pollTrainingStatusKore(streamId,userIdKore,authTokenKore,KorePlatform):
         time.sleep(10)
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/bt/streams/"+streamId+"/autoTrainStatus"
-        querystring = {"sentences":"true","speech":"false","rnd":"ilzym"}
+        querystring = {"sentences":"true","speech":"false"}
         headers = {'authorization': authTokenKore}
         response = requests.get( url, headers=headers, params=querystring).json()
         status = response.get("trainingStatus",None)
