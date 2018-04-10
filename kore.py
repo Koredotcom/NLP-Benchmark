@@ -146,6 +146,14 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
 
         return streamid, dgValue
 
+def deleteMessageNode(streamid, messageComponentId):
+
+	url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components/"+messageComponentId
+	querystring = {"rnd":"i2q5gf"}
+	payload = "{}"
+	response = requests.post( url, data=payload, headers=headersKore, params=querystring)
+
+
 def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
         querystring = {"rnd":"tjywhl"}
 
@@ -170,7 +178,7 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
         except:
                 raise Exception("Error while Adding intent to kore 2")
 
-        url3 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components/"+component+""
+        url3 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components/"+component
         payload3 = "{\"name\":\""+name+"\",\"dialogId\":\""+dialogId+"\"}"
         try:
                 response3 = requests.put(url3, data=payload3, headers=headersKore)
