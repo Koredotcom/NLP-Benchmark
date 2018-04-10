@@ -15,12 +15,6 @@ def builderStreams1(Input, userIdKore, authTokenKore, KorePlatform):
                 raise Exception("Error while creating builder streams")        
         return name,streamid
 
-def builderStreams1_5(Input, userIdKore, authTokenKore, KorePlatform):
-        url = "http://localhost/api/1.1/users/"++"/builder/streams"
-        querystring = {"rnd":"9in6m"}
-        response = requests.get( url, headers=headers, params=querystring)
-        print(response.text)
-
 def iconUpload( userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/file"
         files={"file":open("newBot.png","rb")}
