@@ -2,7 +2,7 @@ import requests, csv, os, time, sys, threading, getpass, json
 from six.moves import input
 from configBot import *
 from tqdm import tqdm
-from google import *
+from googleDF import *
 from kore import *
 from luis import *
 #reload(sys)
