@@ -31,7 +31,7 @@ def find_intent3(sheet,i,ses):
         MatchedIntents_Kore=['None','Null','Null','Null']
         MatchedIntents_DF=['None','Null']
         MatchedIntents_Luis=['None','Null']
-        MatchedIntents_Watson=['None','Null']
+        MatchedIntents_Watson=['None','Null','Null']
         output=[]
         #In the output, appending the inputs and matched intents to compare with the expected task name
         TaskNames[i] = TaskNames[i].replace("\xa0"," ")
@@ -130,10 +130,11 @@ def main():
     return resultsFileName
 
 def callWatsonBot(MatchedIntents_Watson, input_data, ses):
-	# ses is unused for now.
-	resp = WatsonFindIntent(config["watsonBotId"], input_data)
-	MatchedIntents_Watson.clear()
-	MatchedIntents_Watson.extend([resp[0]["intent"],resp[0]["confidence"], json.dumps(resp)])
+        if config["USEWATSON"]:
+	        # ses is unused for now.
+	        resp = WatsonFindIntent(config["watsonBotId"], input_data)
+	        MatchedIntents_Watson.clear()
+	        MatchedIntents_Watson.extend([resp[0]["intent"],resp[0]["confidence"], json.dumps(resp)])
 
 def callKoreBot(MatchedIntents_Kore, input_data,ses):
         if config["KorePublicApi"]:

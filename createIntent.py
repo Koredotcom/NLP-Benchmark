@@ -74,6 +74,8 @@ def main():
           print("Adding intents and train utterances")
           for j in tqdm(range(len(intentset))):
               WatsonAddIntentAndUtterance(watsonBotId, intentset[j],input2[intentset[j]])
+        else:
+          watsonBotId=""
 
         print("Creating the config file for the read.py file.")
         createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[-1],botIdDF,Token_DF,watsonBotId)
