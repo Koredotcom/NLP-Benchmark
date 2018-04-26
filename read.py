@@ -2,6 +2,7 @@ import tabulate
 import requests, csv, os, time, sys, urllib, json, base64, hashlib, hmac
 from threading import Thread
 from tqdm import tqdm
+from watson import *
 from odfhandle import *
 '''Three global arrays declared to get input from the ML csv file to get the utterance, expected task name and the type of utterance and 1 array for the output to capture the matched intent and status(success or failure)'''
 Utterances=[]
@@ -10,7 +11,7 @@ Types=[]
 outputs=[]
 urlDF="https://console.dialogflow.com/v1/query"
 
-NUM_THREADS=10
+NUM_THREADS=3
 config={}
 
 def printif(*args):
@@ -30,6 +31,7 @@ def find_intent3(sheet,i,ses):
         MatchedIntents_Kore=['None','Null','Null','Null']
         MatchedIntents_DF=['None','Null']
         MatchedIntents_Luis=['None','Null']
+        MatchedIntents_Watson=['None','Null']
         output=[]
         #In the output, appending the inputs and matched intents to compare with the expected task name
         TaskNames[i] = TaskNames[i].replace("\xa0"," ")
@@ -39,7 +41,8 @@ def find_intent3(sheet,i,ses):
         thKORE=Thread(target=callKoreBot,args=(MatchedIntents_Kore,Utterances[i], ses[0]));thKORE.start()
         thDF=Thread(target=callDFBot,args=(MatchedIntents_DF,Utterances[i],ses[1]));thDF.start()
         thLUIS=Thread(target=callLUISBot,args=(MatchedIntents_Luis,Utterances[i],ses[2]));thLUIS.start()
-        thKORE.join();thDF.join();thLUIS.join()
+        thWatson=Thread(target=callWatsonBot,args=(MatchedIntents_Watson,Utterances[i],ses[3]));thWatson.start()
+        thKORE.join();thDF.join();thLUIS.join();thWatson.join()
         output.append(MatchedIntents_Kore[0])
         if(MatchedIntents_Kore[0]==TaskNames[i]):
             output.append('pass')
@@ -54,20 +57,30 @@ def find_intent3(sheet,i,ses):
         else:
             output.append('fail')
         output.append(str(MatchedIntents_DF[1]))
+
         output.append(MatchedIntents_Luis[0])
         if(MatchedIntents_Luis[0]==TaskNames[i]):
                 output.append('pass')
         else:
                 output.append('fail')
         output.append(str(MatchedIntents_Luis[1]))
+
+        output.append(MatchedIntents_Watson[0])
+        if(MatchedIntents_Watson[0]==WatsonCleanIntent(TaskNames[i])):
+                output.append('pass')
+        else:
+                output.append('fail')
+        output.append(str(MatchedIntents_Watson[1]))
+        output.append(str(MatchedIntents_Watson[2]))
+
         # save the contemporary results for safety
         replaceRow(sheet,output,i+1)
-
+        time.sleep(1)
 
 def main():
     global outputs, config
     MAP=lambda x,y:list(map(x,y))
-    ses=MAP(lambda x:MAP(lambda y:y(),x),[[requests.session]*3]*NUM_THREADS)
+    ses=MAP(lambda x:MAP(lambda y:y(),x),[[requests.session]*4]*NUM_THREADS)
     th=[None]*NUM_THREADS
     config=json.load(open(sys.argv[1],"r"))
     fr=open(config["FileName"],'r')
@@ -86,13 +99,14 @@ def main():
     fr.close()
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
-    resultsFileName='ML_Results-'+timestr+'.ods'
-    resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
+    resultsFileName='WatsonResults.ods'
+    #resultsFileName='ML_Results-'+timestr+'.ods'
+    #resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
     if not resultsFileName:resultsFileName='ML_Results-'+timestr+'.ods'
     ods = newdoc(doctype='ods', filename=resultsFileName)
-    sheet = Sheet('Results', size=(len(Utterances)+1,14))
+    sheet = Sheet('Results', size=(len(Utterances)+1,18))
     ods.sheets += sheet
-    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis'])
+    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF','Matched Intent(s) Luis','Status','ScoresLuis','Matched Intent Watson ',"Status","ScoreWatson", "RawWatsonResponse"])
     ods.save()
     outputs = [None]*len(Utterances)
     prev=0
@@ -116,6 +130,11 @@ def main():
     ods.save()
     return resultsFileName
 
+def callWatsonBot(MatchedIntents_Watson, input_data, ses):
+	# ses is unused for now.
+	resp = WatsonFindIntent(config["watsonBotId"], input_data)
+	MatchedIntents_Watson.clear()
+	MatchedIntents_Watson.extend([resp[0]["intent"],resp[0]["confidence"], json.dumps(resp)])
 
 def callKoreBot(MatchedIntents_Kore, input_data,ses):
         if config["KorePublicApi"]:
@@ -270,6 +289,6 @@ if __name__ == "__main__":
     print(time.time()-start_time)
     print(resultsFileName)
     ods = opendoc(filename=resultsFileName)
-    tabulate.main(ods)
+    #tabulate.main(ods)
 
 

@@ -5,8 +5,9 @@ from tqdm import tqdm
 from googleDF import *
 from kore import *
 from luis import *
-#reload(sys)
-#sys.setdefaultencoding('utf8')
+from watson import *
+
+
 #Global varibles used for reading input from the csv file
 intents=[]
 utterances=[]
@@ -67,6 +68,13 @@ def main():
           for j in tqdm(range(len(intentset))):
               addIntentAndUtteranceDF(intentset[j],input2[intentset[j]])
 
+        if USEWATSON:
+          print("Create Watson workspace")
+          watsonBotId = WatsonCreateBot(botName)
+          print("Adding intents and train utterances")
+          for j in tqdm(range(len(intentset))):
+              WatsonAddIntentAndUtterance(watsonBotId, intentset[j],input2[intentset[j]])
+
         print("Creating the config file for the read.py file.")
         createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[-1],botIdDF,Token_DF)
 
@@ -115,7 +123,9 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"urlL":	urlL,
 		"USEKORE":USEKORE,
 		"USEGOOGLE":USEGOOGLE,
-		"USELUIS":USELUIS
+		"USELUIS":USELUIS,
+		"USEWATSON":USEWATSON,
+		"watsonBotId":watsonBotId
 		}
 	if config["KorePublicApi"]:config["token_Kore"] = koreClientSecret
 	else:config["token_Kore"] = authTokenKore
