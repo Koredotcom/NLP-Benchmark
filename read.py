@@ -11,7 +11,7 @@ Types=[]
 outputs=[]
 urlDF="https://console.dialogflow.com/v1/query"
 
-NUM_THREADS=3
+NUM_THREADS=10
 config={}
 
 def printif(*args):
@@ -99,9 +99,8 @@ def main():
     fr.close()
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
-    resultsFileName='WatsonResults.ods'
-    #resultsFileName='ML_Results-'+timestr+'.ods'
-    #resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
+    resultsFileName='ML_Results-'+timestr+'.ods'
+    resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
     if not resultsFileName:resultsFileName='ML_Results-'+timestr+'.ods'
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,18))
