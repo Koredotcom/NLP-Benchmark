@@ -76,7 +76,7 @@ def main():
               WatsonAddIntentAndUtterance(watsonBotId, intentset[j],input2[intentset[j]])
 
         print("Creating the config file for the read.py file.")
-        createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[-1],botIdDF,Token_DF)
+        createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[-1],botIdDF,Token_DF,watsonBotId)
 
 def prepLuis(intentset,intents,utterances,botIdLuis):
         print("Creating intents in luis")
@@ -110,7 +110,7 @@ def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, 
         print("training the Kore bot")
         trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
 
-def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF):
+def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF,watsonBotId):
 	config= {
 		"botname_Kore":	botName,
 		"uid_Kore":userIdKore,
