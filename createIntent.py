@@ -40,7 +40,6 @@ def main():
 
 
         headersKore['authorization']=authTokenKore #passing the authorization token to the configBot.py file
-        botName=input('Enter Bot Name: ')
 
         botIdKore, dgValue = ("","")
         if USEKORE:

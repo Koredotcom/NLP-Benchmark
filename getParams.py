@@ -71,6 +71,9 @@ koreClientSecret=input("koreClientSecret:")
 fileName="ML_Train.csv"
 TestFileName = "ML_TestData.csv"
 
+botName = input("Please enter name of the bot you want to create(default:BankBot):")
+if not botName:botName = "BankBot"
+
 fr=open('configBot.py','w')
 fr.write("fileName=	\""+fileName+"\"\n")
 fr.write("TestFileName=	\""+TestFileName+"\"\n")
@@ -84,4 +87,5 @@ fr.write("Token_DF=		\""+Token_DF+"\"\n")
 fr.write("botIdDF=		\""+botIdDF+"\"\n")
 fr.write("userIdKore=		\""+userIdKore+"\"\n")
 fr.write("authTokenKore=	\""+	authTokenKore+"\"\n")
+fr.write("botName=	\""+	botName+"\"\n")
 
