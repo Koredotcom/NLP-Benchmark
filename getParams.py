@@ -65,9 +65,9 @@ if USEKORE == "y":
 			loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
 			userIdKore=loginCred[1]
 			authTokenKore=loginCred[0]
-	koreClientId=input("koreClientId:")
-	koreClientName=input("koreClientName:")
-	koreClientSecret=input("koreClientSecret:")
+	#koreClientId=input("koreClientId:")
+	#koreClientName=input("koreClientName:")
+	#koreClientSecret=input("koreClientSecret:")
 else:
 	USEKORE=False
 
