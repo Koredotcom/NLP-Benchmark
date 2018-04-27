@@ -1,52 +1,49 @@
 Expected Task Name,Utterance,Type of Utterance
-Apply for Loan,Can i get a personal loan to buy a car?,Positive
-Apply for Loan,I need to buy a house for my family,Positive
-Apply for Loan,I want a business loan to start off my new venture,Positive
-Apply for Loan,I need a business loan as early as possible,Positive
-Apply for Loan,Get an approval for a study loan,Positive
-Apply for Loan,Arrange for a loan of 5000 to start our business,Positive
-Apply for Loan,Can i be credited with 10000 for property investment?,Positive
-Apply for Loan,Can I borrow funds for admission fees,Positive
-Apply for Loan,Can you help me get funds in advance for wedding,Positive
+apply for loan,Can i get a personal loan to buy a car?,Positive
+apply for loan,I need to buy a house for my family,Positive
+apply for loan,I want a business loan to start off my new venture,Positive
+apply for loan,I need a business loan as early as possible,Positive
+apply for loan,Get an approval for a study loan,Positive
+apply for loan,Arrange for a loan of 5000 to start our business,Positive
+apply for loan,Can i be credited with 10000 for property investment?,Positive
+apply for loan,Can I borrow funds for admission fees,Positive
+apply for loan,Can you help me get funds in advance for wedding,Positive
 None,render an approval for,Negative
-Apply for Loan,Financial assistance is required to buy a new house,Positive
-Apply for Loan,Financial help is needed to buy a new property,Positive
-Apply for Loan,I need money to open a restaurant,Positive
-Apply for Loan,need money on credit immediately,Positive
-Apply for Loan,Request the bank to lend money for home loan,Positive
-Apply for Loan,Apply for a personal loan on my salaried account,Positive
-Apply for Loan,Get money available on credit for payment of insurance bills,Positive
-Apply for Loan,Need to borrow money for personal expenses,Positive
-Apply for Loan,Can you help me arrange funds for clearing my credit card expenses?,Positive
-Apply for Loan,Need a bank loan urgently,Positive
-Apply for Loan,Require financial assistance from bank to start a company,Positive
-Apply for Loan,Need a loan at lowest interest rate,Positive
-Apply for Loan,Require an easy to repay loan,Positive
-Apply for Loan,Mortgage my shop,Positive
-Apply for Loan,Want a guaranteed loan approval for my house renovation,Positive
-Apply for Loan,I need some money urgently. Can I apply for individual loan?,Positive
-Apply for Loan,I want to apply for personal loan for my wedding expenses,Positive
-Apply for Loan,I need 50000 $ as loan,Positive
-Apply for Loan,I need credit of 50K. How do I apply for it?,Positive
-Apply for Loan,I would like to apply for a loan of 50K to pay my College fees,Positive
-Apply for Loan,I have to pay people 40K for my sister's marriage expenses. Can I get loan?,Positive
-Apply for Loan,Can I get a loan of USD3000 from the bank to renovate my house?,Positive
-Apply for Loan,can i borrow some money to take a travel down south,Positive
-Apply for Loan,Can I take some money on credit for 6 months,Positive
-Apply for Loan,how can i get advance money to pay my college registration fee?,Positive
-Apply for Loan,Could you grant me an allowance of 1200 USD,Positive
-Apply for Loan,Can i get some amount beforehand,Positive
-Apply for Loan,I need some aid to set up my business,Positive
-Apply for Loan,I need help to pay my college fee,Positive
-Apply for Loan,What kind of financial aid can you help me with?,Positive
-Apply for Loan,Can you grant me financial aid of 5000 for a car purchase,Positive
-Apply for Loan,Can you faciltate finances for my wedding/admission/college fees,Positive
-Apply for Loan,Hi! I'm planning to purchase a two room flat in central location of the city.So i want to know how can Standard Chartered Bank help me in this.,Positive
-Apply for Loan,Hey! I'm thinking of buying a car but I don't want to use all the money in my account,Positive
-Apply for Loan,Hi. I'm looking out for an easier way to investment in property by taking money from the bank,Positive
-Apply for Loan,Hi Buddy i need you to fix my problem of some shortage of funds that I am facing while working on my new garment showroom,Positive
-Apply for Loan,I gotta get some money to recover my loss to work on my business.,Positive
-Apply for Loan,Hey! I'm all broke buddy! Get me some money to clear my running debts for this month,Positive
+apply for loan,Financial assistance is required to buy a new house,Positive
+apply for loan,Financial help is needed to buy a new property,Positive
+apply for loan,I need money to open a restaurant,Positive
+apply for loan,need money on credit immediately,Positive
+apply for loan,Apply for a personal loan on my salaried account,Positive
+apply for loan,Get money available on credit for payment of insurance bills,Positive
+apply for loan,Need to borrow money for personal expenses,Positive
+apply for loan,Can you help me arrange funds for clearing my credit card expenses?,Positive
+apply for loan,Require financial assistance from bank to start a company,Positive
+apply for loan,Need a loan at lowest interest rate,Positive
+apply for loan,Require an easy to repay loan,Positive
+apply for loan,Mortgage my shop,Positive
+apply for loan,Want a guaranteed loan approval for my house renovation,Positive
+apply for loan,I need some money urgently. Can I apply for individual loan?,Positive
+apply for loan,I want to apply for personal loan for my wedding expenses,Positive
+apply for loan,I need 50000 $ as loan,Positive
+apply for loan,I need credit of 50K. How do I apply for it?,Positive
+apply for loan,I would like to apply for a loan of 50K to pay my College fees,Positive
+apply for loan,I have to pay people 40K for my sister's marriage expenses. Can I get loan?,Positive
+apply for loan,Can I get a loan of USD3000 from the bank to renovate my house?,Positive
+apply for loan,can i borrow some money to take a travel down south,Positive
+apply for loan,Can I take some money on credit for 6 months,Positive
+apply for loan,how can i get advance money to pay my college registration fee?,Positive
+apply for loan,Could you grant me an allowance of 1200 USD,Positive
+apply for loan,Can i get some amount beforehand,Positive
+apply for loan,I need some aid to set up my business,Positive
+apply for loan,What kind of financial aid can you help me with?,Positive
+apply for loan,Can you grant me financial aid of 5000 for a car purchase,Positive
+apply for loan,Can you faciltate finances for my wedding/admission/college fees,Positive
+apply for loan,Hi! I'm planning to purchase a two room flat in central location of the city.So i want to know how can Standard Chartered Bank help me in this.,Positive
+apply for loan,Hey! I'm thinking of buying a car but I don't want to use all the money in my account,Positive
+apply for loan,Hi. I'm looking out for an easier way to investment in property by taking money from the bank,Positive
+apply for loan,Hi Buddy i need you to fix my problem of some shortage of funds that I am facing while working on my new garment showroom,Positive
+apply for loan,I gotta get some money to recover my loss to work on my business.,Positive
+apply for loan,Hey! I'm all broke buddy! Get me some money to clear my running debts for this month,Positive
 None,Who all are eligible to apply for business loan?,Negative
 None,What is the rate of interest for personal loan,Negative
 None,What is the quickest way to repay for loan,Negative
@@ -62,84 +59,78 @@ None,How many days does it take to get a personal loan?,Negative
 None,What is the penalty incurred for inability to repay loan?,Negative
 None,what are interest rates for personal loan ?,Negative
 None,What kind of personal loans does the bank offer?,Negative
-Apply for Loan,Need a fin help frm Bnk for coll fee,Spell Errors
-Apply for Loan,I'm looking for a low-rate loan on EMI for 5yrs,Spell Errors
+apply for loan,I'm looking for a low-rate loan on EMI for 5yrs,Spell Errors
 None,What kind of PL can i get as a coll student?,Spell Errors
-Apply for Loan,Wanna take loan frm ur bank,Spell Errors
-Apply for Loan,I gotta take a PL on my ac asap!!!,Spell Errors
-Apply for Loan,Cant I got loan from the bank fro collage fees,Spell Errors
-Apply for Loan,I need to burrow money,Spell Errors
-Apply for Loan,Please Grantloan,Spell Errors
-Apply for Loan,Grant sum money on llan,Spell Errors
-Apply for Loan,I need some money as loan,Spell Errors
-Apply for Loan,I'd need many from the bank for persnak loan,Spell Errors
-Apply for Loan,Money wanted bank laon asap,Spell Errors
-Apply for Loan,Went some mony on land of Bank,Spell Errors
-Apply for Loan,Give date of Intrest for Parson Loan,Spell Errors
-Transfer Funds,I want to transfer funds to another acoount,Positive
-Transfer Funds,I have to send money to someone,Positive
-Transfer Funds,Need to shift money to an account,Positive
-Transfer Funds,Can you help me in money Transfer?,Positive
-Transfer Funds,Deposit 5000 USD from my account to xyz account,Positive
-Transfer Funds,Will you send $200 to my alternate account?,Positive
-Transfer Funds,Please transfer money from my account to another,Positive
-Transfer Funds,I wish to deposit money from my account to xyz a/c,Positive
-Transfer Funds,Send money online to my friend's account,Positive
-Transfer Funds,Please help me transfer money to my mother's account,Positive
-Transfer Funds,Can you Transfer money now?,Positive
-Transfer Funds,transfer Rs 5000 from my account,Positive
-Transfer Funds,Send $100 from my account,Positive
-Transfer Funds,Transfer $100 from my account today,Positive
-Transfer Funds,Give X amount from my account to account no. 234,Positive
-Transfer Funds,i want ac no 234 to receive $100 from my account,Positive
-Transfer Funds,Send money from my account to xyz account,Positive
-Transfer Funds,I need to make a payment to my younger brother for a bike purchase,Positive
-Transfer Funds,Can you move 500USD to my wife's account asap?,Positive
-Transfer Funds,Would like to wire money to my international account,Positive
-Transfer Funds,Have to transfer money to a friend on a travel trip,Positive
-Transfer Funds,Can 3000 be remitted to my landlord's account?,Positive
-Transfer Funds,transfer 500 to my Kotak account,Positive
-Transfer Funds,Transfer 50k for my sister's admission fee to her college account,Positive
-Transfer Funds,I need to move part of my finances to another account,Structurally Different
-Transfer Funds,I want to share some money with a separate account,Structurally Different
-Transfer Funds,Have to send funds to an online site for shopping transaction,Structurally Different
-Transfer Funds,Money is required to be transferred from one account to another,Structurally Different
-Transfer Funds,Could you please send a sum of $100 to an agent?,Structurally Different
-Transfer Funds,Can you shift my outstanding balance amount to my new account?,Structurally Different
-Transfer Funds,I need an urgent wire transfer of $100,Structurally Different
-Transfer Funds,Immediately make an online wire transfer of $500,Structurally Different
-Transfer Funds,I want Transfer of funds from India to Germany,Structurally Different
-Transfer Funds,I need transfer of money from savings a/c to foreign a/c,Structurally Different
-Transfer Funds,Fund the transaction through my account,Structurally Different
-Transfer Funds,Transfer $100 today and then send $50 tomorrow to ac no 234,Structurally Different
-Transfer Funds,I have to contribute $100 to xyz to clear my dues in the pool lunch.,Structurally Different
-Transfer Funds,I need to contribute my share of money for the lunch to Girish's account,Structurally Different
-Transfer Funds,Send money in accont to tronsfer,Spell Errors
-Transfer Funds,Find of Transfer with account of 1000,Spell Errors
-Transfer Funds,Can you send tranfer in account,Spell Errors
-Transfer Funds,urgent money send on a/c,Spell Errors
-Transfer Funds,Sned money rom my account,Spell Errors
-Transfer Funds,Transfr amunt of $100 from my accunt,Spell Errors
-Transfer Funds,Can you transfer money on my behalf,Spell Errors
-Transfer Funds,I want to make a pavement,Spell Errors
-Transfer Funds,Wirr some cash my patents,Spell Errors
-Transfer Funds,Pay 100USD from my acc,Spell Errors
-Transfer Funds,Release the fun to dads account,Spell Errors
-Transfer Funds,Plz provide fund transfer to xyz ac,Spell Errors
-Transfer Funds,Send Asap money frm savng ac,Spell Errors
-Transfer Funds,Wire transfer funds to XYZ Asap!,Spell Errors
-Transfer Funds,Need u to help me transfer USD frm a/c A to a/c B,Spell Errors
-Transfer Funds,Transfer USD 100 frm my ac nw!,Spell Errors
-Transfer Funds,Hi I want to pay back my friend $100 for the pub night,Positive
-Transfer Funds,I want to pay my car EMI through my alternate bank account.Transfer Rs.5000 to ac no 244,Positive
-Transfer Funds,Hey!! Need your help to repay a frn's payment on my movie ticket,Positive
+apply for loan,I gotta take a PL on my ac asap!!!,Spell Errors
+apply for loan,Cant I got loan from the bank fro collage fees,Spell Errors
+apply for loan,I need to burrow money,Spell Errors
+apply for loan,Please Grantloan,Spell Errors
+apply for loan,Grant sum money on llan,Spell Errors
+apply for loan,I need some money as loan,Spell Errors
+apply for loan,I'd need many from the bank for persnak loan,Spell Errors
+apply for loan,Money wanted bank laon asap,Spell Errors
+apply for loan,Went some mony on land of Bank,Spell Errors
+transfer funds,I want to transfer funds to another acoount,Positive
+transfer funds,I have to send money to someone,Positive
+transfer funds,Need to shift money to an account,Positive
+transfer funds,Can you help me in money Transfer?,Positive
+transfer funds,Deposit 5000 USD from my account to xyz account,Positive
+transfer funds,Will you send $200 to my alternate account?,Positive
+transfer funds,Please transfer money from my account to another,Positive
+transfer funds,I wish to deposit money from my account to xyz a/c,Positive
+transfer funds,Send money online to my friend's account,Positive
+transfer funds,Please help me transfer money to my mother's account,Positive
+transfer funds,Can you Transfer money now?,Positive
+transfer funds,transfer Rs 5000 from my account,Positive
+transfer funds,Send $100 from my account,Positive
+transfer funds,Transfer $100 from my account today,Positive
+transfer funds,Give X amount from my account to account no. 234,Positive
+transfer funds,i want ac no 234 to receive $100 from my account,Positive
+transfer funds,Send money from my account to xyz account,Positive
+transfer funds,I need to make a payment to my younger brother for a bike purchase,Positive
+transfer funds,Can you move 500USD to my wife's account asap?,Positive
+transfer funds,Would like to wire money to my international account,Positive
+transfer funds,Have to transfer money to a friend on a travel trip,Positive
+transfer funds,Can 3000 be remitted to my landlord's account?,Positive
+transfer funds,transfer 500 to my Kotak account,Positive
+transfer funds,Transfer 50k for my sister's admission fee to her college account,Positive
+transfer funds,I need to move part of my finances to another account,Structurally Different
+transfer funds,I want to share some money with a separate account,Structurally Different
+transfer funds,Have to send funds to an online site for shopping transaction,Structurally Different
+transfer funds,Money is required to be transferred from one account to another,Structurally Different
+transfer funds,Could you please send a sum of $100 to an agent?,Structurally Different
+transfer funds,Can you shift my outstanding balance amount to my new account?,Structurally Different
+transfer funds,I need an urgent wire transfer of $100,Structurally Different
+transfer funds,Immediately make an online wire transfer of $500,Structurally Different
+transfer funds,I want Transfer of funds from India to Germany,Structurally Different
+transfer funds,I need transfer of money from savings a/c to foreign a/c,Structurally Different
+transfer funds,Fund the transaction through my account,Structurally Different
+transfer funds,Transfer $100 today and then send $50 tomorrow to ac no 234,Structurally Different
+transfer funds,I have to contribute $100 to xyz to clear my dues in the pool lunch.,Structurally Different
+transfer funds,I need to contribute my share of money for the lunch to Girish's account,Structurally Different
+transfer funds,Send money in accont to tronsfer,Spell Errors
+transfer funds,Find of Transfer with account of 1000,Spell Errors
+transfer funds,Sned money rom my account,Spell Errors
+transfer funds,Transfr amunt of $100 from my accunt,Spell Errors
+transfer funds,Can you transfer money on my behalf,Spell Errors
+transfer funds,I want to make a pavement,Spell Errors
+transfer funds,Wirr some cash my patents,Spell Errors
+transfer funds,Pay 100USD from my acc,Spell Errors
+transfer funds,Release the fun to dads account,Spell Errors
+transfer funds,Plz provide fund transfer to xyz ac,Spell Errors
+transfer funds,Send Asap money frm savng ac,Spell Errors
+transfer funds,Wire transfer funds to XYZ Asap!,Spell Errors
+transfer funds,Need u to help me transfer USD frm a/c A to a/c B,Spell Errors
+transfer funds,Transfer USD 100 frm my ac nw!,Spell Errors
+transfer funds,Hi I want to pay back my friend $100 for the pub night,Positive
+transfer funds,I want to pay my car EMI through my alternate bank account.Transfer Rs.5000 to ac no 244,Positive
+transfer funds,Hey!! Need your help to repay a frn's payment on my movie ticket,Positive
 None,Need to update change of address due to location transfer,Negative
 None,Do I need to give Identification proof for money transfer?,Negative
 None,How can we transfer money?,Negative
 None,How much time will it take for transferring money to another account?,Negative
 None,Can i send money to my family today,Negative
 None,I have to present a cheque of 5000 to e-seva,Negative
-None,would like to know the daily transaction limit?,Negative
 None,Grant access for mobile banking,Negative
 None,Can i pay for multiple services at a time?,Negative
 None,i would like to Request for a new pin for my ATM,Negative
@@ -150,38 +141,36 @@ None,By what time will the fund transfer be made,Negative
 None,Is Pan number Required to transfer fund,Negative
 None,Is overseas transfer of money supported.,Negative
 None,The file transfer from my computer is complete,Negative
-Pay a Bill,Please make a payment of USD 100 to my Uber account,Positive
-Pay a Bill,Pay 100 to Uber for last ride,Positive
-Pay a Bill,Pay 2000 for anti-virus purchase,Positive
-Pay a Bill,Got to work off my parking fine. Please help.,Positive
-Pay a Bill,Please work off my credit card dues,Positive
-Pay a Bill,Clear my dues for the laundry bill,Positive
-Pay a Bill,Settle my account with the grocery store,Positive
-Pay a Bill,make payment of 400 to credit card statement,Positive
-Pay a Bill,Clear the outstanding bill for credit card,Positive
-Pay a Bill,500 is due for groceries payment,Positive
-Pay a Bill,Give 600 pounds to the travel agent,Positive
-Pay a Bill,I want to make a charity of Rs. 1000,Positive
-Pay a Bill,I want to close my account at the hotel,Positive
-Pay a Bill,Clear my debt on mobile purchase,Positive
-Pay a Bill,Complete my purchase of JBL bluetooth speakers on Amazon,Positive
-Pay a Bill,Clear the bill for ebay,Positive
-Pay a Bill,I would like to purchase Amazon prime,Positive
-Pay a Bill,Pay 1200 for Net Flix,Positive
-Pay a Bill,Pay bill for internet recharge,Positive
-Pay a Bill,Pay my electricity bill,Positive
-Pay a Bill,Pay my house rent,Positive
-Pay a Bill,Pay the hotel tariff,Positive
-Pay a Bill,settle my account with xyz,Structurally Different
-Pay a Bill,Recharge my net connection,Structurally Different
-Pay a Bill,Complete my payment with Amazon,Structurally Different
-Pay a Bill,Finish my transaction with Air BnB,Structurally Different
-Pay a Bill,Process payment for invoice,Structurally Different
-Pay a Bill,square accounts with my friend for last weekend trip,Structurally Different
-Pay a Bill,she needs to get her annual leave entitlement,Structurally Different
-Pay a Bill,The butler expects 200 for this month's service,Structurally Different
-Pay a Bill,Surcharge for additional services subscription has to be given to the service provider,Structurally Different
-Pay a Bill,Penalty of Rs 500 has to be given for late submission of fees,Structurally Different
+pay a bill,Please make a payment of USD 100 to my Uber account,Positive
+pay a bill,Pay 100 to Uber for last ride,Positive
+pay a bill,Pay 2000 for anti-virus purchase,Positive
+pay a bill,Got to work off my parking fine. Please help.,Positive
+pay a bill,Please work off my credit card dues,Positive
+pay a bill,Clear my dues for the laundry bill,Positive
+pay a bill,Settle my account with the grocery store,Positive
+pay a bill,make payment of 400 to credit card statement,Positive
+pay a bill,Clear the outstanding bill for credit card,Positive
+pay a bill,500 is due for groceries payment,Positive
+pay a bill,Give 600 pounds to the travel agent,Positive
+pay a bill,I want to make a charity of Rs. 1000,Positive
+pay a bill,I want to close my account at the hotel,Positive
+pay a bill,Clear my debt on mobile purchase,Positive
+pay a bill,Complete my purchase of JBL bluetooth speakers on Amazon,Positive
+pay a bill,Clear the bill for ebay,Positive
+pay a bill,Pay bill for internet recharge,Positive
+pay a bill,Pay my electricity bill,Positive
+pay a bill,Pay my house rent,Positive
+pay a bill,Pay the hotel tariff,Positive
+pay a bill,settle my account with xyz,Structurally Different
+pay a bill,Recharge my net connection,Structurally Different
+pay a bill,Complete my payment with Amazon,Structurally Different
+pay a bill,Finish my transaction with Air BnB,Structurally Different
+pay a bill,Process payment for invoice,Structurally Different
+pay a bill,square accounts with my friend for last weekend trip,Structurally Different
+pay a bill,she needs to get her annual leave entitlement,Structurally Different
+pay a bill,The butler expects 200 for this month's service,Structurally Different
+pay a bill,Surcharge for additional services subscription has to be given to the service provider,Structurally Different
+pay a bill,Penalty of Rs 500 has to be given for late submission of fees,Structurally Different
 None,Ebay will reimburse for merchandise purchase,Negative
 None,How much do I have to pay for the conveyance charges?,Negative
 None,Need review of my previous payments,Negative
@@ -194,70 +183,65 @@ None,i need to know under what conditions does a debit card get deactivated.,Neg
 None,i need to know if my pension been debited?,Negative
 None,What if i sent money to the wrong account?,Negative
 None,need your help in issuing a new cheque book,Negative
-Pay a Bill,Please make a 1200USD payment to transco,Negative
+pay a bill,Please make a 1200USD payment to transco,Negative
 None,Water bill is 600 please pay accordingly,Negative
 None,I want to Change for $12 bill,Negative
 None,are you charging for online bill payments?,Negative
 None,My bill payment was not successfull will amount be refunded.,Negative
 None,will the bill receipt be sent to my email.,Negative
-Pay a Bill,Please paybill,Spell Errors
-Pay a Bill,Pay bIll,Spell Errors
-Pay a Bill,Clear the invoive,Spell Errors
-Pay a Bill,Please make a payment of USD 100 to my Uber account,Spell Errors
-Pay a Bill,Pat 100 to his accont,Spell Errors
-Pay a Bill,Perchaise of 1000 made on accoumt,Spell Errors
-Pay a Bill,poynent has made for new bill,Spell Errors
-View Account Balance,What's my Outstanding account balance?,Positive
-View Account Balance,How much money is left in my account?,Positive
-View Account Balance,What's my outstanding balance?,Positive
-View Account Balance,How much money am i left with?,Positive
-View Account Balance,What's the updated account balance,Positive
-View Account Balance,Want to view my account statement,Positive
-View Account Balance,What are current savings in my account,Positive
-View Account Balance,Can I have my bank statement,Positive
-View Account Balance,Want to get my account balance,Positive
-View Account Balance,Want to review my outstanding bank credit,Positive
-View Account Balance,What amount is available in my account?,Positive
-View Account Balance,What is my bank balance,Positive
-View Account Balance,generate my bank statement,Positive
-View Account Balance,generate my account balance sheet,Positive
-View Account Balance,generate my outstanding balance statement,Positive
-View Account Balance,generate my account information,Positive
-View Account Balance,Need to view my balance,Positive
-View Account Balance,have to view current balance,Positive
-View Account Balance,show me updated balance,Positive
-View Account Balance,Show the savings status,Positive
-View Account Balance,generate a balance inquiry on my account,Positive
-View Account Balance,I need a mini statement on my account balance,Positive
-View Account Balance,Notify me on the remaining balance in account,Positive
-View Account Balance,How much money do i have?,Positive
-View Account Balance,Can you tell me the opening balance,Positive
-View Account Balance,View the opening balance,Positive
-View Account Balance,View the current opening balance of my current account,Positive
-View Account Balance,I want to know why has my cheque bounced?,Structurally Different
-View Account Balance,How much money is unused in my ac now?,Structurally Different
+pay a bill,Please paybill,Spell Errors
+pay a bill,Pay bIll,Spell Errors
+pay a bill,Clear the invoive,Spell Errors
+pay a bill,Please make a payment of USD 100 to my Uber account,Spell Errors
+pay a bill,Pat 100 to his accont,Spell Errors
+pay a bill,Perchaise of 1000 made on accoumt,Spell Errors
+view account balance,What's my Outstanding account balance?,Positive
+view account balance,How much money is left in my account?,Positive
+view account balance,What's my outstanding balance?,Positive
+view account balance,How much money am i left with?,Positive
+view account balance,What's the updated account balance,Positive
+view account balance,Want to view my account statement,Positive
+view account balance,What are current savings in my account,Positive
+view account balance,Can I have my bank statement,Positive
+view account balance,Want to get my account balance,Positive
+view account balance,Want to review my outstanding bank credit,Positive
+view account balance,What amount is available in my account?,Positive
+view account balance,What is my bank balance,Positive
+view account balance,generate my bank statement,Positive
+view account balance,generate my account balance sheet,Positive
+view account balance,generate my outstanding balance statement,Positive
+view account balance,generate my account information,Positive
+view account balance,Need to view my balance,Positive
+view account balance,have to view current balance,Positive
+view account balance,show me updated balance,Positive
+view account balance,Show the savings status,Positive
+view account balance,generate a balance inquiry on my account,Positive
+view account balance,I need a mini statement on my account balance,Positive
+view account balance,Notify me on the remaining balance in account,Positive
+view account balance,How much money do i have?,Positive
+view account balance,Can you tell me the opening balance,Positive
+view account balance,View the opening balance,Positive
+view account balance,View the current opening balance of my current account,Positive
+view account balance,I want to know why has my cheque bounced?,Structurally Different
+view account balance,How much money is unused in my ac now?,Structurally Different
 None,Can I view my account balance on mobile app?,Negative
 None,How can i know the rate of interest for savings account?,Negative
 None,Can there be a co-holder for savings account?,Negative
 None,How safe is it to view account balance on net banking?,Negative
 None,How can I link my account info to my alternate account,Negative
-None,Can i view the pending payments,Negative
-View Account Balance,Wat's my ac bal?,Spell Errors
-View Account Balance,Is my ac bal up to date?,Spell Errors
-View Account Balance,How many $ remaining in my ac nw?,Spell Errors
-View Account Balance,View a ac update on me ac,Spell Errors
-View Account Balance,View belounce account informmation,Spell Errors
-View Account Balance,How muc maney is ldft in my account?,Spell Errors
-Pay a Bill,pay credit card,Structurally Different
-Pay a Bill,pay for credit card,Positive
-Pay a Bill,pay credit card bill,Positive
-View Account Balance,can I my account,Structurally Different
+view account balance,Wat's my ac bal?,Spell Errors
+view account balance,Is my ac bal up to date?,Spell Errors
+view account balance,How many $ remaining in my ac nw?,Spell Errors
+view account balance,View belounce account informmation,Spell Errors
+view account balance,How muc maney is ldft in my account?,Spell Errors
+pay a bill,pay credit card,Structurally Different
+pay a bill,pay for credit card,Positive
+pay a bill,pay credit card bill,Positive
 None,need a bank,Structurally Different
-Transfer Funds,would want to Wire some cash,Positive
+transfer funds,would want to Wire some cash,Positive
 None,would like to have fun,Negative
-Apply for Loan,would like to take money on credit,Positive
 None,need a bean bag,Negative
-Pay a Bill,i want to pay credit card bill,Positive
+pay a bill,i want to pay credit card bill,Positive
 None,can you help me get a visa,Negative
 None,may i get some green peas?,Negative
 None,may i get a newspaper delivered at my office?,Negative
