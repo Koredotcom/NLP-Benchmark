@@ -99,9 +99,10 @@ def main():
     fr.close()
     print("Test data sheet is running")
     timestr=time.strftime("%d-%m-%Y--%H-%M-%S")
-    resultsFileName='ML_Results-'+timestr+'.ods'
+    resultsFileName="ML_Results-"+timestr+".ods"
     resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
-    if not resultsFileName:resultsFileName='ML_Results-'+timestr+'.ods'
+    if not resultsFileName:resultsFileName='ML_Results-'+timestr+".ods"
+    if not resultsFileName.split(".")[-1] == ".ods": resultsFileName += ".ods"
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,18))
     ods.sheets += sheet
