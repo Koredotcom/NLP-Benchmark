@@ -70,6 +70,11 @@ First of all create a new bot(referred as agent in api.ai). Press on the gear ic
 KorePlatform="https://bots.kore.ai"
 
 
+#Configuration for IBM Watson -:
+
+  Create an account in Watson, and get developer name and password (different from login user name and password)
+  Limitations: free account allows a maximum of 5 bots at a time. Also there is a rate limit for bot&intent creation&deletion.
+
 
 
 
