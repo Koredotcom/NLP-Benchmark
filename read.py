@@ -71,7 +71,6 @@ def find_intent3(sheet,i,ses):
         else:
                 output.append('fail')
         output.append(str(MatchedIntents_Watson[1]))
-        output.append(str(MatchedIntents_Watson[2]))
 
         # save the contemporary results for safety
         replaceRow(sheet,output,i+1)
