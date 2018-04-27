@@ -103,9 +103,8 @@ def prepLuis(intentset,intents,utterances,botIdLuis):
 def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, dgValue):
         print("Creating intents in kore")
         for i in tqdm(range(len(intentset))):
-            if "default fallback intent" == intentset[i]:idKore.append(dgValue)
+            if "None" == WatsonCleanIntent(intentset[i]):idKore.append(dgValue)
             else:idKore.append(addIntentKore(intentset[i],botIdKore,userIdKore,authTokenKore,KorePlatform))
-
         th=[]
         print("Adding train utterances in Kore")
         addKoreUtterancesBulk(utterances,botIdKore,intents,userIdKore,authTokenKore,KorePlatform)

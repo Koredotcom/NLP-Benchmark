@@ -22,7 +22,9 @@ def WatsonFindIntent(watsonBotId, utterance):
 	else: return [{"intent":"None","confidence":-1}]
 
 def WatsonCleanIntent(intent):
-	return intent.replace(" ","").replace("\t","")
+	cleanIntent = intent.replace(" ","").replace("\t","")
+	if cleanIntent.lower() == "defaultfallbackintent":cleanIntent="None"
+	return cleanIntent
 
 def WatsonAddIntentAndUtterance(watsonBotId, intent,utterances):
 	validIntent = WatsonCleanIntent(intent)
