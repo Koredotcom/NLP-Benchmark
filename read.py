@@ -102,7 +102,7 @@ def main():
     resultsFileName="ML_Results-"+timestr+".ods"
     resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
     if not resultsFileName:resultsFileName='ML_Results-'+timestr+".ods"
-    if not resultsFileName.split(".")[-1] == ".ods": resultsFileName += ".ods"
+    if not resultsFileName.split(".")[-1] == "ods": resultsFileName += ".ods"
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,18))
     ods.sheets += sheet
@@ -290,6 +290,6 @@ if __name__ == "__main__":
     print(time.time()-start_time)
     print(resultsFileName)
     ods = opendoc(filename=resultsFileName)
-    #tabulate.main(ods)
+    tabulate.main(ods)
 
 
