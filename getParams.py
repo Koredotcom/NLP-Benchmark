@@ -44,7 +44,8 @@ else: USEDF=False
 USEKORE=input("Use Kore?(y/n)").lower().strip()
 while USEKORE not in ["y","n"]: USEKORE=input("please enter y/n only:").lower().strip()
 
-if USEKORE:
+if USEKORE == "y":
+	USEKORE=True
 	KorePlatform=input("Please give the kore.ai environment you want to use(default:https://bots.kore.ai):").lower().strip()
 	if not KorePlatform:KorePlatform="https://bots.kore.ai"
 
@@ -64,9 +65,22 @@ if USEKORE:
 			loginCred=loginToKore(koreUserId,KorePassword,KorePlatform)#Calling the login function for kore
 			userIdKore=loginCred[1]
 			authTokenKore=loginCred[0]
-koreClientId=input("koreClientId:")
-koreClientName=input("koreClientName:")
-koreClientSecret=input("koreClientSecret:")
+	koreClientId=input("koreClientId:")
+	koreClientName=input("koreClientName:")
+	koreClientSecret=input("koreClientSecret:")
+else:
+	USEKORE=False
+
+USEWATSON = input("Use Watson?(y/n)").lower().strip()
+while USEWATSON not in ["y","n"]: USEWATSON=input("please enter y/n only:").lower().strip()
+if USEWATSON == "y":
+	USEWATSON=True
+	watson_uid = input("please enter watson user Id:")
+	watson_passwd = input("please enter watson password:")
+else:
+	USEWATSON=False
+	watson_uid = ""
+	watson_passwd = ""
 
 fileName="ML_Train.csv"
 TestFileName = "ML_TestData.csv"
@@ -87,5 +101,8 @@ fr.write("Token_DF=		\""+Token_DF+"\"\n")
 fr.write("botIdDF=		\""+botIdDF+"\"\n")
 fr.write("userIdKore=		\""+userIdKore+"\"\n")
 fr.write("authTokenKore=	\""+	authTokenKore+"\"\n")
+fr.write("USEWATSON=	\""+	USEWATSON+"\"\n")
+fr.write("watson_uid=	\""+	watson_uid+"\"\n")
+fr.write("watson_passwd=\""+	watson_passwd+"\"\n")
 fr.write("botName=	\""+	botName+"\"\n")
 
