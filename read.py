@@ -90,7 +90,7 @@ def main():
             continue
         if row[0]==None or row[0].strip()=='':
             continue
-        TaskName = row[0].replace("_"," ").lower()
+        TaskName = row[0].replace("_"," ").replace("-","").lower()
         if TaskName == "none":TaskName="None"
         Utterances.append(row[1])
         Types.append(row[2])

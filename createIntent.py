@@ -26,7 +26,7 @@ def main():
         for row in reader:
                 if len(row)<=0:
                         continue
-                row[0] =row[0].strip().lower().replace("-","")
+                row[0] =row[0].strip().lower().replace("-","").replace("_"," ")
                 if row[0]==None or row[0].strip()=='':
                         continue
                 while '  ' in row[0]: row[0] =row[0].replace('  ',' ')
