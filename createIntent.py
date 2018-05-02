@@ -76,13 +76,14 @@ def main():
         else:
           watsonBotId=""
         if USEWIT:
+          witSession = requests.Session()
           print("Create Wit bot")
-          witBotId, witBotToken, witIntentId, witSemanticTagsId  = wit.createBot(botName)
+          witBotId, witBotToken, witIntentId, witSemanticTagsId  = wit.createBot(witSession, botName)
           #print("Adding intents")
           print("Adding intents and train utterances")
           for j in tqdm(range(len(intentset))):
-              wit.addIntentToBot(witBotId, witSemanticTagsId, intentset[j])
-              wit.addUtterances(witBotId, witIntentId, witSemanticTagsId, input2[intentset[j]], intentName)
+              wit.addIntentToBot(witSession, witBotId, witSemanticTagsId, intentset[j])
+              wit.addUtterances(witSession, witBotId, witIntentId, witSemanticTagsId, input2[intentset[j]], intentset[j])
           #print("Adding train utterances")
         else:
           witBotToken=""
@@ -121,7 +122,7 @@ def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, 
         print("training the Kore bot")
         trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
 
-def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF,watsonBotId):
+def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF,watsonBotId,witBotToken):
 	config= {
 		"botname_Kore":	botName,
 		"uid_Kore":userIdKore,
