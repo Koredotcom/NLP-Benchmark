@@ -6,7 +6,7 @@ from googleDF import *
 from kore import *
 from luis import *
 from watson import *
-
+import wit
 
 #Global varibles used for reading input from the csv file
 intents=[]
@@ -75,9 +75,20 @@ def main():
               WatsonAddIntentAndUtterance(watsonBotId, intentset[j],input2[intentset[j]])
         else:
           watsonBotId=""
+        if USEWIT:
+          print("Create Wit bot")
+          witBotId, witBotToken, witIntentId, witSemanticTagsId  = wit.createBot(botName)
+          #print("Adding intents")
+          print("Adding intents and train utterances")
+          for j in tqdm(range(len(intentset))):
+              wit.addIntentToBot(witBotId, witSemanticTagsId, intentset[j])
+              wit.addUtterances(witBotId, witIntentId, witSemanticTagsId, input2[intentset[j]], intentName)
+          #print("Adding train utterances")
+        else:
+          witBotToken=""
 
         print("Creating the config file for the read.py file.")
-        createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[-1],botIdDF,Token_DF,watsonBotId)
+        createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[0],botIdDF,Token_DF,watsonBotId,witBotToken)
 
 def prepLuis(intentset,intents,utterances,botIdLuis):
         print("Creating intents in luis")
@@ -96,7 +107,7 @@ def prepLuis(intentset,intents,utterances,botIdLuis):
                 th.clear()
             
         print("Fetching the endpoint URL to hit, for Luis, to check response by its bot")           
-        urlL.append(getLuisEndPointUrl(botIdLuis))
+        urlL[0]= getLuisEndPointUrl(botIdLuis)
 
 
 def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, dgValue):
@@ -126,6 +137,8 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"USELUIS":USELUIS,
 		"USEWATSON":USEWATSON,
 		"watsonBotId":watsonBotId,
+		"USEWIT":USEWIT,
+		"witBotToken":witBotToken,
 		"lang":lang
 		}
 	if config["KorePublicApi"]:config["token_Kore"] = koreClientSecret
