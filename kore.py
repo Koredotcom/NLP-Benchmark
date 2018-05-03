@@ -248,3 +248,9 @@ def trainKore(streamId,userIdKore,authTokenKore,KorePlatform):
                 print("kore training finished")
         else:
                 print("kore training Failed:"+poll)
+
+def deleteKoreBot(streamId, userIdKore,authTokenKore,KorePlatform):
+	url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams/"+streamId
+	headers = {"authorization":authTokenKore}
+	response = requests.delete(url,headers=headers)
+	print(response)
