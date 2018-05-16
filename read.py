@@ -192,8 +192,8 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                     koreCSScore = rankingMaxObj["scoring"].get("score",0.0)
                     koreFAQScore = rankingMaxObj["scoring"].get("faqScore",0.0)
                 else:
-                    koreMLScore = rankingMaxObj("mlScore", 0.0)
-                    koreCSScore = rankingMaxObj(score, 0.0)
+                    koreMLScore = rankingMaxObj.get("mlScore", 0.0)
+                    koreCSScore = rankingMaxObj.get("score", 0.0)
                     koreFAQScore = rankingMaxObj.get("faqScore", 0.0)
               else:
                 matchedIntents_Kore="Ambiguity:"
