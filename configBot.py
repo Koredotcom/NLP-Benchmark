@@ -15,3 +15,4 @@ authTokenKore="bearer xowAczxCrk4-bSpj3-lQNgcBmGdtIseQxFb6dyFIBZ1cheL6Vdj_1fW-e7
 watson_uid = "d5124i63-98e1-4726-bc6e-3015a7ec3d57"
 watson_passwd = "EKhenaFaQoNg"
 botName="BankBot"
+lang="en"

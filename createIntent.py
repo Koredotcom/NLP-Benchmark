@@ -125,7 +125,8 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"USEGOOGLE":USEGOOGLE,
 		"USELUIS":USELUIS,
 		"USEWATSON":USEWATSON,
-		"watsonBotId":watsonBotId
+		"watsonBotId":watsonBotId,
+		"lang":lang
 		}
 	if config["KorePublicApi"]:config["token_Kore"] = koreClientSecret
 	else:config["token_Kore"] = authTokenKore

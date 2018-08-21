@@ -5,7 +5,7 @@ headersKore = {"content-type": "application/json;charset=UTF-8"}
 
 def builderStreams1(Input, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams"#Calling the builder Api for Kore
-        payload = {"name":Input,"type":"taskbot","description":"drfgd","color":"#FF7A00","categoryIds":["451902a073c071463e2fe7f6"],"skipMakeEditLinks":False,"purpose":"customer","errorCodes":{"pollError":[]},"visibility":{"namespace":[],"namespaceIds":[]},"defaultLanguage":"en"}
+        payload = {"name":Input,"type":"taskbot","description":"drfgd","color":"#FF7A00","categoryIds":["451902a073c071463e2fe7f6"],"skipMakeEditLinks":False,"purpose":"customer","errorCodes":{"pollError":[]},"visibility":{"namespace":[],"namespaceIds":[]},"defaultLanguage":lang}
         try:
                 response = requests.post(url, json=payload, headers=headersKore)
                 streamid=response.json()['_id']
@@ -59,7 +59,7 @@ def getAccountId(userIdKore, authTokenKore, KorePlatform):
     url = KorePlatform+"/api/1.1/users/"+userIdKore+"/AppControlList"
     headers = {
     'authorization': authTokenKore,
-    'bot-language': "en",
+    'bot-language': lang,
     'content-type': "application/json",
     }
     response = requests.get( url, headers=headers)
@@ -123,7 +123,7 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
         headersKore['accept-language']= "en-US,en;q=0.5"
         headersKore['referer']= KorePlatform+"/botbuilder"
         headersKore['authorization']= authTokenKore
-        headersKore['bot-language']= "en"
+        headersKore['bot-language']= lang
         headersKore['accountid']= getAccountId(userIdKore,authTokenKore,KorePlatform)
         iconFileId = iconUpload( userIdKore, authTokenKore, KorePlatform)
 
@@ -196,7 +196,7 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
 
 def addKoreUtterancesBulk(utterances, streamid, intents, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/stream/"+streamid+"/bulk/import"
-        payload = [ {"sentence":utterance,"taskName":intent, "entities":[], "language":"en","type":"DialogIntent"} for utterance,intent in zip(utterances,intents) ]
+        payload = [ {"sentence":utterance,"taskName":intent, "entities":[], "language":lang,"type":"DialogIntent"} for utterance,intent in zip(utterances,intents) ]
         response = requests.post(url, json=payload, headers=headersKore)
         if not response.status_code == 200:
             raise Exception("bulk add utterances to kore failed:"+str(response.status_code)+json.dumps(response.text,indent=2))
