@@ -117,11 +117,11 @@ def publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform,
 	#print(response.text)
 
 def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
-        headersKore['host']= "localhost"
+        headersKore['host']= KorePlatform.split("/")[-1]
         headersKore['user-agent']= "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0"
         headersKore['accept']= "application/json, text/plain, */*"
         headersKore['accept-language']= "en-US,en;q=0.5"
-        headersKore['referer']= "http://localhost/botbuilder"
+        headersKore['referer']= KorePlatform+"/botbuilder"
         headersKore['authorization']= authTokenKore
         headersKore['bot-language']= "en"
         headersKore['accountid']= getAccountId(userIdKore,authTokenKore,KorePlatform)
@@ -196,8 +196,7 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
 
 def addKoreUtterancesBulk(utterances, streamid, intents, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/stream/"+streamid+"/bulk/import"
-        payload = [ {"sentence":utterance,"taskName":intent, "type":"DialogIntent"} for utterance,intent in zip(utterances,intents) ]
-        #print(json.dumps(payload,indent=2))
+        payload = [ {"sentence":utterance,"taskName":intent, "entities":[], "language":"en","type":"DialogIntent"} for utterance,intent in zip(utterances,intents) ]
         response = requests.post(url, json=payload, headers=headersKore)
         if not response.status_code == 200:
             raise Exception("bulk add utterances to kore failed:"+str(response.status_code)+json.dumps(response.text,indent=2))
