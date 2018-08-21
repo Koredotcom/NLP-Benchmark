@@ -9,7 +9,7 @@ assistant = assistant = watson_developer_cloud.AssistantV1(username=watson_uid, 
 
 
 def WatsonCreateBot(botname):
-	watsonBotId =  assistant.create_workspace(botname,description=botname, language="en")["workspace_id"]
+	watsonBotId =  assistant.create_workspace(botname,description=botname, language=lang)["workspace_id"]
 	print("WatsonBotId:",watsonBotId)
 	return watsonBotId
 	

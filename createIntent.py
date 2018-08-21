@@ -78,7 +78,7 @@ def main():
         if USEWIT:
           witSession = requests.Session()
           print("Create Wit bot")
-          witBotId, witBotToken, witIntentId, witSemanticTagsId  = wit.createBot(witSession, botName)
+          witBotId, witBotToken, witIntentId, witSemanticTagsId  = wit.createBot(witSession, botName,lang=lang)
           #print("Adding intents")
           print("Adding intents and train utterances")
           for j in tqdm(range(len(intentset))):
@@ -139,7 +139,8 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"USEWATSON":USEWATSON,
 		"watsonBotId":watsonBotId,
 		"USEWIT":USEWIT,
-		"witBotToken":witBotToken
+		"witBotToken":witBotToken,
+		"lang":lang
 		}
 	if config["KorePublicApi"]:config["token_Kore"] = koreClientSecret
 	else:config["token_Kore"] = authTokenKore
