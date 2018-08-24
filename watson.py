@@ -2,7 +2,7 @@
 
 from configBot import *
 
-import time, json, bson
+import time, json
 import watson_developer_cloud
 
 assistant = assistant = watson_developer_cloud.AssistantV1(username=watson_uid, password=watson_passwd, version="2018-02-16")
