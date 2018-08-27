@@ -6,6 +6,7 @@ USEKORE=True
 USEGOOGLE=False
 USELUIS=False
 USEWATSON=False
+USEWIT=False
 subscriptionToken=	""
 Token_DF=		"ecf2caaa9841447ba330d73306f976d7"
 botIdDF=		"15d93a17-4cfa-489d-9058-2f720a88ac7a"
