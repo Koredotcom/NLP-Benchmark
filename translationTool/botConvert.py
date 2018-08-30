@@ -37,7 +37,8 @@ def langValidation(v):
 	return False
 
 def validateOption(option):
-	if option=='a' or option=='b' or option=='c' or option=='d' or option=='e' or option=='f':
+	allOptions="abcdefg"
+	if option in allOptions:
 		return False
 	return True
 
@@ -49,6 +50,7 @@ def user_display():
 	print("d) Automation Suite")
 	print("e) BatchTest Suite")
 	print("f) Template Locales")
+	print("g) koraGenericResponses")
 
 def read_input():
 	loop=True
@@ -103,6 +105,8 @@ def Process():
 		gTrans.BatchTestSuite(payload)
 	elif option == 'f':
 		gTrans.localeCodes(payload)
+	elif option == 'g':
+		gTrans.koraGenericResponses(payload)
 	jsonstring = json.dumps(payload).replace('"'+src+'"','"'+dest+'"')
 	payload    = json.loads(jsonstring)
 	translatedFile = str(datetime.now()).split('.')[0].replace(" ","_") 

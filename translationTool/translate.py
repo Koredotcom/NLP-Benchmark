@@ -84,3 +84,8 @@ class googleTranslate:
 	def localeCodes(self,errorCodes):
 		for errorCode in tqdm(errorCodes):
 			errorCodes[errorCode]=self.translateSentence(errorCodes[errorCode])
+
+	def koraGenericResponses(self,payload):
+		genericKoraResponses = payload["koraGenericResponses"]
+		for koraresponse in tqdm(genericKoraResponses):
+			koraresponse["Original Message"]=self.translateSentence(koraresponse["Original Message"])
