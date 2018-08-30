@@ -89,3 +89,19 @@ class googleTranslate:
 		genericKoraResponses = payload["koraGenericResponses"]
 		for koraresponse in tqdm(genericKoraResponses):
 			koraresponse["Original Message"]=self.translateSentence(koraresponse["Original Message"])
+
+	def defaultErrorCodeScript(self,payload):
+		pollErrors=payload["errorCodes"]["pollErrors"]
+		for pollerror in tqdm(pollErrors):
+			error=pollErrors[pollerror]
+			error["message"]=self.translateSentence(error["message"])
+			if "errorMessages" in error:
+				if "poll" in error["errorMessages"]:
+					error["errorMessages"]["poll"]["title"]=self.translateSentence(error["errorMessages"]["poll"]["title"])
+					error["errorMessages"]["poll"]["body"]=self.translateSentence(error["errorMessages"]["poll"]["body"])
+				if "fetch" in error["errorMessages"]:
+					error["errorMessages"]["fetch"]["title"]=self.translateSentence(error["errorMessages"]["fetch"]["title"])
+					error["errorMessages"]["fetch"]["body"]=self.translateSentence(error["errorMessages"]["fetch"]["body"])
+				if "action" in error["errorMessages"]:
+					error["errorMessages"]["action"]["title"]=self.translateSentence(error["errorMessages"]["action"]["title"])
+					error["errorMessages"]["action"]["body"]=self.translateSentence(error["errorMessages"]["action"]["body"])
