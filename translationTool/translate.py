@@ -1,6 +1,6 @@
 import googletrans
 from tqdm import tqdm
-
+import time
 class googleTranslate:
 	def __init__(self,src="en",dest="fr"):
 		self.Translator = googletrans.Translator()
@@ -9,7 +9,13 @@ class googleTranslate:
 
 	def translateSentence(self,sentence):
 		Translator=self.Translator
-		transobj = Translator.translate(sentence,self.dest,self.src)
+		try:
+			transobj = Translator.translate(str(sentence),self.dest,self.src)
+		except Exception as e:
+			time.sleep(10)
+			self.Translator = googletrans.Translator()
+			return self.translateSentence(sentence)
+
 		return transobj.text
 
 	def listofValues(self,lookuplist):
@@ -24,8 +30,8 @@ class googleTranslate:
 				obj["synonyms"][idx] = ",".join(x for x in lis)
 		return
 		
-	def FAQS(self,faqpayload):
-		if "faqs" in faqpayload:
+	def FAQS(self,faqPayload):
+		if "faqs" in faqPayload:
 			faqs = faqPayload["faqs"]
 			print("Translating FAQS:\n")
 			for faq in tqdm(faqs):
