@@ -112,7 +112,7 @@ def Process():
 		gTrans.defaultErrorCodeScript(payload)
 	jsonstring = json.dumps(payload).replace('"'+src+'"','"'+dest+'"')
 	payload    = json.loads(jsonstring)
-	translatedFile = str(datetime.now()).split('.')[0].replace(" ","_") 
+	translatedFile = str(datetime.now()).split('.')[0].replace(" ","_").replace(":","_")
 	with open(translatedFile+".json", 'w', encoding='utf-8') as f:
 		json.dump(payload,f,ensure_ascii=False,indent=4)
 
