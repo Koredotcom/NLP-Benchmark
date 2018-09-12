@@ -38,9 +38,9 @@ More customisable use:
      $ (windows only) download twisted from https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted (appropriate version)
      $ (windows only) pip install Twisted<version>.whl
      $ pip install --upgrade -r requirements.txt
-3. To create a bot, upload training data, and test it and store results all at once, do
+3. (Do this only if you haven't edited configBot.py else skip this step) To create a bot, upload training data, and test it and store results all at once, do
      $ "python pipeline.py"
-4. To do these steps separately,
+4. (If you edited configBot.py) Do these steps separately,
      $ python createIntent.py
      $ python read.py testconfig.json
 
