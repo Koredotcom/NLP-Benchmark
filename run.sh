@@ -9,9 +9,9 @@ pip install --upgrade -r requirements.txt
 python getParams.py
 if [ $? -eq 0 ]
 then
-python createIntent.py
+	python createIntent.py
 fi
 if [ $? -eq 0 ]
 then
-python read.py testconfig.json
+	python runTest.py testconfig.json
 fi
