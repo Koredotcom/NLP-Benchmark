@@ -14,6 +14,12 @@ HOW TO CONFIGURE-
 
 In the configBot.py File, follow the mentioned steps to get all the necessary tokens and populate them.
 
+Prerequisites:
+    - python 3.5.3 or higher
+        - windowns installer at : https://www.python.org/downloads/windows/
+    - virtualenv
+        - windows instructions at https://docs.python.org/3/library/venv.html
+
 HOW TO RUN-
 Use Python 3.5
 
@@ -23,8 +29,10 @@ Linux: ./run.sh
 More customisable use:
 
 1. Create a virtual env for this tool, if not already present.
-     $ virtualenv --python=python3 venv/ # creates venv
-     $ source venv/bin/activate          # uses venv
+     # creates venv but if more than one python is installed use "$ virtualenv  --python=python3 venv/ "
+     $ virtualenv  venv/ 
+     # start using venv
+     $ source venv/bin/activate          
 2. If this is your first time running the tool, do this.
      $ pip install --upgrade pip
      $ (windows only) download twisted from https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted (appropriate version)
@@ -35,7 +43,6 @@ More customisable use:
 4. To do these steps separately,
      $ python createIntent.py
      $ python read.py testconfig.json
-     $ python tabulate.py
 
 Do not give spaces in bot name. It is not tested with spaces, in all platforms.
 Note that kore platform access token expires in finite time. so if you plan to run the testing at a later time, please update the token in testconfig.json (not configBot.py). The testing script (read.py) will prompt if kore token expires.
