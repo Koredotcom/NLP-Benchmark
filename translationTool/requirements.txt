@@ -1,2 +1,2 @@
-googletrans
 tqdm
+google-api-python-client==1.7.4

@@ -1,22 +1,35 @@
-import googletrans
+from googleapiclient.discovery import build
+
+
 from tqdm import tqdm
 import time
 class googleTranslate:
 	def __init__(self,src="en",dest="fr"):
-		self.Translator = googletrans.Translator()
-		self.src = src
-		self.dest = dest
+		self.Translator = build('translate', 'v2',
+            developerKey='use your api')
+		self.src    = src
+		self.dest   = dest
+		self.count  =0 
 
 	def translateSentence(self,sentence):
 		Translator=self.Translator
+		translatedText = None
 		try:
-			transobj = Translator.translate(str(sentence),self.dest,self.src)
+			translatedText = self.Translator.translations().list(
+														source=self.src,
+														target=self.dest,
+														q=sentence
+														).execute()
+			return translatedText["translations"][0]["translatedText"]
 		except Exception as e:
+			print(sentence)
+			print(translatedText)
+			print(e)
+			print("error in google translate")
 			time.sleep(10)
-			self.Translator = googletrans.Translator()
-			return self.translateSentence(sentence)
+			return self.translateSentence(sentence,)
 
-		return transobj.text
+		return sentence
 
 	def listofValues(self,lookuplist):
 		for obj in lookuplist:
@@ -37,7 +50,7 @@ class googleTranslate:
 			for faq in tqdm(faqs):
 				faq["question"]=self.translateSentence(faq["question"])
 				for j in range(0,len(faq["alternateQuestions"])):
-					faq["alternateQuestions"][j]=self.translateSentence(faq["alternateQuestions"][j])
+					faq["alternateQuestions"][j]["question"]=self.translateSentence(faq["alternateQuestions"][j]["question"])
 
 	def MlSentences(self,sentences):
 		print("Translating ML Sentences:\n ")
@@ -86,6 +99,7 @@ class googleTranslate:
 			testCases = payload["testCases"]
 			for testcase in tqdm(testCases):
 				testcase["input"]=self.translateSentence(testcase["input"])
+				testcase["intent"]=self.translateSentence(testcase["intent"])
 	
 	def localeCodes(self,errorCodes):
 		for errorCode in tqdm(errorCodes):
