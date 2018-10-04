@@ -92,10 +92,10 @@ class googleTranslate:
 	def AutomationSuite(self,payload):
 		if "testCases" in payload:
 			testCases = payload["testCases"]
-			for testcase in tqdm(testCases):
+			for idx,testcase in enumerate(testCases):
 				messages=testcase["messages"]
-				for message in messages:
-					message["input"]=self.translateSentence(message["input"])
+				for idx2,message in enumerate(messages):
+					testCases[idx]["messages"][idx2]["input"]=self.translateSentence(message["input"])
 
 	def BatchTestSuite(self,payload):
 		if "testCases" in payload:
