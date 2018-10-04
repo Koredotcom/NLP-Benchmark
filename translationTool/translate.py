@@ -6,7 +6,7 @@ import time
 class googleTranslate:
 	def __init__(self,src="en",dest="fr"):
 		self.Translator = build('translate', 'v2',
-            developerKey='use your api')
+            developerKey='use your api key')
 		self.src    = src
 		self.dest   = dest
 		self.count  =0 
@@ -33,14 +33,17 @@ class googleTranslate:
 
 	def listofValues(self,lookuplist):
 		for obj in lookuplist:
-			for idx,val in enumerate(obj["synonyms"]):
-				lis = []
-				for syn in val.split(","):
-					if syn[0] =='"' and syn[-1] == '"':
-						lis.append('"'+self.translateSentence(syn[1:-1])+'"')
-					else:
-						lis.append(self.translateSentence(syn))
-				obj["synonyms"][idx] = ",".join(x for x in lis)
+			if type(obj["synonyms"]) is str:
+				obj["synonyms"] = self.translateSentence(obj["synonyms"] )
+			else:
+				for idx,val in enumerate(obj["synonyms"]):
+					lis = []
+					for syn in val.split(","):
+						if len(syn)>0  and syn[0] =='"' and syn[-1] == '"':
+							lis.append('"'+self.translateSentence(syn[1:-1])+'"')
+						else:
+							lis.append(self.translateSentence(syn))
+					obj["synonyms"][idx] = ",".join(x for x in lis)
 		return
 		
 	def FAQS(self,faqPayload):
