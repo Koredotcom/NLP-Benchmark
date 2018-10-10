@@ -96,14 +96,6 @@ class googleTranslate:
 				messages=testcase["messages"]
 				for idx2,message in enumerate(messages):
 					testCases[idx]["messages"][idx2]["input"]=self.translateSentence(message["input"])
-					for val in message["outputs"]:
-						contains = val["contains"]
-						if type(contains) is str:
-							val["contains"] = self.translateSentence(contains)
-						else:
-							for idx3,i in enumerate(val["contains"]["oneOf"]):
-								val["contains"]["oneOf"][idx3] = self.translateSentence(val["contains"]["oneOf"][idx3])
-
 
 	def BatchTestSuite(self,payload):
 		if "testCases" in payload:
