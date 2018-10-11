@@ -91,7 +91,7 @@ def Process():
 	src=inp[1].lower()
 	dest=inp[2].lower()
 	path=inp[3]
-	with open(path,"r") as f:
+	with open(path,"r",encoding="utf-8") as f:
 		payload=json.load(f)
 	gTrans = googleTranslate(langmaps[src],langmaps[dest])
 	if option == 'a':
@@ -112,9 +112,9 @@ def Process():
 		gTrans.defaultErrorCodeScript(payload)
 	jsonstring = json.dumps(payload).replace('"'+src+'"','"'+dest+'"')
 	payload    = json.loads(jsonstring)
-	translatedFile = str(datetime.now()).split('.')[0].replace(" ","_").replace(":","_")
+	translatedFile = path.split("/")[-1].split("\\")[-1].replace(".json","")+"_"+dest
 	with open(translatedFile+".json", 'w', encoding='utf-8') as f:
-		json.dump(payload,f,ensure_ascii=False,indent=4)
+		json.dump(payload,f,ensure_ascii=False,indent=4,sort_keys=True)
 
 if __name__ == '__main__':
 	Process()
