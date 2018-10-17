@@ -39,8 +39,8 @@ class googleTranslate:
 				for idx,val in enumerate(obj["synonyms"]):
 					lis = []
 					for syn in val.split(","):
-						if len(syn)>0  and syn[0] =='"' and syn[-1] == '"':
-							lis.append('"'+self.translateSentence(syn[1:-1])+'"')
+						if len(syn)>0  and syn[0] in ['"',"<"] and syn[-1] in ['"',"<"]:
+							lis.append(syn[0]+self.translateSentence(syn[1:-1])+syn[-1])
 						else:
 							lis.append(self.translateSentence(syn))
 					obj["synonyms"][idx] = ",".join(x for x in lis)
