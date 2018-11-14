@@ -93,6 +93,8 @@ def Process():
 	path=inp[3]
 	with open(path,"r") as f:
 		payload=json.load(f)
+	if payload["mlParams"] and len(payload["mlParams"])==1: # new languages must have corenlp set
+	   payload["mlParams"][0]["nerParams"]["type"]="corenlp"
 	gTrans = googleTranslate(langmaps[src],langmaps[dest])
 	if option == 'a':
 		gTrans.BotDefinition(payload,dest,src)
