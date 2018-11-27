@@ -1,5 +1,6 @@
 fileName = "ML_Train.csv"
 TestFileName = "ML_TestData.csv"
+RESULTSFILE = ""
 debug = True
 botName = "BankBot"
 lang = "en"
