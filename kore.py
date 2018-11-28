@@ -5,7 +5,7 @@ headersKore = {"content-type": "application/json;charset=UTF-8"}
 
 def builderStreams1(Input, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/streams"#Calling the builder Api for Kore
-        payload = {"name":Input,"type":"taskbot","description":"drfgd","color":"#FF7A00","categoryIds":["451902a073c071463e2fe7f6"],"skipMakeEditLinks":False,"purpose":"customer","errorCodes":{"pollError":[]},"visibility":{"namespace":[],"namespaceIds":[]},"defaultLanguage":lang}
+        payload = {"name":Input,"type":"default","description":Input,"color":"#FF7A00","categoryIds":["451902a073c071463e2fe7f6"],"skipMakeEditLinks":False,"purpose":"customer","errorCodes":{"pollError":[]},"visibility":{"namespace":[],"namespaceIds":[]},"defaultLanguage":lang}
         try:
                 response = requests.post(url, json=payload, headers=headersKore)
                 streamid=response.json()['_id']
