@@ -39,10 +39,13 @@ def main():
         print("Finished reading training data.")
 
 
-        headersKore['authorization']=authTokenKore #passing the authorization token to the configBot.py file
 
         botIdKore, dgValue = ("","")
         if USEKORE:
+            if ssoKore is False:
+                authTokenKore,userIdKore = loginToKore(KoreEmailId, KorePassword, KorePlatform)
+
+            headersKore['authorization']=authTokenKore #passing the authorization token to the configBot.py file
             botIdKore, dgValue = createKoreBot(botName,userIdKore,authTokenKore,KorePlatform,KorePublicApi)
             print("New bot "+botName+" has been created in Kore with botid: "+ botIdKore)
             prepKore(intentset,intents,utterances,botIdKore,userIdKore,authTokenKore, dgValue)

@@ -17,7 +17,8 @@ KorePlatform = "https://bots.kore.ai"
 ssoKore=True
 userIdKore="u-f5047708-1b41-5dfe-960a-64fef9638329"
 authTokenKore="bearer xowAczxCrk4-bSpj3-lQNgcBmGdtIseQxFb6dyFIBZ1cheL6Vdj_1fW-e7R8MgMV"
-
+KoreEmailId=""
+KorePassword=""
 # optional platforms to enable to compare with kore
 # Luis.ai
 subscriptionToken=""
