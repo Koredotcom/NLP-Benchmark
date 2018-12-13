@@ -221,12 +221,6 @@ def writeCSV(sheet,currentIntent=None):
 		insertRow(sheetInd,[])
 	if not currentIntent:
 		RowNum[0]=0
-		for i in range(len(array)):
-			row=[]
-			for j in range(len(array1)):
-				row.append(array[i][j])
-			insertRow(sheet,row)
-		insertRow(sheet,[])
 	for i in range(len(arrayC)):
 		row=[]
 		for j in range(len(arrayC[i])):
