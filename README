@@ -63,6 +63,29 @@ Setup Instructions:
      $ (windows only) pip install Twisted<version>.whl
      $ pip install --upgrade -r requirements.txt
 
+DEFINITIONS AND FORMULAE:-
+
+     TP of intent->  output intent is current intent and expected is current intent (matched current intent)
+     FP of intent->  output intent is current intent but Expected intent is different
+     FN of intent->  Expected is current intent but output intent is different
+     TN of intent->  output intent and expected intent is not current intent
+
+     TP of intents = sum of all TP of intents except None
+     FP of intents = sum of all FP of intents except None
+     TN of intents = sum of all TN of intents except None
+     FN of intents = sum of all FN of intents except None
+
+
+
+     Precision = (TP of intents + TP of None)/( (TP of intents + TP of None) + FP of intents )
+
+     Recall = (TP of intents + TP of None)/( (TP of intents + TP of None) + FN of intents )
+
+     Fmeasure = 2*(TP of intents + TP of None)/( 2*(TP of intents + TP of None) + FN of intents + FP of intents )
+
+     Accuracy = (TP of intents + TP of None)/( (TP of intents + TP of None) + FN of intents + FP of intents )
+
+
 HOW TO RUN-
 
 For Easy use:
