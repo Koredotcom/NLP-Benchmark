@@ -39,7 +39,7 @@ def main():
         print("Finished reading training data.")
 
 
-
+        global authTokenKore, userIdKore
         botIdKore, dgValue = ("","")
         if USEKORE:
             if ssoKore is False:
