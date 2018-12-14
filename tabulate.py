@@ -10,22 +10,29 @@ recall=[0,0,0,0]
 fscore=[0,0,0,0]
 accuracy=[0,0,0,0]
 
+def process_ambiguity(r):
+	r = [cell.value for cell in r]
+	if "ambiguity:" in r[3].lower():
+		r[3] = "None"
+	return  r
+
 def main(ods):
 	sheets=[sheet for sheet in ods.sheets][1:]
 	for sheet in sheets: del sheet
-	rows=[r for r in ods.sheets[0].rows()][1:]
+	rows=[process_ambiguity(r) for r in ods.sheets[0].rows()][1:]
+
 	for x in rows:
 		if not x[0]:continue
-		intent.append(WatsonCleanIntent(x[0].value))
-		TyOfUtt.append(x[2].value)
-		matched[0].append(WatsonCleanIntent(x[ 3].value))
-		matched[1].append(WatsonCleanIntent(x[ 8].value))
-		matched[2].append(WatsonCleanIntent(x[11].value))
-		matched[3].append(WatsonCleanIntent(x[14].value))
-		success[0].append(x[4].value)
-		success[1].append(x[9].value)
-		success[2].append(x[12].value)
-		success[3].append(x[15].value)
+		intent.append(WatsonCleanIntent(x[0]))
+		TyOfUtt.append(x[2])
+		matched[0].append(WatsonCleanIntent(x[ 3]))
+		matched[1].append(WatsonCleanIntent(x[ 8]))
+		matched[2].append(WatsonCleanIntent(x[11]))
+		matched[3].append(WatsonCleanIntent(x[14]))
+		success[0].append(x[4])
+		success[1].append(x[9])
+		success[2].append(x[12])
+		success[3].append(x[15])
 	numIntents=len(set(intent))+1
 	numrows=numIntents*16
 	colsMax=11
