@@ -45,7 +45,7 @@ def main(ods):
 	sheetInd.name="Individual Intents"
 	sheetInd._cellmatrix.reset((numrows+10,colsMax+10))
 	RowNum[0]=0
-	for ints in set(intent):
+	for ints in sorted(set(intent)):
 		if ints != "None":
 			writeCSV(sheetInd,ints)
 
