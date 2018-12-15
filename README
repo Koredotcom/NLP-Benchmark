@@ -106,6 +106,7 @@ HOW TO EVALUATE THE RESULTS-
 1. The Results sheet has the status pass or fail depending on the intent identified matched with expected intent.
 2. The Summary sheet shows Precision, Recall, F Measure and Accuracy Values for all the three platforms.
 3. The IndividualIntents sheet shows the True Positives, True Negatives, False Positives and False Negatives for all the three platforms for individual tasks.
+4. Ambiguity cases are shown in the results and are counted towards None intent.
 
 NOTES- Certain limitations are to be noted:
 	a. Maximum number of Intents that can be created in Luis.AI are 12.

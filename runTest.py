@@ -44,7 +44,9 @@ def find_intent3(sheet,i,ses):
         thWatson=Thread(target=callWatsonBot,args=(MatchedIntents_Watson,Utterances[i],ses[3]));thWatson.start()
         thKORE.join();thDF.join();thLUIS.join();thWatson.join()
         output.append(MatchedIntents_Kore[0])
-        if(MatchedIntents_Kore[0]==TaskNames[i]):
+        if MatchedIntents_Kore[0]==TaskNames[i]:
+            output.append('pass')
+        elif MatchedIntents_Kore[0][:10]=='Ambiguity:' and TaskNames[i]=='None':
             output.append('pass')
         else:
             output.append('fail')

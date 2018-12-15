@@ -116,7 +116,7 @@ def writeCSV(sheet,currentIntent=None):
 						falsePositivesNone +=1
 					else:
 						falsePositives +=1
-				if(currentintent!=matched[platforms][i] and currentintent != intent[i] and matched[platforms][i]==intent[i]):
+				if(currentintent!=matched[platforms][i] and currentintent != intent[i]):
 					if currentintent == "None":
 						trueNegativesNone +=1
 					else:
