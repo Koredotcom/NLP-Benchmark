@@ -91,7 +91,7 @@ def main():
         else:
           witBotToken=""
 
-        print("Creating the config file for the read.py file.")
+        print("Creating the config file (testconfig.json) for the runTest.py file.")
         createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[0],botIdDF,Token_DF,watsonBotId,witBotToken)
 
 def prepLuis(intentset,intents,utterances,botIdLuis):
