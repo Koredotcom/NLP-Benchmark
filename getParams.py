@@ -10,6 +10,8 @@ authTokenKore=""
 KoreEmailId=""
 KorePassword=""
 witUserToken = ""
+watson_uid = ""
+watson_passwd = ""
 
 USELUIS=input("Use Luis?(y/n):").lower().strip()
 while USELUIS not in ["y","n"]: USELUIS=input("please enter y/n only:").lower().strip()
@@ -87,7 +89,9 @@ fr.write("ssoKore=		"+str(ssoKore)+"\n")
 fr.write("KorePlatform=\""+str(KorePlatform)+"\"\n")
 fr.write("USEKORE="+str(USEKORE)+"\n")
 fr.write("USEGOOGLE="+str(USEDF)+"\n")
+fr.write("USEWATSON="+str(USEWATSON)+"\n")
 fr.write("USELUIS="+str(USELUIS)+"\n")
+fr.write("USEWIT="+str("False")+"\n")
 fr.write("subscriptionToken=	\""+subscriptionToken+"\"\n")
 fr.write("Token_DF=		\""+Token_DF+"\"\n")
 fr.write("botIdDF=		\""+botIdDF+"\"\n")
@@ -100,9 +104,9 @@ if KoreEmailId:
 if KorePassword:
 	fr.write("KorePassword=	\""+	KorePassword+"\"\n")
 fr.write("witUserToken=	\""+	str(witUserToken)+"\"\n")
-fr.write("USEWATSON=	\""+	str(USEWATSON)+"\"\n")
 fr.write("watson_uid=	\""+	str(watson_uid)+"\"\n")
 fr.write("watson_passwd=\""+	str(watson_passwd)+"\"\n")
 fr.write("botName=	\""+	str(botName)+"\"\n")
+fr.write("RESULTSFILE= 	\""+"testconfig.json"+"\"\n")
 fr.write("lang=	\""+	str("en")+"\"\n")
 
