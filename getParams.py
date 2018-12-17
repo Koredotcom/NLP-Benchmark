@@ -5,6 +5,12 @@ if sys.version[0]==2:
 	print("Use python3")
 	exit(1)
 
+userIdKore=""
+authTokenKore=""
+KoreEmailId=""
+KorePassword=""
+witUserToken = ""
+
 USELUIS=input("Use Luis?(y/n):").lower().strip()
 while USELUIS not in ["y","n"]: USELUIS=input("please enter y/n only:").lower().strip()
 
@@ -37,7 +43,8 @@ if USEKORE == "y":
 	#If running with company account id, please mark ssoKore as 'True' and enter the user-Id along with Authorization bearer in the command prompt. Else, enter you login credentials in the terminal.
 
 	ssoKore=input("How do you want to login to kore.ai?(bearer/password):").lower().strip()
-	while ssoKore not in ["bearer","password"]: ssoKore=input("please enter bearer/password only:").lower().strip()
+	while ssoKore not in ["bearer","password"]:
+		ssoKore=input("please enter bearer/password only:").lower().strip()
 		userIdKore=""
 		authTokenKore=""
 		KoreEmailId=""
@@ -92,8 +99,10 @@ if KoreEmailId:
 	fr.write("KoreEmailId=	\""+	KoreEmailId+"\"\n")
 if KorePassword:
 	fr.write("KorePassword=	\""+	KorePassword+"\"\n")
-fr.write("USEWATSON=	\""+	USEWATSON+"\"\n")
-fr.write("watson_uid=	\""+	watson_uid+"\"\n")
-fr.write("watson_passwd=\""+	watson_passwd+"\"\n")
-fr.write("botName=	\""+	botName+"\"\n")
+fr.write("witUserToken=	\""+	str(witUserToken)+"\"\n")
+fr.write("USEWATSON=	\""+	str(USEWATSON)+"\"\n")
+fr.write("watson_uid=	\""+	str(watson_uid)+"\"\n")
+fr.write("watson_passwd=\""+	str(watson_passwd)+"\"\n")
+fr.write("botName=	\""+	str(botName)+"\"\n")
+fr.write("lang=	\""+	str("en")+"\"\n")
 
