@@ -2,30 +2,32 @@
 	
 	python3, pip modules specified in requirements.txt
 
-**INTRODUCTION-**
+# INTRODUCTION
+	
 	This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
 
-*Prerequisites:*
-    - python  >= 3.5.3 and <= 3.6.3. We suggest to use stable 3.5.3 
-        - windows installer at : https://www.python.org/downloads/windows/
-    - virtualenv
-        - windows instructions at https://docs.python.org/3/library/venv.html
+**Prerequisites**
+	    - python  >= 3.5.3 and <= 3.6.3. We suggest to use stable 3.5.3 
+		- windows installer at : https://www.python.org/downloads/windows/
+	    - virtualenv
+		- windows instructions at https://docs.python.org/3/library/venv.html
 
-*PREPARATION OF DATA-*
-	1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
-	2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in 		ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
+**PREPARATION OF DATA:-**
+		-1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
+		-2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in 	ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv
+	sheet, with the necessary capitalization.
 
-**HOW TO CONFIGURE THE TOOL-**
+#HOW TO CONFIGURE THE TOOL:-
 
-In the configBot.py File, follow the mentioned steps to get all the necessary tokens and populate them.
+	In the configBot.py File, follow the mentioned steps to get all the necessary tokens and populate them.
 
-*##Configuration for Kore.ai -:*
-#Pre-requisite for this is to ensure that you have registered and logged in into https://bots.kore.ai/botbuilder 
-#Enter the name of the environment for which the Benchmark tool needs to be run.
+**Configuration for Kore.ai -:**
+	#Pre-requisite for this is to ensure that you have registered and logged in into https://bots.kore.ai/botbuilder 
+	#Enter the name of the environment for which the Benchmark tool needs to be run.
 
 	KorePlatform="https://bots.kore.ai"
 
-#Enter UserId and Bearer token from any API calls recorded by the browser developer console and clicking on any bot. User Ids can be found in Request Header in request parameters and authorization token can be found under "authorization" attribute of request header. Refer samples below 
+	Enter UserId and Bearer token from any API calls recorded by the browser developer console and clicking on any bot. User Ids can be found in Request Header in request parameters and authorization token can be found under "authorization" attribute of request header. Refer samples below 
 
 	userIdKore="u-f5047708-1b41-5dfe-960a-64fef9638329"
 	authTokenKore="bearer xowAczxCrk4-bSpj3-lQNgcBmGdtIseQxFb6dyFIBZ1cheL6Vdj_1fW-e7R8MgMV"
