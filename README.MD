@@ -1,5 +1,5 @@
-**DEPENDENCIES-**
-python3, pip modules specified in requirements.txt
+**DEPENDENCIES:-**
+--python3, pip modules specified in requirements.txt
 
 **INTRODUCTION-**
 
