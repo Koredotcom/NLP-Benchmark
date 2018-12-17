@@ -1,9 +1,8 @@
 **DEPENDENCIES:-**
---python3, pip modules specified in requirements.txt
+	python3, pip modules specified in requirements.txt
 
 **INTRODUCTION-**
-
-This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
+	This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
 
 **Prerequisites:**
     - python  >= 3.5.3 and <= 3.6.3. We suggest to use stable 3.5.3 
