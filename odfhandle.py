@@ -44,9 +44,9 @@ def formula(row,col,lenintent,name):
 	tn=name+col+str(row+1)
 	fn=name+col+str(row+2)
 	fp=name+col+str(row+3)
-	prec+= tp+"/( "+tp+" + "+fp+" ) , 0 )"
+	prec+= tp+"/( "+tp+" + "+fn+" ) , 0 )"
 	rec+= tp+"/("+tp+"+"+fn+"), 0)"
-	acc+=tp+"/("+tp+"+"+fn+"+"+fp+"), 0)"
-	F+="2*"+tp+"/(2*"+tp+"+"+fp+"+"+fn+"), 0)"
+	acc+=tp+"/("+tp+"+"+fn+"), 0)"
+	F+="2*"+tp+"/(2*"+tp+"+"+fn+"), 0)"
 	return (prec,rec,acc,F)
 
