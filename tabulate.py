@@ -12,7 +12,7 @@ accuracy=[0,0,0,0]
 
 def process_ambiguity(r):
 	r = [cell.value for cell in r]
-	if (r[3] is not None) and "ambiguity:" in r[3].lower():
+	if r[3] is not None and "ambiguity:" in r[3].lower():
 		r[3] = "None"
 	return  r
 
@@ -99,7 +99,7 @@ def writeCSV(sheet,currentIntent=None):
 		spellTruePos=0
 		spellFalseNeg=0
 		totalSpell=0
-		intentset = set(intent)
+		intentset = set(intent + ["None"])
 		lenintent = len(intentset)
 		if currentIntent:
 			lenintent = 1
@@ -124,10 +124,8 @@ def writeCSV(sheet,currentIntent=None):
 				if(currentintent!=matched[platforms][i] and currentintent == intent[i]):
 					if currentintent == "None":
 						falseNegativesNone +=1
-					elif matched[platforms][i] == "None":
-						falseNegatives += 1
 					else:
-						trueNegatives +=1
+						falseNegatives += 1
 				if(TyOfUtt[i].lower()=="structurally different"):
 					if(success[platforms][i]=="pass"):
 						if(currentintent == None or currentintent==intent[i]):
