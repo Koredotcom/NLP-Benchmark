@@ -1,18 +1,19 @@
 **DEPENDENCIES:-**
+	
 	python3, pip modules specified in requirements.txt
 
 **INTRODUCTION-**
 	This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
 
-**Prerequisites:**
+*Prerequisites:*
     - python  >= 3.5.3 and <= 3.6.3. We suggest to use stable 3.5.3 
         - windows installer at : https://www.python.org/downloads/windows/
     - virtualenv
         - windows instructions at https://docs.python.org/3/library/venv.html
 
-**PREPARATION OF DATA-**
-1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
-2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
+*PREPARATION OF DATA-*
+	1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
+	2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in 		ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
 
 **HOW TO CONFIGURE THE TOOL-**
 
