@@ -1,25 +1,25 @@
-*DEPENDENCIES*-
+**DEPENDENCIES-**
 python3, pip modules specified in requirements.txt
 
-INTRODUCTION-
+**INTRODUCTION-**
 
 This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
 
-Prerequisites:
+**Prerequisites:**
     - python  >= 3.5.3 and <= 3.6.3. We suggest to use stable 3.5.3 
         - windows installer at : https://www.python.org/downloads/windows/
     - virtualenv
         - windows instructions at https://docs.python.org/3/library/venv.html
 
-PREPARATION OF DATA-
+**PREPARATION OF DATA-**
 1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
 2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
 
-HOW TO CONFIGURE THE TOOL-
+**HOW TO CONFIGURE THE TOOL-**
 
 In the configBot.py File, follow the mentioned steps to get all the necessary tokens and populate them.
 
-##Configuration for Kore.ai -:
+*##Configuration for Kore.ai -:*
 #Pre-requisite for this is to ensure that you have registered and logged in into https://bots.kore.ai/botbuilder 
 #Enter the name of the environment for which the Benchmark tool needs to be run.
 
@@ -31,7 +31,7 @@ In the configBot.py File, follow the mentioned steps to get all the necessary to
 	authTokenKore="bearer xowAczxCrk4-bSpj3-lQNgcBmGdtIseQxFb6dyFIBZ1cheL6Vdj_1fW-e7R8MgMV"
 #In configBot.py set USEKORE=True to test on kore environment else set it to False
 
-##Configuration for API.ai(OPTIONAL) -:
+*##Configuration for API.ai(OPTIONAL) -:*
 
 First of all create a new bot(referred as agent in api.ai). Press on the gear icon on the left next to the bot name. Copy the Developer_Access_Token.
 
@@ -43,12 +43,12 @@ In the URL of the page, copy the bot id next to 'editAgent/' .
 #In configBot.py set USEGOOGLE=True to test on DialogFlow environment else set it to False
 
 
-##Configuration for Luis.ai(OPTIONAL) -:
+*##Configuration for Luis.ai(OPTIONAL) -:*
 
 #As soon as you login into the Luis website, press on My Keys. In this page, copy the Programmatic API key and paste it within the keys in subscriptionToken.
 #In configBot.py set USELUIS=True to test on Lui environment else set it to False
 
-##Configuration for IBM Watson(OPTIONAL) -:
+*##Configuration for IBM Watson(OPTIONAL) -:*
 
   Create an account in Watson, and get developer name and password (different from login user name and password)
   Limitations: free account allows a maximum of 5 bots at a time. Also there is a rate limit for bot&intent creation&deletion.
@@ -66,7 +66,7 @@ Setup Instructions:
      $ (windows only) pip install Twisted<version>.whl
      $ pip install --upgrade -r requirements.txt
 
-HOW TO RUN-
+**HOW TO RUN-**
 
 For Easy use:
 Linux:
@@ -81,7 +81,7 @@ Note that kore platform access token expires in finite time. so if you plan to r
 
 Currently it is possible to configure the tool to enable or disable running against Kore, Luis, DialogFlow and Watson, via configBot.py
 
-HOW TO EVALUATE THE RESULTS-
+**HOW TO EVALUATE THE RESULTS-**
      1) DEFINITIONS AND FORMULAE:-
           (TP-> TruePositive, FP->FalsePositive, TN-> TrueNegative, FN-> FalseNegative)
           TP of intent->  output intent is current intent and expected is current intent (matched current intent)
@@ -109,7 +109,7 @@ HOW TO EVALUATE THE RESULTS-
      4. The IndividualIntents sheet shows the True Positives, True Negatives, False Positives and False Negatives for all the three platforms for individual tasks.
      5. Ambiguity cases are shown in the results and are counted towards None intent.
 
-NOTES- Certain limitations are to be noted:
+*NOTES:- Certain limitations are to be noted:*
 	a. Maximum number of Intents that can be created in Luis.AI are 12.
 	b. Maximum number of endpoint hits for Luis.AI are 1000 hits per month for an account(For all the bots in the account together)
 	c. Maximum number of agents that can be created in API.AI are 15
