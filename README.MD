@@ -2,7 +2,7 @@
 	
 	python3, pip modules specified in requirements.txt
 
-** INTRODUCTION:-**
+**INTRODUCTION:-**
 	
 	This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
 
@@ -74,7 +74,7 @@
 
 	Currently it is possible to configure the tool to enable or disable running against Kore, Luis, DialogFlow and Watson, via configBot.py
 
-# HOW TO EVALUATE THE RESULTS:-
+# How To Evaluate The Results:-
      1) DEFINITIONS AND FORMULAE:-
           (TP-> TruePositive, FP->FalsePositive, TN-> TrueNegative, FN-> FalseNegative)
           TP of intent->  output intent is current intent and expected is current intent (matched current intent)
@@ -102,10 +102,10 @@
      4. The IndividualIntents sheet shows the True Positives, True Negatives, False Positives and False Negatives for all the three platforms for individual tasks.
      5. Ambiguity cases are shown in the results and are counted towards None intent.
 
-# NOTES:- Certain limitations are to be noted:
-	a. Maximum number of Intents that can be created in Luis.AI are 12.
-	b. Maximum number of endpoint hits for Luis.AI are 1000 hits per month for an account(For all the bots in the account together)
-	c. Maximum number of agents that can be created in API.AI are 15
+# Limitations:-
+	1) Maximum number of Intents that can be created in Luis.AI are 12.
+	2) Maximum number of endpoint hits for Luis.AI are 1000 hits per month for an account(For all the bots in the account together)
+	3) Maximum number of agents that can be created in API.AI are 15
 
 
 Previously run results can be found at https://github.com/Koredotcom/NLP-Benchmark/blob/master/previous-test-results/ML_Results-13-12-2017--21-45-17.ods.xlsx
