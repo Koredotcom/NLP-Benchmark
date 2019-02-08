@@ -54,13 +54,41 @@ class googleTranslate:
 				faq["question"]=self.translateSentence(faq["question"])
 				for j in range(0,len(faq["alternateQuestions"])):
 					faq["alternateQuestions"][j]["question"]=self.translateSentence(faq["alternateQuestions"][j]["question"])
+	def mark_entities(self,original,tagged_list,translated):
+		valid = []
+		original = original.lower()
+		translated = translated.lower()
+		new   = []
+		for idx,val in enumerate(tagged_list):
+			try:
+				start = val["startIndex"]
+				end   = val["endIndex"]
+
+				new_val = self.translateSentence(original[start:end]).lower()
+				new_start = translated.find(new_val)
+				if new_start > -1:
+					new_end = new_start + len(new_val)
+					tagged_list[idx]["startIndex"] = new_start
+					tagged_list[idx]["endIndex"] = new_end
+					valid.append(idx)
+			except Exception as e:
+				print(e)
+				import time
+				time.sleep(233)
+				continue
+		for idx in valid:
+			new.append(tagged_list[idx])
+		print(new)
+		return new
+
 
 	def MlSentences(self,sentences):
 		print("Translating ML Sentences:\n ")
 		for sentence in tqdm(sentences):
+			original = sentence["sentence"]
 			sentence["sentence"]=self.translateSentence(sentence["sentence"])
 			if "entities" in sentence:
-				del sentence["entities"]
+				sentence["entities"] = self.mark_entities(original,sentence["entities"],sentence["sentence"])
 
 	def Dialogs(self,components,dest,src):
 		for  idx,dialog in enumerate(components):
