@@ -11,6 +11,15 @@ This tool helps for comparing the ML Capability in intent recognition for the pl
     	- after installing pip you can simply install this by `pip install virtualenv`
         - windows instructions at https://docs.python.org/3/library/venv.html
 
+Post installation to verify that the installation is expected 
+	
+	$ python3 --version
+	Python 3.5.3          # or the version you installed
+	$ pip --version
+	pip 19.0.3            # or the version you installed
+	$ virtualenv --version
+	16.1.0                # or the version you installed
+
 # PREPARATION OF DATA
 1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
 2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
