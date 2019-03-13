@@ -15,9 +15,27 @@ This tool helps for comparing the ML Capability in intent recognition for the pl
 1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
 2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
 
-# HOW TO CONFIGURE THE TOOL
+# Quick run
 
-In the configBot.py File, follow the mentioned steps to get all the necessary tokens and populate them.
+## For Easy use 
+### Linux/MacOs 
+     
+	 $ ./run.sh
+	 
+
+#### Windows OR customisable use on windows and MacOs:
+	 $ python getParams.py # use this to configure the run.
+	 $ python createIntent.py # use this to create a new bot. To use existing bot (created by previous use), don't run this again.
+	 $ python runTest.py testconfig.json # use this to obtain the test results.
+	 
+
+Do not give spaces in bot name. It is not tested with spaces, in all platforms.
+Note that kore platform access token expires in finite time. so if you plan to run the testing at a later time, please update the token in testconfig.json . The testing script (runTest.py) will prompt if kore token expires during runtime.
+
+
+# Help with configuring the tool
+
+When running run.sh you will be asked for several inputs such as access tokens, URL etc
 
 ## Configuration for Kore.ai -:
 * Pre-requisite for this is to ensure that you have registered and logged in into https://bots.kore.ai/botbuilder 
@@ -42,13 +60,14 @@ In the configBot.py File, follow the mentioned steps to get all the necessary to
 * In the URL of the page, copy the bot id next to 'editAgent/' .
 
 		botIdDF="15d93a17-4cfa-489d-9058-2f720a88ac7a"
+
 #### In configBot.py set USEGOOGLE=True to test on DialogFlow environment else set it to False
 
 
 ## Configuration for Luis.ai(OPTIONAL) -:
 
-* As soon as you login into the Luis website, press on My Keys. In this page, copy the Programmatic API key and paste it within the keys in subscriptionToken.
-* In configBot.py set USELUIS=True to test on Lui environment else set it to False
+* As soon as you login into the Luis website, press on My Keys. In this page, copy the Programmatic API key and paste it within the keys in subscriptionToken. 
+* provide it when prompted - "Please give your luis.ai subscription token:"
 
 ## Configuration for IBM Watson(OPTIONAL) -:
 
@@ -70,24 +89,6 @@ In the configBot.py File, follow the mentioned steps to get all the necessary to
      $ pip install --upgrade -r requirements.txt
 	 ```
 
-# HOW TO RUN-
-
-## For Easy use:
-### Linux:
-     
-	 $ ./run.sh
-	 
-
-#### More customisable use:
-     
-	 $ python createIntent.py # use this to create a new bot. To use existing bot (created by previous use), don't run this again.
-     $ python runTest.py testconfig.json # use this to obtain the test results.
-	 
-
-Do not give spaces in bot name. It is not tested with spaces, in all platforms.
-Note that kore platform access token expires in finite time. so if you plan to run the testing at a later time, please update the token in testconfig.json . The testing script (runTest.py) will prompt if kore token expires during runtime.
-
-Currently it is possible to configure the tool to enable or disable running against Kore, Luis, DialogFlow and Watson, via configBot.py
 
 ### HOW TO EVALUATE THE RESULTS-
      1. DEFINITIONS AND FORMULAE:-
