@@ -15,9 +15,27 @@ This tool helps for comparing the ML Capability in intent recognition for the pl
 1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
 2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
 
-# Quick run
+## Setup Instructions:
 
-## For Easy use 
+* Create a virtual env for this tool, if not already present ans activate it.
+	```
+	$ virtualenv  venv/ # if you have multiple python versions, use "virtualenv  --python=/path/to/python3 venv/"
+	```
+* If this is your first time running the tool, do this.
+     ```
+	$ pip install --upgrade pip
+	$ (windows only) download twisted from https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted (appropriate version)
+	$ (windows only) pip install Twisted<version>.whl
+	$ pip install --upgrade -r requirements.txt
+	```
+* If you encounter any errors during this refer to the specific python module documentation
+
+
+# Quick run
+Activate the created virtual environment.
+	
+	$ source venv/bin/activate # (Note:- use "./venv/Scripts/activate.bat" for windows)
+
 ### Linux/MacOs 
      
 	 $ ./run.sh
@@ -74,20 +92,6 @@ When running run.sh you will be asked for several inputs such as access tokens, 
 * Create an account in Watson, and get developer name and password (different from login user name and password)
 * Limitations: free account allows a maximum of 5 bots at a time. Also there is a rate limit for bot&intent creation&deletion.
 
-## Setup Instructions:
-
-* Create a virtual env for this tool, if not already present ans activate it.
-	```
-	$ virtualenv  venv/ # if you have multiple python versions, use "virtualenv  --python=/path/to/python3 venv/"
-	$ source venv/bin/activate # (Note:- use "./venv/Scripts/activate.bat" for windows)
-	```
-* If this is your first time running the tool, do this.
-     ```
-	 $ pip install --upgrade pip
-     $ (windows only) download twisted from https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted (appropriate version)
-     $ (windows only) pip install Twisted<version>.whl
-     $ pip install --upgrade -r requirements.txt
-	 ```
 
 
 ### HOW TO EVALUATE THE RESULTS-
