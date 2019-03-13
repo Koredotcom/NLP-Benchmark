@@ -1,6 +1,3 @@
-# DEPENDENCIES
-python3, python3 virtualenv, pip modules specified in requirements.txt
-
 # INTRODUCTION
 
 This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
