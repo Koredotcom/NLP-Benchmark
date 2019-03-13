@@ -1,6 +1,6 @@
 import requests, time, json
 from configBot import *
-headersKore = {"content-type": "application/json;charset=UTF-8"}
+headersKore = {"content-type": "application/json;charset=UTF-8","state":"configured"}
 
 
 def loginToKore(koreUserId,KorePassword,KorePlatform):
@@ -56,13 +56,14 @@ def builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid):
                 #print("builderstreams 2",response.text)
         except:
                 raise Exception("Error while creating Setting Default dialog task streams")
+        return response.json()
 
-def builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue):
+def builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, refId):
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/defaultDialogSettings"
         #Setting the Default Dialog Task to Default Fallback Intent. 
-        payload = {"defaultDialogId":dgValue[1]}
+        payload = {"defaultDialogId":refId}
         try:
-                response = requests.put(url, json=payload, headers=headersKore)
+                response = requests.put(url, json=json.dumps(payload), headers=headersKore)
                 response.raise_for_status()
         except:
                 print("RESP post",response)
@@ -146,8 +147,13 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
         marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streamid, iconFileId)
         dgValue = addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)
 
-        builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
-        builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue)
+        dialogs_so_far = builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
+        print(dialogs_so_far)
+        try:
+            DefaultIntentRefId = dialogs_so_far[0]["refId"]
+            builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue)
+        except Exception as e:
+            print("Failed to create Default fallback intent, continuing anyway..")
         if KorePublicApi:
             addKoreSDKBotCallback(Input, KorePlatform, streamid, koreClientId)
             publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform, koreClientId, koreClientName)
