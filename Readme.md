@@ -3,9 +3,12 @@
 This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
 
 # Prerequisites
-    - python  >= 3.5.3 and <= 3.6.3. We suggest to use stable 3.5.3 
+    - python dev/devel/src  >= 3.5.3 and <= 3.6.3. We suggest to use stable 3.5.3 from https://www.python.org/downloads/release/python-353/ 
         - windows installer at : https://www.python.org/downloads/windows/
+    - pip 
+    	- instructions from https://pip.pypa.io/en/stable/installing/ , we suggest you run this with you native python (in most Os its python2.7 linked to "python" executable)
     - virtualenv
+    	- after installing pip you can simply install this by `pip install virtualenv`
         - windows instructions at https://docs.python.org/3/library/venv.html
 
 # PREPARATION OF DATA
