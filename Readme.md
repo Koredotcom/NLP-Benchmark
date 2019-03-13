@@ -11,7 +11,7 @@ This tool helps for comparing the ML Capability in intent recognition for the pl
     	- after installing pip you can simply install this by `pip install virtualenv`
         - windows instructions at https://docs.python.org/3/library/venv.html
 
-Post installation to verify that the installation is expected 
+Post installation to verify that the installations done are as expected 
 	
 	$ python3 --version
 	Python 3.5.3          # or the version you installed
