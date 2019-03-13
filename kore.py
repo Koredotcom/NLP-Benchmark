@@ -148,7 +148,6 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
         dgValue = addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)
 
         dialogs_so_far = builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
-        print(dialogs_so_far)
         try:
             DefaultIntentRefId = dialogs_so_far[0]["refId"]
             builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue)
