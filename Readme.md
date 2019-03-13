@@ -90,7 +90,7 @@ Note that kore platform access token expires in finite time. so if you plan to r
 Currently it is possible to configure the tool to enable or disable running against Kore, Luis, DialogFlow and Watson, via configBot.py
 
 ### HOW TO EVALUATE THE RESULTS-
-     1) DEFINITIONS AND FORMULAE:-
+     1. DEFINITIONS AND FORMULAE:-
           (TP-> TruePositive, FP->FalsePositive, TN-> TrueNegative, FN-> FalseNegative)
           TP of intent->  output intent is current intent and expected is current intent (matched current intent)
           FP of intent->  output intent is current intent but Expected intent is different
