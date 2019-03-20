@@ -63,7 +63,7 @@ def builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, re
         #Setting the Default Dialog Task to Default Fallback Intent. 
         payload = {"defaultDialogId":refId}
         try:
-                response = requests.put(url, json=json.dumps(payload), headers=headersKore)
+                response = requests.put(url, json=payload, headers=headersKore)
                 response.raise_for_status()
         except:
                 print("RESP post",response)
@@ -150,7 +150,7 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
         dialogs_so_far = builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
         try:
             DefaultIntentRefId = dialogs_so_far[0]["refId"]
-            builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid, dgValue)
+            builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid,DefaultIntentRefId )
         except Exception as e:
             print("Failed to create Default fallback intent, continuing anyway..")
         if KorePublicApi:
