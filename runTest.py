@@ -234,7 +234,9 @@ def callDFBot(MatchedIntents_DF, input_data,ses):
 		"timezone":"UTC"
 		}
         headers = {"authorization": "Bearer "+config["Token_DF"]}
+        count = 0
         while(1):
+            count = count +1
             try:
                 response = ses.get( urlDF,  headers=headers,params=params)
                 response.raise_for_status()
@@ -243,6 +245,9 @@ def callDFBot(MatchedIntents_DF, input_data,ses):
             except Exception as e:
                 print("Error while finding intent in google", e)
                 print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
+                if count > 3:
+                    responsejson={} 
+                    break
                 time.sleep(1)
         if not responsejson=={} and ('result' in responsejson) and ('metadata' in responsejson['result']) and ('intentName' in responsejson['result']['metadata']):
             matchedIntents_DF=responsejson['result']['metadata']['intentName'].lower()
