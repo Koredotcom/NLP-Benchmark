@@ -4,6 +4,7 @@ from threading import Thread
 from tqdm import tqdm
 from watson import *
 from odfhandle import *
+from configBot import *
 '''Three global arrays declared to get input from the ML csv file to get the utterance, expected task name and the type of utterance and 1 array for the output to capture the matched intent and status(success or failure)'''
 Utterances=[]
 TaskNames=[]
@@ -150,7 +151,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
             headers={'auth':jwtToken}
         else:
             koreUrl=config["urlKa"]+"/api/1.1/users/"+config["uid_Kore"]+"/builder/streams/"+config["streamid_Kore"]+"/findIntent"
-            headers={'authorization':config["token_Kore"]}
+            headers={'authorization':config["token_Kore"], "bot-language":lang}
         respjson={}
         loops = 0
         while(config["USEKORE"]):
@@ -174,7 +175,9 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
                     printif("Null", input_data)
                     break
                   code = resp.status_code
-                if resp.status_code==400:break
+                if resp.status_code==400:
+                    print("exception resp 400")
+                    break
                 resp.raise_for_status()
                 respjson=resp.json()
                 break
@@ -187,8 +190,10 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
 
         if respjson and ('response' in respjson) and respjson['response']:
             if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
-              if len(respjson['response']["finalResolver"].get("winningIntent",[]))==1 and respjson["response"]["result"]=="successintent":
+              result = respjson["response"].get("result", respjson["result"])
+              if len(respjson['response']["finalResolver"].get("winningIntent",[]))==1 and result=="successintent":
                 matchedIntents_Kore = respjson['response']["finalResolver"]["winningIntent"][0]["intent"].replace("_"," ").lower()
+                rankingMaxObj = {}
                 for rankingObj in respjson["response"]["finalResolver"]["ranking"]:
                     if matchedIntents_Kore == rankingObj["intent"].replace("_"," ").lower():
                        rankingMaxObj = rankingObj

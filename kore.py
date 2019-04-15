@@ -190,9 +190,9 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
                 raise Exception("Error while Adding intent to kore 2")
 
         url3 = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components/"+component
-        payload3 = "{\"name\":\""+name+"\",\"dialogId\":\""+dialogId+"\"}"
+        payload3 = {"name":name,"dialogId":dialogId}
         try:
-                response3 = requests.put(url3, data=payload3, headers=headersKore)
+                response3 = requests.put(url3, json=payload3, headers=headersKore)
         except:
                 raise Exception("Error while Adding intent to kore 3")
         idKores=[component,dialogId]
@@ -239,7 +239,7 @@ def initiateTrainingKore(streamId,userIdKore,authTokenKore,KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences/ml/train"
         querystring = {"streamId":streamId}
         payload = {}
-        headers = {'authorization': authTokenKore}
+        headers = {'authorization': authTokenKore, "bot-language":lang}
         try:
                 response = requests.post(url, json=payload, headers=headers, params=querystring)
         except:
