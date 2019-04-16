@@ -13,7 +13,7 @@ def addIntentAndUtteranceDF(DFIntent,DFUtterances):
     'content-type': "application/json;charset=UTF-8",
             }
         try:    
-                response = requests.post( url, json=payload, headers=headers)
+                response = requests.post( url, json=payload, headers=headers,params= {"lang":lang.replace("_","-")})
         except:
                 raise Exception("Error while adding intent and utterances for google")
 

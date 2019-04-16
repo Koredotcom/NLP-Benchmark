@@ -236,7 +236,7 @@ def callDFBot(MatchedIntents_DF, input_data,ses):
         query=urllib.parse.quote(input_data.replace("!",""))
         params = {
 		"query":query,
-		"lang":"en",
+		"lang":lang,
 		"sessionId":config["botname_DF"],
 		"timezone":"UTC"
 		}
