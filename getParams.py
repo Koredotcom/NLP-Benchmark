@@ -76,8 +76,8 @@ else:
 	watson_uid = ""
 	watson_passwd = ""
 
-fileName = input("Training file name?[default is \"ML_Train.csv\"] ").lower().strip()
-TestFileName = input("Training file name?[default is \"ML_TestData.csv\"] ").lower().strip()
+fileName = input("Training file name?[default is \"ML_Train.csv\"] ").strip()
+TestFileName = input("Training file name?[default is \"ML_TestData.csv\"] ").strip()
 fileName="ML_Train.csv" if fileName == "" else fileName
 TestFileName = "ML_TestData.csv" if TestFileName == "" else TestFileName
 
