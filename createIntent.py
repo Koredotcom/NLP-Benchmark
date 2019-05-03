@@ -146,7 +146,8 @@ def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,url
 		"USEWIT":USEWIT,
 		"witBotToken":witBotToken,
 		"lang":lang,
-		"RESULTSFILE":RESULTSFILE
+		"RESULTSFILE":RESULTSFILE,
+        "threshold" : threshold
 		}
 	if config["KorePublicApi"]:config["token_Kore"] = koreClientSecret
 	else:config["token_Kore"] = authTokenKore

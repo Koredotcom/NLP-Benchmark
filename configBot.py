@@ -10,6 +10,7 @@ RESULTSFILE =  conf["RESULTSFILE"]  #""
 debug =  conf.get("debug")  #True
 botName =  conf["botName"]  #"BankBot"
 lang =  conf["lang"]  #"en"
+threshold =  conf["threshold"]  #"en"
 
 # Platforms to enable
 USEKORE =  conf["USEKORE"]  #True

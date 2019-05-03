@@ -190,7 +190,7 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
 
         if respjson and ('response' in respjson) and respjson['response']:
             if ('finalResolver' in respjson['response'].keys()) and respjson['response']["finalResolver"].get("winningIntent",[]):
-              result = respjson["response"].get("result", respjson["result"])
+              result = respjson["response"].get("result", respjson.get("result", "failintent"))
               if len(respjson['response']["finalResolver"].get("winningIntent",[]))==1 and result=="successintent":
                 matchedIntents_Kore = respjson['response']["finalResolver"]["winningIntent"][0]["intent"].replace("_"," ").lower()
                 rankingMaxObj = {}
@@ -286,7 +286,7 @@ def callLUISBot(MatchedIntents_Luis,input_data,ses):
         if respluis!={} and ('topScoringIntent' in respluis) and ('intent' in respluis['topScoringIntent']):
                 matchedIntents_Luis=respluis['topScoringIntent']['intent'].lower()#Luis Output Taken Here
                 score=respluis['topScoringIntent']['score']#Getting Luis Score
-                if respluis['topScoringIntent']['intent']=='None':
+                if respluis['topScoringIntent']['intent']=='None' or score < config['threshold']:
                         matchedIntents_Luis='None'
         else:
                 matchedIntents_Luis='None'

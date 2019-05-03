@@ -84,6 +84,22 @@ TestFileName = "ML_TestData.csv" if TestFileName == "" else TestFileName
 botName = input("Please enter name of the bot you want to create(default:BankBot):")
 if not botName:botName = "BankBot"
 
+def getThreshold(default=0.3):
+	threshold = input("Minimum confidence for intent must be between 0 and 1 (default: {}):".format(default))
+	if threshold.strip() == "":
+		threshold = 0.3
+	try:
+		threshold = float(threshold)
+	except:
+		fail = 1
+	if 1 - threshold < 1:
+		fail = 1
+	if fail == 1:
+		return getThreshold(default)
+	return threshold 
+
+
+
 conf ={
 	"fileName":fileName,
 	"TestFileName":TestFileName,
@@ -105,6 +121,7 @@ conf ={
 	"watson_uid":watson_uid,
 	"watson_passwd":watson_passwd,
 	"botName":botName,
+	"threshold":threshold,
 	"RESULTSFILE":"",
 	"lang":"en"
 }
