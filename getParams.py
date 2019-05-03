@@ -12,6 +12,8 @@ KorePassword=""
 witUserToken = ""
 watson_uid = ""
 watson_passwd = ""
+ssoKore = ""
+KorePlatform = ""
 
 USELUIS=input("Use Luis?(y/n):").lower().strip()
 while USELUIS not in ["y","n"]: USELUIS=input("please enter y/n only:").lower().strip()
@@ -88,17 +90,18 @@ def getThreshold(default=0.3):
 	threshold = input("Minimum confidence for intent must be between 0 and 1 (default: {}):".format(default))
 	if threshold.strip() == "":
 		threshold = 0.3
+	fail = 0
 	try:
 		threshold = float(threshold)
 	except:
 		fail = 1
-	if 1 - threshold < 1:
+	if abs(1 - threshold) < 1:
 		fail = 1
 	if fail == 1:
 		return getThreshold(default)
 	return threshold 
 
-
+threshold = getThreshold()
 
 conf ={
 	"fileName":fileName,
