@@ -4,3 +4,6 @@ __pycache__/*
 *Summary*
 *Results*
 *.json
+*.bak
+*.ods
+*ods#
