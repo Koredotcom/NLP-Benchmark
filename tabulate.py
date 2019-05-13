@@ -12,6 +12,8 @@ accuracy=[0,0,0,0]
 
 def process_ambiguity(r):
 	r = [cell.value for cell in r]
+	if (r[14] is not None) and "ambiguity:" in r[14].lower():
+		r[14] = "None"
 	if (r[3] is not None) and "ambiguity:" in r[3].lower():
 		r[3] = "None"
 	return  r
