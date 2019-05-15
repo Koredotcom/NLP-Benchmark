@@ -95,7 +95,7 @@ def getThreshold(default=0.3):
 		threshold = float(threshold)
 	except:
 		fail = 1
-	if abs(1 - threshold) < 1:
+	if abs(1 - threshold) > 1:
 		fail = 1
 	if fail == 1:
 		return getThreshold(default)
