@@ -53,7 +53,6 @@ None,When can I get a loan ?,Negative
 None,Is bank ready to offer financial assistance for repaying a loan?,Negative
 None,Can we have a loan to repay a loan?,Negative
 None,Can we apply for multiple loans?,Negative
-None,How can I pay my credits ?,Negative
 None,Can a loan be sanctioned to a unemployed?,Negative
 None,How many days does it take to get a personal loan?,Negative
 None,What is the penalty incurred for inability to repay loan?,Negative
@@ -116,7 +115,6 @@ transfer funds,Can you transfer money on my behalf,Spell Errors
 transfer funds,I want to make a pavement,Spell Errors
 transfer funds,Wirr some cash my patents,Spell Errors
 transfer funds,Pay 100USD from my acc,Spell Errors
-transfer funds,Release the fun to dads account,Spell Errors
 transfer funds,Plz provide fund transfer to xyz ac,Spell Errors
 transfer funds,Send Asap money frm savng ac,Spell Errors
 transfer funds,Wire transfer funds to XYZ Asap!,Spell Errors
@@ -127,7 +125,7 @@ transfer funds,I want to pay my car EMI through my alternate bank account.Transf
 transfer funds,Hey!! Need your help to repay a frn's payment on my movie ticket,Positive
 None,Need to update change of address due to location transfer,Negative
 None,Do I need to give Identification proof for money transfer?,Negative
-None,How can we transfer money?,Negative
+transfer funds,How can we transfer money?,Negative
 None,How much time will it take for transferring money to another account?,Negative
 None,Can i send money to my family today,Negative
 None,I have to present a cheque of 5000 to e-seva,Negative
@@ -135,9 +133,7 @@ None,Grant access for mobile banking,Negative
 None,Can i pay for multiple services at a time?,Negative
 None,i would like to Request for a new pin for my ATM,Negative
 None,Please give 1000 dollars from my account,Negative
-None,quickly send 500 usd from my account,Negative
-None,apply for job transfer,Negative
-None,By what time will the fund transfer be made,Negative
+transfer funds,quickly send 500 usd from my account,Negative
 None,Is Pan number Required to transfer fund,Negative
 None,Is overseas transfer of money supported.,Negative
 None,The file transfer from my computer is complete,Negative
@@ -171,18 +167,15 @@ pay a bill,she needs to get her annual leave entitlement,Structurally Different
 pay a bill,The butler expects 200 for this month's service,Structurally Different
 pay a bill,Surcharge for additional services subscription has to be given to the service provider,Structurally Different
 pay a bill,Penalty of Rs 500 has to be given for late submission of fees,Structurally Different
-None,Ebay will reimburse for merchandise purchase,Negative
 None,How much do I have to pay for the conveyance charges?,Negative
 None,Need review of my previous payments,Negative
 None,What is the status of my pending payments?,Negative
-None,I need to pay a lot of interest for the EMI,Negative
 None,could you please cancel my paid transaction?,Negative
 None,When can i apply for money repayment?,Negative
 None,Update my phone number for my account,Negative
 None,i need to know under what conditions does a debit card get deactivated.,Negative
 None,i need to know if my pension been debited?,Negative
 None,What if i sent money to the wrong account?,Negative
-None,need your help in issuing a new cheque book,Negative
 pay a bill,Please make a 1200USD payment to transco,Negative
 None,Water bill is 600 please pay accordingly,Negative
 None,I want to Change for $12 bill,Negative
@@ -237,12 +230,7 @@ view account balance,How muc maney is ldft in my account?,Spell Errors
 pay a bill,pay credit card,Structurally Different
 pay a bill,pay for credit card,Positive
 pay a bill,pay credit card bill,Positive
-None,need a bank,Structurally Different
 transfer funds,would want to Wire some cash,Positive
-None,would like to have fun,Negative
 None,need a bean bag,Negative
 pay a bill,i want to pay credit card bill,Positive
-None,can you help me get a visa,Negative
-None,may i get some green peas?,Negative
-None,may i get a newspaper delivered at my office?,Negative
 None,i want to invest money in bitcoin,Negative
