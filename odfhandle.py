@@ -46,10 +46,10 @@ def formula(row,col,lenintent,name):
 	fp=name+col+str(row+3)
 	p = tp+"/( "+tp+" + "+fp+" )"
 	r = tp+"/("+tp+" + " + fp +" + "+fn+")"
-	prec+= p +", 0 )"
-	rec+= r + ", 0)"
-	acc+=tp+"/("+tp+"+"+fn+"+"+fp+"), 0)"
+	prec+= p +"; 0 )"
+	rec+= r + "; 0)"
+	acc+=tp+"/("+tp+"+"+fn+"+"+fp+"); 0)"
 	#F+="2*"+tp+"/(2*"+tp+"+"+fp+"+"+fn+"), 0)"
-	F+="2*"+p+"*"+r+"/("+p+"+"+r+"), 0)"
+	F+="2*"+p+"*"+r+"/("+p+"+"+r+"); 0)"
 	return (prec,rec,acc,F)
 
