@@ -10,7 +10,7 @@ Utterances=[]
 TaskNames=[]
 Types=[]
 outputs=[]
-urlDF="https://console.dialogflow.com/v1/query"
+urlDF="https://api.dialogflow.com/v1/query"
 
 NUM_THREADS=10
 config={}
@@ -234,24 +234,26 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
 def callDFBot(MatchedIntents_DF, input_data,ses):
     if config["USEGOOGLE"]:
         query=urllib.parse.quote(input_data.replace("!",""))
-        params = {
-		"query":query,
-		"lang":lang,
-		"sessionId":config["botname_DF"],
-		"timezone":"UTC"
-		}
-        headers = {"authorization": "Bearer "+config["Token_DF"]}
+        querystring = {"v":"20150910","contexts":"shop","lang":lang,"query":query,"sessionId":"12345","timezone":"America/New_York"}
+        params=querystring
+        headers = {
+            'Authorization': "Bearer "+ config["DF_CLIENT_ACCESS_TOKEN"],
+            'cache-control': "no-cache",
+            'Postman-Token': "acfe1c90-1266-455f-96e6-2fbc759e115b"
+            }
         count = 0
         while(1):
             count = count +1
             try:
-                response = ses.post( urlDF,  headers=headers,params=params)
+                response = requests.request("GET", urlDF, headers=headers, params=querystring)
                 response.raise_for_status()
                 responsejson = response.json()
                 break
             except Exception as e:
+                print(e)
+                #time.sleep(11)
                 print("Error while finding intent in google", e)
-                print("GOOGLE","post", urlDF, "headers=",headers,"params",params)
+                print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
                 if count > 3:
                     responsejson={} 
                     break
@@ -265,7 +267,7 @@ def callDFBot(MatchedIntents_DF, input_data,ses):
             matchedIntents_DF='None'
             score='null'
             print("null score google")
-            print("GOOGLE","post", urlDF, "headers=",headers,"params",params)
+            print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
     else:
         matchedIntents_DF='None'
         score=0.1

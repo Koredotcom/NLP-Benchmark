@@ -32,6 +32,7 @@ while USEDF not in ["y","n"]: USEDF=input("please enter y/n only:").lower().stri
 if USEDF in ["Y","y"]:
 	USEDF=True
 	Token_DF=input("Please give your dialogflow.ai developer token:").strip()
+	Client_DF=input("Please give your dialogflow.ai client access token:").strip()
 	botIdDF=input("Please give the id of the bot in dialogflow.ai you want to use:").strip()
 else: USEDF=False
 
@@ -116,6 +117,7 @@ conf ={
 	"subscriptionToken":subscriptionToken,
 	"Token_DF":Token_DF,
 	"botIdDF":botIdDF,
+	"DF_CLIENT_ACCESS_TOKEN":Client_DF,
 	"userIdKore":userIdKore,
 	"authTokenKore":authTokenKore,
 	"KoreEmailId":KoreEmailId,
