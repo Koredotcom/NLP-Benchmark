@@ -14,8 +14,24 @@ def addIntentAndUtteranceDF(DFIntent,DFUtterances):
             }
         try:    
                 response = requests.post( url, json=payload, headers=headers,params= {"lang":lang.replace("_","-")})
+                addFallbackIntent()
         except:
                 raise Exception("Error while adding intent and utterances for google")
+
+
+def addFallbackIntent():
+        url = "https://console.dialogflow.com/api/intents"
+
+        querystring ={"lang":lang.replace("_","-")}
+
+        payload = "{\"name\":\"Default Fallback Intent\",\"auto\":true,\"contexts\":[],\"templates\":[],\"responses\":[{\"parameters\":[],\"resetContexts\":false,\"affectedContexts\":[],\"messages\":[{\"type\":0,\"speech\":[]}],\"speech\":[],\"defaultResponsePlatforms\":{}}],\"source\":null,\"priority\":500000,\"cortanaCommand\":{\"navigateOrService\":\"NAVIGATE\",\"target\":\"\"},\"fallbackIntent\":true,\"events\":[],\"followupEvent\":null,\"endInteraction\":false,\"userSays\":[]}"
+        headers = {
+                        'authorization': "Bearer "+Token_DF,#Fetched from config file.
+                        'content-type': "application/json;charset=UTF-8",
+            }
+
+        response = requests.request("POST", url, data=payload, headers=headers, params=querystring)
+
 
 
 def getIntentsInBot():

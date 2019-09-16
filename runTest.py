@@ -245,13 +245,13 @@ def callDFBot(MatchedIntents_DF, input_data,ses):
         while(1):
             count = count +1
             try:
-                response = ses.get( urlDF,  headers=headers,params=params)
+                response = ses.post( urlDF,  headers=headers,params=params)
                 response.raise_for_status()
                 responsejson = response.json()
                 break
             except Exception as e:
                 print("Error while finding intent in google", e)
-                print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
+                print("GOOGLE","post", urlDF, "headers=",headers,"params",params)
                 if count > 3:
                     responsejson={} 
                     break
@@ -265,7 +265,7 @@ def callDFBot(MatchedIntents_DF, input_data,ses):
             matchedIntents_DF='None'
             score='null'
             print("null score google")
-            print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
+            print("GOOGLE","post", urlDF, "headers=",headers,"params",params)
     else:
         matchedIntents_DF='None'
         score=0.1
