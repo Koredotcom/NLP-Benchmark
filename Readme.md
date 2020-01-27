@@ -76,9 +76,9 @@ When running run.sh you will be asked for several inputs such as access tokens, 
 		authTokenKore="bearer xowAczxCrk4-bSpj3-lQNgcBmGdtIseQxFb6dyFIBZ1cheL6Vdj_1fW-e7R8MgMV"
 * In configBot.py set USEKORE=True to test on kore environment else set it to False
 
-## Configuration for API.ai(OPTIONAL) -:
+## Configuration for DialogFlow/API.ai(OPTIONAL) -:
 
-* Pre-requisite for this is to create a new bot(referred as agent in api.ai). 
+* Pre-requisite for this is to create a new bot(referred as agent in DialogFlow/api.ai). 
 * Press on the gear icon on the left next to the bot name.
 * Copy the Developer_Access_Token.
 
