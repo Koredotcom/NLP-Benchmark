@@ -69,7 +69,8 @@ def find_intent3(sheet,i,ses):
         output.append(str(MatchedIntents_Luis[1]))
 
         output.append(MatchedIntents_Watson[0])
-        if(MatchedIntents_Watson[0]==WatsonCleanIntent(TaskNames[i])):
+        #print(MatchedIntents_Watson[0],WatsonCleanIntent(TaskNames[i]),TaskNames[i])
+        if(MatchedIntents_Watson[0]==TaskNames[i]):
                 output.append('pass')
         else:
                 output.append('fail')

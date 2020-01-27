@@ -1,10 +1,10 @@
 #!/bin/env python
 
 from configBot import *
-
+import requests
 import time, json
 import watson_developer_cloud
-
+creds = json.load(open("watson_creds.json"))
 assistant = assistant = watson_developer_cloud.AssistantV1(username=watson_uid, password=watson_passwd, version="2018-02-16")
 
 
@@ -15,9 +15,25 @@ def WatsonCreateBot(botname):
 	
 
 def WatsonFindIntent(watsonBotId, utterance):
+	return get_response(utterance)
 	response = assistant.message(workspace_id=watsonBotId,input={"text": utterance},alternate_intents=False)
+
+def get_response(text):
+	url = creds["url"] 
+	querystring = creds["querystring"] 
+	payload =  creds["payload"] 
+	payload["input"]["text"] = text
+	payload["alternate_intents"] = creds.get("alternate_intents",False)
+	headers =  creds["headers"]
+	response = requests.request("POST", url, data=json.dumps(payload), headers=headers, params=querystring).json()
+	passed   = []
+	scores   = []
 	if len(response["intents"])>0:
-		#return response["intents"][0]
+		for intent in response["intents"]:
+			if intent["confidence"]>=0:
+				passed.append(intent["intent"])
+				scores.append(str(intent["confidence"]))
+			return [{"intent":"|".join(passed).replace("_"," ").lower(),"confidence":"|".join(scores)}]
 		return response["intents"]
 	else: return [{"intent":"None","confidence":-1}]
 

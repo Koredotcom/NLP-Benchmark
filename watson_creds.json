@@ -1,0 +1,27 @@
+{
+    "alternate_intents":false,
+    "url" : "https://assistant-eu-gb.watsonplatform.net/rest/v1/workspaces/someIDewf/message",
+
+	"querystring" : {"nodes_visited_details":"true","version":"2018-07-10"},
+
+	"payload" : {"input":{"text":""},"context":{"conversation_id":"someIdwefw","system":{"initialized":true,"dialog_stack":[{"dialog_node":"root"}],"dialog_turn_counter":2,"dialog_request_counter":2},"timezone":"Asia/Calcutta"},"alternate_intents":false},    
+"headers" : {
+    "Connection": "keep-alive",
+    "Accept": "application/json, text/plain, */*",
+    "Origin": "https://assistant-eu-gb.watsonplatform.net",
+    "X-XSRF-TOKEN": "someId",
+    "X-Watson-UserInfo": "someIDfefe",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-Mode": "cors",
+    "Referer": "someRandom",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Cookie": "somecookie",
+    "cache-control": "no-cache",
+    "Postman-Token": "fwfwkj"
+    }
+
+
+}
