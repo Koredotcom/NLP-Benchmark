@@ -237,7 +237,7 @@ def callDFBot(MatchedIntents_DF, input_data,ses):
         querystring = {"v":"20150910","contexts":"shop","lang":lang,"query":query,"sessionId":"12345","timezone":"America/New_York"}
         params=querystring
         headers = {
-            'Authorization': "Bearer "+ config["DF_CLIENT_ACCESS_TOKEN"],
+            'Authorization': "Bearer "+ Client_DF, #config["DF_CLIENT_ACCESS_TOKEN"],
             'cache-control': "no-cache",
             'Postman-Token': "acfe1c90-1266-455f-96e6-2fbc759e115b"
             }

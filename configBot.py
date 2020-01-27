@@ -33,7 +33,7 @@ subscriptionToken= conf["subscriptionToken"]  #
 # DialogFlow.ai
 Token_DF =  conf["Token_DF"]  
 botIdDF =  conf["botIdDF"]  
-
+Client_DF = conf["DF_CLIENT_ACCESS_TOKEN"]
 # Watson.ai
 watson_uid =  conf["watson_uid"]  
 watson_passwd =  conf["watson_passwd"]  
