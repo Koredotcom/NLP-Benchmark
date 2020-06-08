@@ -167,7 +167,7 @@ def deleteMessageNode(streamid, messageComponentId):
 	response = requests.post( url, data=payload, headers=headersKore)
 
 
-def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
+def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform,message="default fallback intent has been recognized."):
         url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/components"
         payload = {"desc":"","type":"intent","intent":Input}
         try:
@@ -197,7 +197,7 @@ def addIntentKore(Input,streamid,userIdKore,authTokenKore,KorePlatform):
                 raise Exception("Error while Adding intent to kore 3")
         idKores=[component,dialogId]
 
-        payload = {"name":"ResponseFor"+Input.replace(" ",""),"type":"message","message":[{"channel":"default","text":Input+" has been recognized.","type":"basic"}]}
+        payload = {"name":"ResponseFor"+Input.replace(" ",""),"type":"message","message":[{"channel":"default","text":message,"type":"basic"}]}
         try:
             response = requests.post(url, json=payload, headers=headersKore)
             response.raise_for_status()
