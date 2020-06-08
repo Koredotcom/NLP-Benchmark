@@ -1,4 +1,4 @@
-import requests, csv, os, time, sys, threading, getpass, json
+import requests, csv, os, time, sys, threading, getpass, json ,copy
 from six.moves import input
 from configBot import *
 from tqdm import tqdm
@@ -59,6 +59,7 @@ def main():
 
         #For the google platform, we need to send all the training utterances for an intent at once.
         #Calling an empty dictionary to collect all these utterances.
+        '''
         for i in range(len(intentset)):
             input2[intentset[i]]=[]
 
@@ -90,7 +91,7 @@ def main():
           #print("Adding train utterances")
         else:
           witBotToken=""
-
+'''
         print("Creating the config file (testconfig.json) for the runTest.py file.")
         createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL[0],botIdDF,Token_DF,watsonBotId,witBotToken)
 
@@ -116,13 +117,14 @@ def prepLuis(intentset,intents,utterances,botIdLuis):
 
 def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, dgValue):
         print("Creating intents in kore")
+        intents_copy = copy.deepcopy(intents)
         for i,val in enumerate(intents):
             intents[i] = intents[i].replace(",","").replace("?","").replace("'","").replace("."," ").replace("/","")
             if "None" == WatsonCleanIntent(intents[i]):idKore.append(dgValue)
             else:idKore.append(addIntentKore(intents[i],botIdKore,userIdKore,authTokenKore,KorePlatform,utterances[i]))
         th=[]
         #print("Adding train utterances in Kore")
-        #addKoreUtterancesBulk(utterances,botIdKore,intents,userIdKore,authTokenKore,KorePlatform)
+        addKoreUtterancesBulk(intents_copy,botIdKore,intents,userIdKore,authTokenKore,KorePlatform)
         #print("waiting on intermediate training of the Kore bot to finish")
         #trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
         #print("Training of the Kore bot with full Data")
