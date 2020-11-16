@@ -29,6 +29,7 @@ else: USELUIS=False
 USEDF=input("Use Dialog Flow?(y/n)").lower().strip()
 while USEDF not in ["y","n"]: USEDF=input("please enter y/n only:").lower().strip()
 
+Client_DF = ""
 if USEDF in ["Y","y"]:
 	USEDF=True
 	Token_DF=input("Please give your dialogflow.ai developer token:").strip()
