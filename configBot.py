@@ -26,6 +26,10 @@ userIdKore = conf["userIdKore"]
 authTokenKore = conf["authTokenKore"] 
 KoreEmailId = conf["KoreEmailId"]  #
 KorePassword = conf["KorePassword"]  #
+jwtToken = conf["jwtToken"]
+koreClientId  = conf["koreClientId"]
+koreClientName = conf["koreClientName"]
+koreClientSecret = conf["koreClientSecret"]
 # optional platforms to enable to compare with kore
 # Luis.ai
 subscriptionToken= conf["subscriptionToken"]  #

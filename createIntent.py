@@ -7,6 +7,7 @@ from kore import *
 from luis import *
 from watson import *
 import wit
+from constants import *
 
 #Global varibles used for reading input from the csv file
 intents=[]
@@ -22,17 +23,17 @@ KorePublicApi = False
 
 def main():
         fr=open(fileName,'r')
-        reader=csv.reader(fr,delimiter=',')
+        reader=csv.DictReader(fr,delimiter=',')
         for row in reader:
                 if len(row)<=0:
                         continue
-                row[0] =row[0].strip().lower().replace("-","").replace("_"," ")
-                if row[0]==None or row[0].strip()=='':
+                row[LABEL] =row[LABEL].strip().lower().replace("-","").replace("_"," ")
+                if row[LABEL]==None or row[LABEL].strip()=='':
                         continue
-                while '  ' in row[0]: row[0] =row[0].replace('  ',' ')
-                if not row[1] in utterances:
-                        intents.append(row[0])
-                        utterances.append(row[1])
+                while '  ' in row[LABEL]: row[LABEL] =row[LABEL].replace('  ',' ')
+                if not row[SENTENCE] in utterances:
+                        intents.append(row[LABEL])
+                        utterances.append(row[SENTENCE])
         fr.close()
         intentset.extend(list(set(intents)))
         print(len(intentset), len(utterances),"distinct intents, distinct utterances")
@@ -109,7 +110,6 @@ def prepLuis(intentset,intents,utterances,botIdLuis):
             if not i%10:
                 [thread.join() for thread in th]
                 th.clear()
-            
         print("Fetching the endpoint URL to hit, for Luis, to check response by its bot")           
         urlL[0]= getLuisEndPointUrl(botIdLuis)
 
@@ -119,13 +119,12 @@ def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, 
         for i in tqdm(range(len(intentset))):
             if "None" == WatsonCleanIntent(intentset[i]):idKore.append(dgValue)
             else:idKore.append(addIntentKore(intentset[i],botIdKore,userIdKore,authTokenKore,KorePlatform))
-        th=[]
         print("Adding train utterances in Kore")
         addKoreUtterancesBulk(utterances,botIdKore,intents,userIdKore,authTokenKore,KorePlatform)
-        print("waiting on intermediate training of the Kore bot to finish")
-        trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
-        print("Training of the Kore bot with full Data")
-        trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
+        # print("waiting on intermediate training of the Kore bot to finish")
+        # trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
+        # print("Training of the Kore bot with full Data")
+        # trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
 
 def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF,watsonBotId,witBotToken):
 	config= {

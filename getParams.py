@@ -62,9 +62,9 @@ if USEKORE == "y":
 		ssoKore=False
 		KoreEmailId=input('Enter kore Email Id: ')#login credentials for kore
 		KorePassword=input('Enter kore Password: ')
-	#koreClientId=input("koreClientId:")
-	#koreClientName=input("koreClientName:")
-	#koreClientSecret=input("koreClientSecret:")
+	koreClientId=input("koreClientId:")
+	koreClientName=input("koreClientName:")
+	koreClientSecret=input("koreClientSecret:")
 else:
 	USEKORE=False
 

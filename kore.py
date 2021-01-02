@@ -145,14 +145,16 @@ def createKoreBot(Input, userIdKore, authTokenKore, KorePlatform,KorePublicApi):
         name, streamid = builderStreams1(Input, userIdKore, authTokenKore, KorePlatform)
 
         marketStreams1(Input, userIdKore, authTokenKore, KorePlatform, name, streamid, iconFileId)
-        dgValue = addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)
+        addAllAdvancedSettings(streamid, userIdKore, authTokenKore, KorePlatform)
+        dgValue = None
+        # dgValue = addIntentKore('Default Fallback Intent',streamid,userIdKore,authTokenKore,KorePlatform)
 
-        dialogs_so_far = builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
-        try:
-            DefaultIntentRefId = dialogs_so_far[0]["refId"]
-            builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid,DefaultIntentRefId )
-        except Exception as e:
-            print("Failed to create Default fallback intent, continuing anyway..")
+        # dialogs_so_far = builderStreams2(Input, userIdKore, authTokenKore, KorePlatform, streamid)
+        # try:
+        #     DefaultIntentRefId = dialogs_so_far[0]["refId"]
+        #     builderStreams3(Input, userIdKore, authTokenKore, KorePlatform, streamid,DefaultIntentRefId )
+        # except Exception as e:
+        #     print("Failed to create Default fallback intent, continuing anyway..")
         if KorePublicApi:
             addKoreSDKBotCallback(Input, KorePlatform, streamid, koreClientId)
             publishKoreChannel(Input, userIdKore, streamid, authTokenKore, KorePlatform, koreClientId, koreClientName)
@@ -220,6 +222,29 @@ def addKoreUtterancesBulk(utterances, streamid, intents, userIdKore, authTokenKo
         if not response.status_code == 200:
             raise Exception("bulk add utterances to kore failed:"+str(response.status_code)+json.dumps(response.text,indent=2))
 
+def addAllAdvancedSettings(streamid, userIdKore, authTokenKore, KorePlatform):
+        payload = {"configurationKeyName":"network","nlpEngine":"ML","configurationValue":"Transformer"}
+        addAdvancedNLSettings(streamid, userIdKore, authTokenKore, KorePlatform, payload)
+        payload = {"configurationKeyName": "disableRescoring", "nlpEngine": "RR", "configurationValue": True}
+        addAdvancedNLSettings(streamid, userIdKore, authTokenKore, KorePlatform, payload)
+        payload = {"configurationKeyName": "allowOriginalUserInputML", "nlpEngine": "ML", "configurationValue": True}
+        addAdvancedNLSettings(streamid, userIdKore, authTokenKore, KorePlatform, payload)
+        payload = {"configurationKeyName": "epochs", "nlpEngine": "ML", "configurationValue": 200}
+        addAdvancedNLSettings(streamid, userIdKore, authTokenKore, KorePlatform, payload)
+        disableLabelMatch(streamid, userIdKore, authTokenKore, KorePlatform)
+
+def addAdvancedNLSettings(streamid, userIdKore, authTokenKore, KorePlatform, payload):
+        url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/advancedNLSettings"
+        response = requests.post(url, json=payload, headers=headersKore)
+        if not response.status_code == 200:
+            raise Exception("Error in adding Advanced Setting"+str(response.status_code)+json.dumps(response.text,indent=2))
+
+def disableLabelMatch(streamid, userIdKore, authTokenKore, KorePlatform):
+        url = KorePlatform+"/api/1.1/builder/streams/"+streamid+"/confidenceConfig"
+        payload = {"confidenceConfig":[{"mode":"ml","isActive":True,"threshold":0,"minThreshold":0.2,"maxThreshold":0,"exactMatchThreshold":95},{"mode":"faq","isActive":True,"threshold":0,"minThreshold":60,"maxThreshold":80,"exactMatchThreshold":95,"suggestionsCount":3,"taskMatchTolerance":5,"pathCoverage":50,"autoCorrPercentage":5,"qualifyContextualPaths":False,"autoSpellCorrectEnabled":False,"enPatternLemma":True},{"mode":"cs","isActive":True,"threshold":0,"minThreshold":0,"maxThreshold":0,"wordCoverage":60,"labelMatch":False,"minMatchVal":0.5},{"mode":"rr","isActive":True,"threshold":0,"minThreshold":0,"maxThreshold":0,"taskMatchTolerance":2,"minMatchVal":0.5,"useDependencyParser":False}]}
+        response = requests.post(url, json=payload, headers=headersKore)
+        if not response.status_code == 200:
+                raise Exception("Error in setting nlSetting"+str(response.status_code)+json.dumps(response.text,indent=2))
 
 def addKoreUtterances(Input, idKore, streamid, intentid, userIdKore, authTokenKore, KorePlatform):
         url = KorePlatform+"/api/1.1/users/"+userIdKore+"/builder/sentences"
