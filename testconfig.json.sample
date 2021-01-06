@@ -1,0 +1,22 @@
+{
+    "FileName": "",
+    "KorePublicApi": false,
+    "RESULTSFILE": "",
+    "Token_DF": "",
+    "USEGOOGLE": false,
+    "USEKORE": true,
+    "USELUIS": false,
+    "USEWATSON": false,
+    "USEWIT": false,
+    "botname_DF": "",
+    "botname_Kore": "",
+    "lang": "en",
+    "streamid_Kore": "",
+    "threshold": 0.2,
+    "token_Kore": "",
+    "uid_Kore": "",
+    "urlKa": "",
+    "urlL": "",
+    "watsonBotId": "",
+    "witBotToken": ""
+  }

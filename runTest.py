@@ -307,7 +307,7 @@ if __name__ == "__main__":
         exit()
     start_time=time.time()
     resultsFileName=main()
-    print(time.time()-start_time)
+    print("Time elapsed for testing",time.time()-start_time)
     print(resultsFileName)
     ods = opendoc(filename=resultsFileName)
     tabulate.main(ods)

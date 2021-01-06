@@ -123,8 +123,8 @@ def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, 
         addKoreUtterancesBulk(utterances,botIdKore,intents,userIdKore,authTokenKore,KorePlatform)
         # print("waiting on intermediate training of the Kore bot to finish")
         # trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
-        # print("Training of the Kore bot with full Data")
-        # trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
+        print("Training of the Kore bot with full Data")
+        trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
 
 def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF,watsonBotId,witBotToken):
 	config= {

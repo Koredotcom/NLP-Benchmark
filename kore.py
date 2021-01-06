@@ -229,7 +229,7 @@ def addAllAdvancedSettings(streamid, userIdKore, authTokenKore, KorePlatform):
         addAdvancedNLSettings(streamid, userIdKore, authTokenKore, KorePlatform, payload)
         payload = {"configurationKeyName": "allowOriginalUserInputML", "nlpEngine": "ML", "configurationValue": True}
         addAdvancedNLSettings(streamid, userIdKore, authTokenKore, KorePlatform, payload)
-        payload = {"configurationKeyName": "epochs", "nlpEngine": "ML", "configurationValue": 200}
+        payload = {"configurationKeyName": "epochs", "nlpEngine": "ML", "configurationValue": 20}
         addAdvancedNLSettings(streamid, userIdKore, authTokenKore, KorePlatform, payload)
         disableLabelMatch(streamid, userIdKore, authTokenKore, KorePlatform)
 

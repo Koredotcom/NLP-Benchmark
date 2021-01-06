@@ -14,8 +14,20 @@ watson_uid = ""
 watson_passwd = ""
 ssoKore = ""
 KorePlatform = ""
+dataset=""
+dataset_mapping = ["NLU_AskUbuntu", "NLU_Webapp", "NLU_Chatbot"]
 
+existing_dataset = input("Do you want to evaluate on existing Benchmark datasets(y/n)")
+existing_dataset = existing_dataset or 'n'
+if existing_dataset in ['y', 'Y']:
+	dataset = input("Choose the dataset (1/2/3)\n1 NLU-AskUbuntu\n2 NLU-Webapp\n3 NLU-Chatbot\n")
+
+while dataset not in ["1", "2", "3"]:
+	dataset = input("Please type valid number(1/2/3)\n1 NLU-AskUbuntu\n2 NLU-Webapp\n3 NLU-Chatbot\n")
+
+dataset = int(dataset)
 USELUIS=input("Use Luis?(y/n):").lower().strip()
+USELUIS = USELUIS or 'n'
 while USELUIS not in ["y","n"]: USELUIS=input("please enter y/n only:").lower().strip()
 
 subscriptionToken=""
@@ -27,8 +39,11 @@ if USELUIS == "y":
 else: USELUIS=False
 
 USEDF=input("Use Dialog Flow?(y/n)").lower().strip()
+USEDF = USEDF or 'n'
 while USEDF not in ["y","n"]: USEDF=input("please enter y/n only:").lower().strip()
-
+Client_DF = ""
+botIdDF = ""
+Token_DF = ""
 if USEDF in ["Y","y"]:
 	USEDF=True
 	Token_DF=input("Please give your dialogflow.ai developer token:").strip()
@@ -38,16 +53,19 @@ else: USEDF=False
 
 
 USEKORE=input("Use Kore?(y/n)").lower().strip()
+USEKORE = USEKORE or 'y'
+if not USEKORE: USEKORE = 'y'
 while USEKORE not in ["y","n"]: USEKORE=input("please enter y/n only:").lower().strip()
 
 if USEKORE == "y":
 	USEKORE=True
 	KorePlatform=input("Please give the kore.ai environment you want to use(default:https://bots.kore.ai):").lower().strip()
-	if not KorePlatform:KorePlatform="https://bots.kore.ai"
+	if not KorePlatform:KorePlatform="http://localhost"
 
 	#If running with company account id, please mark ssoKore as 'True' and enter the user-Id along with Authorization bearer in the command prompt. Else, enter you login credentials in the terminal.
 
 	ssoKore=input("How do you want to login to kore.ai?(bearer/password):").lower().strip()
+	ssoKore = ssoKore or 'password'
 	while ssoKore not in ["bearer","password"]:
 		ssoKore=input("please enter bearer/password only:").lower().strip()
 		userIdKore=""
@@ -61,14 +79,17 @@ if USEKORE == "y":
 	else:
 		ssoKore=False
 		KoreEmailId=input('Enter kore Email Id: ')#login credentials for kore
+		KoreEmailId = KoreEmailId
 		KorePassword=input('Enter kore Password: ')
-	koreClientId=input("koreClientId:")
-	koreClientName=input("koreClientName:")
-	koreClientSecret=input("koreClientSecret:")
+		KorePassword = KorePassword
+	koreClientId=None # input("koreClientId:")
+	koreClientName=None # input("koreClientName:")
+	koreClientSecret=None # input("koreClientSecret:")
 else:
 	USEKORE=False
 
 USEWATSON = input("Use Watson?(y/n)").lower().strip()
+USEWATSON = USEWATSON or 'n'
 while USEWATSON not in ["y","n"]: USEWATSON=input("please enter y/n only:").lower().strip()
 if USEWATSON == "y":
 	USEWATSON=True
@@ -79,12 +100,21 @@ else:
 	watson_uid = ""
 	watson_passwd = ""
 
-fileName = input("Training file name?[default is \"ML_Train.csv\"] ").strip()
-TestFileName = input("Training file name?[default is \"ML_TestData.csv\"] ").strip()
-fileName="ML_Train.csv" if fileName == "" else fileName
-TestFileName = "ML_TestData.csv" if TestFileName == "" else TestFileName
+fileDir = os.path.dirname(os.path.realpath('__file__'))
+if existing_dataset in ['y', 'Y']:
+	evaluation_dataset = dataset_mapping[dataset-1]
+	trainFilePath = "datasets/{}/train.csv".format(evaluation_dataset)
+	fileName = os.path.join(fileDir, trainFilePath)
+	testFilePath = "datasets/{}/test.csv".format(evaluation_dataset)
+	TestFileName = os.path.join(fileDir, testFilePath)
+else:
+	fileName = input("Training file name?[default is \"ML_Train.csv\"] ").strip()
+	TestFileName = input("Training file name?[default is \"ML_TestData.csv\"] ").strip()
+	fileName="ML_Train.csv" if fileName == "" else fileName
+	TestFileName = "ML_TestData.csv" if TestFileName == "" else TestFileName
 
 botName = input("Please enter name of the bot you want to create(default:BankBot):")
+botName = botName
 if not botName:botName = "BankBot"
 
 def getThreshold(default=0.3):
