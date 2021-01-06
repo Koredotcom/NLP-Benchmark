@@ -26,13 +26,13 @@ def main(ods):
 		intent.append(WatsonCleanIntent(x[0]))
 		TyOfUtt.append(x[2])
 		matched[0].append(WatsonCleanIntent(x[ 3]))
-		matched[1].append(WatsonCleanIntent(x[ 8]))
-		matched[2].append(WatsonCleanIntent(x[11]))
-		matched[3].append(WatsonCleanIntent(x[14]))
+		# matched[1].append(WatsonCleanIntent(x[ 8]))
+		# matched[2].append(WatsonCleanIntent(x[11]))
+		# matched[3].append(WatsonCleanIntent(x[14]))
 		success[0].append(x[4])
-		success[1].append(x[9])
-		success[2].append(x[12])
-		success[3].append(x[15])
+		# success[1].append(x[9])
+		# success[2].append(x[12])
+		# success[3].append(x[15])
 	numIntents=len(set(intent))+1
 	numrows=numIntents*16
 	colsMax=11
@@ -58,15 +58,15 @@ def writeCSV(sheet,currentIntent=None):
 		sheetInd=sheet[1]
 		sheet=sheet[0]
 		name=sheetInd.name
-		b1=["","KORE.AI: ALL","KORE.AI: NONE","","API.AI:ALL","API.AI:NONE","","LUIS.AI:ALL","LUIS.AI:NONE","","Watson:ALL","Watson:None",""]
+		b1=["","KORE.AI: ALL","KORE.AI: NONE",""]
 	else:
 		name=sheet
-		b1=["","KORE.AI","","API.AI","","LUIS.AI","","Watson",""]
+		b1=["","KORE.AI"]
 	b2=["TP"]
 	b3=["TN"]
 	b4=["FN"]
 	b5=["FP"]
-	c1=["","KORE.AI","","API.AI","","LUIS.AI","","Watson"]
+	c1=["","KORE.AI"]
 	c2=["Precision"]
 	c3=["Recall"]
 	c4=["F Measure"]
@@ -79,7 +79,7 @@ def writeCSV(sheet,currentIntent=None):
 	array4=["Stemming and Lemmatization"]
 	array5=["Spell Error"]
 	"""Loop for the three platforms for result table calculation"""
-	for platforms in range(4):
+	for platforms in range(1):
 		totalPositives=0
 		truePositives=0
 		falseNegatives=0

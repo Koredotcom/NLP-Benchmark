@@ -26,37 +26,38 @@ while dataset not in ["1", "2", "3"]:
 	dataset = input("Please type valid number(1/2/3)\n1 NLU-AskUbuntu\n2 NLU-Webapp\n3 NLU-Chatbot\n")
 
 dataset = int(dataset)
-USELUIS=input("Use Luis?(y/n):").lower().strip()
-USELUIS = USELUIS or 'n'
-while USELUIS not in ["y","n"]: USELUIS=input("please enter y/n only:").lower().strip()
+# USELUIS=input("Use Luis?(y/n):").lower().strip()
+# USELUIS = USELUIS or 'n'
+# while USELUIS not in ["y","n"]: USELUIS=input("please enter y/n only:").lower().strip()
 
 subscriptionToken=""
 Token_DF=""
 botIdDF=""
-if USELUIS == "y":
-	USELUIS=True
-	subscriptionToken=input("Please give your luis.ai subscription token:").strip()
-else: USELUIS=False
+# if USELUIS == "y":
+# 	USELUIS=True
+# 	subscriptionToken=input("Please give your luis.ai subscription token:").strip()
+# else: USELUIS=False
+USELUIS=False
 
-USEDF=input("Use Dialog Flow?(y/n)").lower().strip()
-USEDF = USEDF or 'n'
-while USEDF not in ["y","n"]: USEDF=input("please enter y/n only:").lower().strip()
+# USEDF=input("Use Dialog Flow?(y/n)").lower().strip()
+# USEDF = USEDF or 'n'
+# while USEDF not in ["y","n"]: USEDF=input("please enter y/n only:").lower().strip()
 Client_DF = ""
 botIdDF = ""
 Token_DF = ""
-if USEDF in ["Y","y"]:
-	USEDF=True
-	Token_DF=input("Please give your dialogflow.ai developer token:").strip()
-	Client_DF=input("Please give your dialogflow.ai client access token:").strip()
-	botIdDF=input("Please give the id of the bot in dialogflow.ai you want to use:").strip()
-else: USEDF=False
+# if USEDF in ["Y","y"]:
+# 	USEDF=True
+# 	Token_DF=input("Please give your dialogflow.ai developer token:").strip()
+# 	Client_DF=input("Please give your dialogflow.ai client access token:").strip()
+# 	botIdDF=input("Please give the id of the bot in dialogflow.ai you want to use:").strip()
+# else: USEDF=False
+USEDF=False
 
-
-USEKORE=input("Use Kore?(y/n)").lower().strip()
-USEKORE = USEKORE or 'y'
-if not USEKORE: USEKORE = 'y'
-while USEKORE not in ["y","n"]: USEKORE=input("please enter y/n only:").lower().strip()
-
+# USEKORE=input("Use Kore?(y/n)").lower().strip()
+# USEKORE = USEKORE or 'y'
+# if not USEKORE: USEKORE = 'y'
+# while USEKORE not in ["y","n"]: USEKORE=input("please enter y/n only:").lower().strip()
+USEKORE = 'y'
 if USEKORE == "y":
 	USEKORE=True
 	KorePlatform=input("Please give the kore.ai environment you want to use(default:https://bots.kore.ai):").lower().strip()
@@ -88,17 +89,21 @@ if USEKORE == "y":
 else:
 	USEKORE=False
 
-USEWATSON = input("Use Watson?(y/n)").lower().strip()
-USEWATSON = USEWATSON or 'n'
-while USEWATSON not in ["y","n"]: USEWATSON=input("please enter y/n only:").lower().strip()
-if USEWATSON == "y":
-	USEWATSON=True
-	watson_uid = input("please enter watson user Id:")
-	watson_passwd = input("please enter watson password:")
-else:
-	USEWATSON=False
-	watson_uid = ""
-	watson_passwd = ""
+# USEWATSON = input("Use Watson?(y/n)").lower().strip()
+# USEWATSON = USEWATSON or 'n'
+# while USEWATSON not in ["y","n"]: USEWATSON=input("please enter y/n only:").lower().strip()
+# if USEWATSON == "y":
+# 	USEWATSON=True
+# 	watson_uid = input("please enter watson user Id:")
+# 	watson_passwd = input("please enter watson password:")
+# else:
+# 	USEWATSON=False
+# 	watson_uid = ""
+# 	watson_passwd = ""
+
+USEWATSON=False
+watson_uid = ""
+watson_passwd = ""
 
 fileDir = os.path.dirname(os.path.realpath('__file__'))
 if existing_dataset in ['y', 'Y']:
