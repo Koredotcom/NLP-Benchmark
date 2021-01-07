@@ -106,6 +106,8 @@ def main():
         Utterances.append(row[1])
         Type = "Positive"
         if len(row) == 3: Type = row[2]
+        if not Type or Type == "":
+            Type = "Positive"
         Types.append(Type)
         TaskNames.append(TaskName)
     fr.close()

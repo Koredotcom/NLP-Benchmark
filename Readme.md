@@ -1,6 +1,6 @@
 # INTRODUCTION
 
-This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Luis.ai and API.ai.
+This tool helps for comparing the ML Capability in intent recognition for the platforms Kore.ai, Dialogflow (CX)
 
 # Prerequisites
     - python dev/devel/src  >= 3.5.3 and <= 3.6.3. We suggest to use stable 3.5.3 from https://www.python.org/downloads/release/python-353/ 
@@ -21,8 +21,9 @@ Post installation to verify that the installations done are as expected
 	16.1.0                # or the version you installed
 
 # PREPARATION OF DATA
-1. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
-2. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
+1. There are few standard benchmark datasets available for evaluating Intent recognition capabilities of Conversational AI platforms such as Kore.AI, DialogFlow(CX). You can either choose to run on available datasets by providing the number assigned against them OR You could choose to run on your own datasets. Please follow next instruction for using own datasets.
+2. Mention the Intents and the train data to be created in the ML_Train.csv file. While entering data , please follow the format as it is in ML_Train.csv
+3. Mention the test data along with utterance classification ( i.e Positive/Negative/Spell Errors etc) in ML_TestData.csv. Here it is important to give the classification names properly as mentioned in the ML_TestData.csv sheet, with the necessary capitalization.
 
 ## Setup Instructions:
 
@@ -76,19 +77,17 @@ When running run.sh you will be asked for several inputs such as access tokens, 
 		authTokenKore="bearer xowAczxCrk4-bSpj3-lQNgcBmGdtIseQxFb6dyFIBZ1cheL6Vdj_1fW-e7R8MgMV"
 * In configBot.py set USEKORE=True to test on kore environment else set it to False
 
-## Configuration for DialogFlow/API.ai(OPTIONAL) -:
+## Configuration for DialogFlow (CX)(OPTIONAL)
 
-* Pre-requisite for this is to create a new bot(referred as agent in DialogFlow/api.ai). 
-* Press on the gear icon on the left next to the bot name.
-* Copy the Developer_Access_Token.
-
-		Token_DF="ecf2caaa9841447ba330d73306f976d7"
-
-* In the URL of the page, copy the bot id next to 'editAgent/' .
-
-		botIdDF="15d93a17-4cfa-489d-9058-2f720a88ac7a"
+### Pre-requisites
+* Enable Dialogflow API in Google Cloud Project
+* Create a Service account and download the service accountkey json file
+* For more info, follow https://cloud.google.com/dialogflow/cx/docs/quick/setup
+* Configure the downloaded service account key file path dfConfig.json SERVICE_ACCOUNT_FILE_PATH
+* Provide PROJECT_ID and LOCATION_ID in dfConfig.json
 
 #### In configBot.py set USEGOOGLE=True to test on DialogFlow environment else set it to False
+#### After the required setup to use dialogflow(CX) API, fill the required details in dfConfig.json
 
 
 ## Configuration for Luis.ai(OPTIONAL) -:
