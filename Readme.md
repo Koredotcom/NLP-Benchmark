@@ -138,3 +138,23 @@ NOTES- Certain limitations are to be noted:
 
 
 Sample : Previously run results can be found at https://github.com/Koredotcom/NLP-Benchmark/blob/master/previous-test-results/ML_Results-13-12-2017--21-45-17.ods.xlsx
+
+# Citations of Benchmark datasets available in the repo
+
+1. Banking77
+### Citations
+
+[Efficient Intent Detection with Dual Sentence Encoders](https://arxiv.org/abs/2003.04807).
+
+```bibtex
+@inproceedings{Casanueva2020,
+    author      = {I{\~{n}}igo Casanueva and Tadas Temcinas and Daniela Gerz and Matthew Henderson and Ivan Vulic},
+    title       = {Efficient Intent Detection with Dual Sentence Encoders},
+    year        = {2020},
+    month       = {mar},
+    note        = {Data available at https://github.com/PolyAI-LDN/task-specific-datasets},
+    url         = {https://arxiv.org/abs/2003.04807},
+    booktitle   = {Proceedings of the 2nd Workshop on NLP for ConvAI - ACL 2020}
+}
+
+```
