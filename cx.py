@@ -8,9 +8,10 @@ from google.protobuf.field_mask_pb2 import FieldMask
 from sklearn.metrics import precision_recall_fscore_support
 from configBot import *
 from dfConfig import *
-intents_client  = df.IntentsClient()
-flows_client = df.FlowsClient()
-SESSION_ID = "UUID('813674c2-7b81-4ba0-a2fd-2e090666b17d')"
+if USEGOOGLE:
+	intents_client  = df.IntentsClient()
+	flows_client = df.FlowsClient()
+	SESSION_ID = "UUID('813674c2-7b81-4ba0-a2fd-2e090666b17d')"
 
 
 def get_intent_list(agent):

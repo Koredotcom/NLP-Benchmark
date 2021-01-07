@@ -18,5 +18,5 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SERVICE_ACCOUNT_FILE
 
 # TRAIN_FILE = "data/AskUbuntuCorpus_train.csv"
 # TEST_FILE = "data/AskUbuntuCorpus_test.csv"
-INTENT_COLUMN = "intent"
-TEXT_COLUMN = "input"
+INTENT_COLUMN = "label"
+TEXT_COLUMN = "sentence"
