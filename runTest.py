@@ -41,8 +41,12 @@ def find_intent3(sheet,i,ses):
         output.append(TaskNames[i])
         output.append(Utterances[i])
         output.append(Types[i])
+        if dfAgent and hasattr(dfAgent, "name"):
+            dfagentName = dfAgent.name
+        else:
+            dfagentName = ""
         thKORE=Thread(target=callKoreBot,args=(MatchedIntents_Kore,Utterances[i], ses[0]));thKORE.start()
-        thDF=Thread(target=callDFBot,args=(MatchedIntents_DF,Utterances[i],ses[1],dfAgent.get("name")));thDF.start()
+        thDF=Thread(target=callDFBot,args=(MatchedIntents_DF,Utterances[i],ses[1],dfagentName));thDF.start()
         # thLUIS=Thread(target=callLUISBot,args=(MatchedIntents_Luis,Utterances[i],ses[2]));thLUIS.start()
         # thWatson=Thread(target=callWatsonBot,args=(MatchedIntents_Watson,Utterances[i],ses[3]));thWatson.start()
         thKORE.join();thDF.join();#thLUIS.join();thWatson.join()
