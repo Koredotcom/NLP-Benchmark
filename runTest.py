@@ -2,9 +2,10 @@ import tabulate
 import requests, csv, os, time, sys, urllib, json, base64, hashlib, hmac
 from threading import Thread
 from tqdm import tqdm
-from watson import *
+# from watson import *
 from odfhandle import *
 from configBot import *
+from cx import getAgent, detect_intent
 '''Three global arrays declared to get input from the ML csv file to get the utterance, expected task name and the type of utterance and 1 array for the output to capture the matched intent and status(success or failure)'''
 Utterances=[]
 TaskNames=[]
@@ -12,8 +13,9 @@ Types=[]
 outputs=[]
 urlDF="https://api.dialogflow.com/v1/query"
 
-NUM_THREADS=10
+NUM_THREADS=3
 config={}
+dfAgent={}
 
 def printif(*args):
     return
@@ -40,10 +42,10 @@ def find_intent3(sheet,i,ses):
         output.append(Utterances[i])
         output.append(Types[i])
         thKORE=Thread(target=callKoreBot,args=(MatchedIntents_Kore,Utterances[i], ses[0]));thKORE.start()
-        # thDF=Thread(target=callDFBot,args=(MatchedIntents_DF,Utterances[i],ses[1]));thDF.start()
+        thDF=Thread(target=callDFBot,args=(MatchedIntents_DF,Utterances[i],ses[1],dfAgent.name));thDF.start()
         # thLUIS=Thread(target=callLUISBot,args=(MatchedIntents_Luis,Utterances[i],ses[2]));thLUIS.start()
         # thWatson=Thread(target=callWatsonBot,args=(MatchedIntents_Watson,Utterances[i],ses[3]));thWatson.start()
-        thKORE.join();#thDF.join();thLUIS.join();thWatson.join()
+        thKORE.join();thDF.join();#thLUIS.join();thWatson.join()
         output.append(MatchedIntents_Kore[0])
         if MatchedIntents_Kore[0]==TaskNames[i]:
             output.append('pass')
@@ -54,12 +56,12 @@ def find_intent3(sheet,i,ses):
         output.append(str(MatchedIntents_Kore[1])) # CS score
         output.append(str(MatchedIntents_Kore[2])) # ML score
         output.append(str(MatchedIntents_Kore[3])) # FAQ score
-        # output.append(MatchedIntents_DF[0])
-        # if(MatchedIntents_DF[0]==TaskNames[i]):
-        #     output.append('pass')
-        # else:
-        #     output.append('fail')
-        # output.append(str(MatchedIntents_DF[1]))
+        output.append(MatchedIntents_DF[0])
+        if(MatchedIntents_DF[0]==TaskNames[i]):
+            output.append('pass')
+        else:
+            output.append('fail')
+        output.append(str(MatchedIntents_DF[1]))
 
         # output.append(MatchedIntents_Luis[0])
         # if(MatchedIntents_Luis[0]==TaskNames[i]):
@@ -80,11 +82,13 @@ def find_intent3(sheet,i,ses):
         time.sleep(1)
 
 def main():
-    global outputs, config
+    global outputs, config, dfAgent
     MAP=lambda x,y:list(map(x,y))
     ses=MAP(lambda x:MAP(lambda y:y(),x),[[requests.session]*4]*NUM_THREADS)
     th=[None]*NUM_THREADS
     config=json.load(open(sys.argv[1],"r"))
+    if USEGOOGLE:
+        dfAgent = getAgent(botName)
     fr=open(config["FileName"],'r')
     reader=csv.reader(fr,delimiter=',')
     lines=[line for line in reader][1:]
@@ -106,14 +110,14 @@ def main():
     if config.get("RESULTSFILE",""):
         resultsFileName=config["RESULTSFILE"]
     else:
-        resultsFileName="ML_Results-"+config["botname_Kore"]+timestr+".ods"
-        resultsFileName = input("Enter resultsFileName(default:"+resultsFileName+"):")
-        if not resultsFileName:resultsFileName='ML_Results-'+timestr+".ods"
+        resultsFileNameDef="ML_Results-"+config["botname_Kore"]+"-"+timestr+".ods"
+        resultsFileName = input("Enter resultsFileName(default:"+resultsFileNameDef+"):")
+        if not resultsFileName:resultsFileName=resultsFileNameDef
         if not resultsFileName.split(".")[-1] == "ods": resultsFileName += ".ods"
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,18))
     ods.sheets += sheet
-    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score'])
+    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF'])
     ods.save()
     outputs = [None]*len(Utterances)
     prev=0
@@ -231,46 +235,41 @@ def callKoreBot(MatchedIntents_Kore, input_data,ses):
         MatchedIntents_Kore.clear()
         MatchedIntents_Kore.extend([matchedIntents_Kore,koreCSScore,koreMLScore, koreFAQScore])
 
-def callDFBot(MatchedIntents_DF, input_data,ses):
+def callDFBot(MatchedIntents_DF, input_data,ses,agent):
     if config["USEGOOGLE"]:
-        query=urllib.parse.quote(input_data.replace("!",""))
-        querystring = {"v":"20150910","contexts":"shop","lang":lang,"query":query,"sessionId":"12345","timezone":"America/New_York"}
-        params=querystring
-        headers = {
-            'Authorization': "Bearer "+ Client_DF, #config["DF_CLIENT_ACCESS_TOKEN"],
-            'cache-control': "no-cache",
-            'Postman-Token': "acfe1c90-1266-455f-96e6-2fbc759e115b"
-            }
+        # query=urllib.parse.quote(input_data.replace("!",""))
+        # querystring = {"v":"20150910","contexts":"shop","lang":lang,"query":query,"sessionId":"12345","timezone":"America/New_York"}
+        # params=querystring
+        # headers = {
+        #     'Authorization': "Bearer "+ Client_DF, #config["DF_CLIENT_ACCESS_TOKEN"],
+        #     'cache-control': "no-cache",
+        #     'Postman-Token': "acfe1c90-1266-455f-96e6-2fbc759e115b"
+        #     }
         count = 0
         while(1):
             count = count +1
             try:
-                response = requests.request("GET", urlDF, headers=headers, params=querystring)
-                response.raise_for_status()
-                responsejson = response.json()
+                actual_intent,confidence_score = detect_intent(agent, input_data)
                 break
             except Exception as e:
                 print(e)
                 #time.sleep(11)
                 print("Error while finding intent in google", e)
-                print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
                 if count > 3:
-                    responsejson={} 
                     break
                 time.sleep(1)
-        if not responsejson=={} and ('result' in responsejson) and ('metadata' in responsejson['result']) and ('intentName' in responsejson['result']['metadata']):
-            matchedIntents_DF=responsejson['result']['metadata']['intentName'].lower()
-            score=responsejson['result']['score']#Getting the confidence score.
+        if actual_intent:
+            matchedIntents_DF=actual_intent.lower()
+            score=confidence_score
             if(matchedIntents_DF=='Default Fallback Intent'):
                 matchedIntents_DF='None'
         else:
             matchedIntents_DF='None'
             score='null'
             print("null score google")
-            print("GOOGLE","get", urlDF, "headers=",headers,"params",params)
     else:
         matchedIntents_DF='None'
-        score=0.1
+        score=0
     MatchedIntents_DF.clear()
     MatchedIntents_DF.extend([matchedIntents_DF,score])
             

@@ -45,3 +45,12 @@ watson_passwd =  conf.get("watson_passwd")
 # Wit.ai
 witUserToken =  conf.get("witUserToken")
 
+
+AGENT_NAME = botName
+TRAIN_FILE = fileName
+TEST_FILE = TestFileName
+
+def cleanIntentLabel(intent):
+	cleanIntent = intent.replace(" ","").replace("\t","")
+	if cleanIntent.lower() == "defaultfallbackintent":cleanIntent="None"
+	return cleanIntent

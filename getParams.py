@@ -1,6 +1,7 @@
 #!/bin/env python
 import os,sys,time,io,re,requests,json
-
+from constants import dataset_mapping
+from dfConfig import *
 if sys.version[0]==2:
 	print("Use python3")
 	exit(1)
@@ -15,15 +16,14 @@ watson_passwd = ""
 ssoKore = ""
 KorePlatform = ""
 dataset=""
-dataset_mapping = ["NLU_AskUbuntu", "NLU_Webapp", "NLU_Chatbot"]
 
 existing_dataset = input("Do you want to evaluate on existing Benchmark datasets(y/n)")
 existing_dataset = existing_dataset or 'n'
 if existing_dataset in ['y', 'Y']:
-	dataset = input("Choose the dataset (1/2/3)\n1 NLU-AskUbuntu\n2 NLU-Webapp\n3 NLU-Chatbot\n")
+	dataset = input("Choose the dataset (1/2/3/4)\n1 NLU-AskUbuntu\n2 NLU-Webapp\n3 NLU-Chatbot\n4 Banking77\n")
 
-while dataset not in ["1", "2", "3"]:
-	dataset = input("Please type valid number(1/2/3)\n1 NLU-AskUbuntu\n2 NLU-Webapp\n3 NLU-Chatbot\n")
+while dataset not in ["1", "2", "3", "4"]:
+	dataset = input("Please type valid number(1/2/3/4)\n1 NLU-AskUbuntu\n2 NLU-Webapp\n3 NLU-Chatbot\n4 Banking77\n")
 
 dataset = int(dataset)
 # USELUIS=input("Use Luis?(y/n):").lower().strip()
@@ -39,25 +39,29 @@ botIdDF=""
 # else: USELUIS=False
 USELUIS=False
 
-# USEDF=input("Use Dialog Flow?(y/n)").lower().strip()
-# USEDF = USEDF or 'n'
-# while USEDF not in ["y","n"]: USEDF=input("please enter y/n only:").lower().strip()
+USEDF=input("Use Dialog Flow?(y/n)").lower().strip()
+USEDF = USEDF or 'n'
+while USEDF not in ["y","n"]: USEDF=input("please enter y/n only:").lower().strip()
 Client_DF = ""
 botIdDF = ""
 Token_DF = ""
-# if USEDF in ["Y","y"]:
-# 	USEDF=True
-# 	Token_DF=input("Please give your dialogflow.ai developer token:").strip()
-# 	Client_DF=input("Please give your dialogflow.ai client access token:").strip()
-# 	botIdDF=input("Please give the id of the bot in dialogflow.ai you want to use:").strip()
-# else: USEDF=False
-USEDF=False
+if USEDF in ["Y","y"]:
+	USEDF=True
+	dfPrerequistes = input("Have you provided neccessary details in dfConfig.json [y/n)")
+	dfPrerequistes = dfPrerequistes or 'n'
+	if dfPrerequistes == 'n':
+		print("Skipping evaluation on Dialog flow as prerequiste config is not provided")
+		USEDF = False
+	# Token_DF=input("Please give your dialogflow.ai developer token:").strip()
+	# Client_DF=input("Please give your dialogflow.ai client access token:").strip()
+	# botIdDF=input("Please give the id of the bot in dialogflow.ai you want to use:").strip()
+else: USEDF=False
 
-# USEKORE=input("Use Kore?(y/n)").lower().strip()
-# USEKORE = USEKORE or 'y'
+USEKORE=input("Use Kore?(y/n)").lower().strip()
+USEKORE = USEKORE or 'y'
 # if not USEKORE: USEKORE = 'y'
 # while USEKORE not in ["y","n"]: USEKORE=input("please enter y/n only:").lower().strip()
-USEKORE = 'y'
+# USEKORE = 'y'
 if USEKORE == "y":
 	USEKORE=True
 	KorePlatform=input("Please give the kore.ai environment you want to use(default:https://bots.kore.ai):").lower().strip()

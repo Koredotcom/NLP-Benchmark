@@ -5,9 +5,13 @@ from tqdm import tqdm
 from googleDF import *
 from kore import *
 from luis import *
-from watson import *
+# from watson import *
 import wit
 from constants import *
+import pandas as pd
+from dfConfig import *
+from google.cloud import dialogflowcx as df
+from cx import create_agent, create_all_intents, get_intent_list, get_flow, update_transition_routes, update_nlu_type, train_flow, getAgent
 
 #Global varibles used for reading input from the csv file
 intents=[]
@@ -67,10 +71,18 @@ def main():
             input2[intents[i]].append(utterances[i])
 
         if USEGOOGLE:
-          print("Training Google bot after collecting all the train utterances")
-          for j in tqdm(range(len(intentset))):
-              addIntentAndUtteranceDF(intentset[j],input2[intentset[j]])
-
+            locationPath = f"projects/{PROJECT_ID}/locations/{LOCATION_ID}"
+            print("creating agent", AGENT_NAME)
+            agent = create_agent(AGENT_NAME, locationPath)
+            print("agent created", agent.name)
+            print("Training Google bot after collecting all the train utterances")
+            train_data = pd.read_csv(TRAIN_FILE)
+            create_all_intents(agent.name, train_data)
+            df_intents = get_intent_list(agent.name)
+            flow = get_flow(agent.name, DEFAULT_FLOW_ID)
+            update_transition_routes(flow, df_intents)
+            update_nlu_type(flow, df.NluSettings.ModelType.MODEL_TYPE_ADVANCED)
+            train_flow(flow)
         if USEWATSON:
           print("Create Watson workspace")
           watsonBotId = WatsonCreateBot(botName)
@@ -117,42 +129,41 @@ def prepLuis(intentset,intents,utterances,botIdLuis):
 def prepKore(intentset, intents, utterances,botIdKore,userIdKore,authTokenKore, dgValue):
         print("Creating intents in kore")
         for i in tqdm(range(len(intentset))):
-            if "None" == WatsonCleanIntent(intentset[i]):idKore.append(dgValue)
+            if "None" == cleanIntentLabel(intentset[i]):idKore.append(dgValue)
             else:idKore.append(addIntentKore(intentset[i],botIdKore,userIdKore,authTokenKore,KorePlatform))
         print("Adding train utterances in Kore")
         addKoreUtterancesBulk(utterances,botIdKore,intents,userIdKore,authTokenKore,KorePlatform)
         # print("waiting on intermediate training of the Kore bot to finish")
         # trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
         print("Training of the Kore bot with full Data")
-        trainKore(botIdKore,userIdKore,authTokenKore,KorePlatform)
 
 def createConfigFile(botName,botIdKore,userIdKore,authTokenKore,KorePlatform,urlL,botIdDF,Token_DF,watsonBotId,witBotToken):
-	config= {
-		"botname_Kore":	botName,
-		"uid_Kore":userIdKore,
-		"streamid_Kore":botIdKore,
-		"urlKa":KorePlatform,
-		"KorePublicApi":KorePublicApi,
-		"FileName": TestFileName,
-		"Token_DF":Token_DF,
-		"botname_DF":	botIdDF,
-		"urlL":	urlL,
-		"USEKORE":USEKORE,
-		"USEGOOGLE":USEGOOGLE,
-		"USELUIS":USELUIS,
-		"USEWATSON":USEWATSON,
-		"watsonBotId":watsonBotId,
-		"USEWIT":USEWIT,
-		"witBotToken":witBotToken,
-		"lang":lang,
-		"RESULTSFILE":RESULTSFILE,
-                "threshold" : threshold
-		}
-	if config["KorePublicApi"]:config["token_Kore"] = koreClientSecret
-	else:config["token_Kore"] = authTokenKore
-	f=open("testconfig.json","w")
-	json.dump(config,f, indent=2, ensure_ascii=False,sort_keys=True)
-	f.close()
+    config= {
+        "botname_Kore":	botName,
+        "uid_Kore":userIdKore,
+        "streamid_Kore":botIdKore,
+        "urlKa":KorePlatform,
+        "KorePublicApi":KorePublicApi,
+        "FileName": TestFileName,
+        "Token_DF":Token_DF,
+        "botname_DF":	botIdDF,
+        "urlL":	urlL,
+        "USEKORE":USEKORE,
+        "USEGOOGLE":USEGOOGLE,
+        "USELUIS":USELUIS,
+        "USEWATSON":USEWATSON,
+        "watsonBotId":watsonBotId,
+        "USEWIT":USEWIT,
+        "witBotToken":witBotToken,
+        "lang":lang,
+        "RESULTSFILE":RESULTSFILE,
+        "threshold" : threshold
+    }
+    if config["KorePublicApi"]:config["token_Kore"] = koreClientSecret
+    else:config["token_Kore"] = authTokenKore
+    f=open("testconfig.json","w")
+    json.dump(config,f, indent=2, ensure_ascii=False,sort_keys=True)
+    f.close()
 
 if __name__ == '__main__':
         main()
