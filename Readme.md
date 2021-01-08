@@ -136,7 +136,7 @@ NOTES- Certain limitations are to be noted:
 	c. Maximum number of agents that can be created in API.AI are 15
 
 
-Sample : Previously run results can be found at https://github.com/Koredotcom/NLP-Benchmark/blob/master/previous-test-results/ML_Results-13-12-2017--21-45-17.ods.xlsx
+Sample : Previously run results can be found at https://github.com/Koredotcom/NLP-Benchmark/blob/8c418a26d0c1944a6222968731f5e168dd403cbf/previous-test-results/ML_Results-Benchmark_Banking77_KORE-08-01-2021--22-43-34.xlsx
 
 # Citations of Benchmark datasets available in the repo
 
