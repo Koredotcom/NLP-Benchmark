@@ -1,15 +1,23 @@
 import sys
 from odfhandle import *
-from configBot import cleanIntentLabel
+from configBot import cleanIntentLabel, USEGOOGLE, USEKORE
 # from watson import *
 TyOfUtt=[]#Reading the type of utterances from input ML_Result csv file
-success=[[],[],[],[]]
 intent=[]
-matched=[[],[],[],[]]
-precession=[0,0,0,0]
-recall=[0,0,0,0]
-fscore=[0,0,0,0]
-accuracy=[0,0,0,0]
+if USEGOOGLE and USEKORE:
+	matched=[[],[],[],[]]
+	precession=[0,0,0,0]
+	recall=[0,0,0,0]
+	fscore=[0,0,0,0]
+	accuracy=[0,0,0,0]
+	success=[[],[]]
+elif USEGOOGLE or USEKORE:
+	matched=[[]]
+	precession=[0]
+	recall=[0]
+	fscore=[0]
+	accuracy=[0]
+	success=[[]]
 
 def process_ambiguity(r):
 	r = [cell.value for cell in r]
@@ -26,12 +34,16 @@ def main(ods):
 		if not x[0]:continue
 		intent.append(cleanIntentLabel(x[0]))
 		TyOfUtt.append(x[2])
-		matched[0].append(cleanIntentLabel(x[ 3]))
-		matched[1].append(cleanIntentLabel(x[ 8]))
+		if USEGOOGLE and USEKORE:
+			matched[0].append(cleanIntentLabel(x[ 3]))
+			success[0].append(x[4])
+			matched[1].append(cleanIntentLabel(x[ 8]))
+			success[1].append(x[9])
+		elif USEKORE or USEGOOGLE:
+			matched[0].append(cleanIntentLabel(x[ 3]))
+			success[0].append(x[4])
 		# matched[2].append(WatsonCleanIntent(x[11]))
 		# matched[3].append(WatsonCleanIntent(x[14]))
-		success[0].append(x[4])
-		success[1].append(x[9])
 		# success[2].append(x[12])
 		# success[3].append(x[15])
 	numIntents=len(set(intent))+1
@@ -59,15 +71,33 @@ def writeCSV(sheet,currentIntent=None):
 		sheetInd=sheet[1]
 		sheet=sheet[0]
 		name=sheetInd.name
-		b1=["","KORE.AI: ALL","KORE.AI: NONE","","DialogFlow CX:ALL","DialogFlow CX:NONE"]
+		if USEGOOGLE and USEKORE:
+			b1=["","KORE.AI: ALL","KORE.AI: NONE","","DialogFlow CX:ALL","DialogFlow CX:NONE"]
+		elif USEGOOGLE:
+			b1=["","DialogFlow CX:ALL","DialogFlow CX:NONE"]
+		elif USEKORE:
+			b1=["","KORE.AI: ALL","KORE.AI: NONE"]
 	else:
 		name=sheet
-		b1=["","KORE.AI", "","DialogFlow CX"]
+		if USEGOOGLE and USEKORE:
+			b1=["","KORE.AI", "","DialogFlow CX"]
+		elif USEGOOGLE:
+			b1=["","DialogFlow CX"]
+		elif USEKORE:
+			b1=["","KORE.AI"]
 	b2=["TP"]
 	b3=["TN"]
 	b4=["FN"]
 	b5=["FP"]
-	c1=["","KORE.AI","","DialogFlow CX"]
+	if USEGOOGLE and USEKORE:
+		c1=["","KORE.AI","","DialogFlow CX"]
+		noOfPlatforms = 2
+	elif USEGOOGLE:
+		c1=["","DialogFlow CX"]
+		noOfPlatforms = 1
+	elif USEKORE:
+		c1=["","KORE.AI"]
+		noOfPlatforms = 1
 	c2=["Precision"]
 	c3=["Recall"]
 	c4=["F Measure"]
@@ -80,7 +110,7 @@ def writeCSV(sheet,currentIntent=None):
 	array4=["Stemming and Lemmatization"]
 	array5=["Spell Error"]
 	"""Loop for the three platforms for result table calculation"""
-	for platforms in range(2):
+	for platforms in range(noOfPlatforms):
 		totalPositives=0
 		truePositives=0
 		falseNegatives=0
@@ -127,6 +157,8 @@ def writeCSV(sheet,currentIntent=None):
 						falseNegativesNone +=1
 					elif matched[platforms][i] == "None":
 						falseNegatives += 1
+					elif matched[platforms][i] not in intent:
+						falsePositives += 1
 					else:
 						trueNegatives +=1
 				if(TyOfUtt[i].lower()=="structurally different"):

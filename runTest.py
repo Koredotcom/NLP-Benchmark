@@ -50,22 +50,24 @@ def find_intent3(sheet,i,ses):
         # thLUIS=Thread(target=callLUISBot,args=(MatchedIntents_Luis,Utterances[i],ses[2]));thLUIS.start()
         # thWatson=Thread(target=callWatsonBot,args=(MatchedIntents_Watson,Utterances[i],ses[3]));thWatson.start()
         thKORE.join();thDF.join();#thLUIS.join();thWatson.join()
-        output.append(MatchedIntents_Kore[0])
-        if MatchedIntents_Kore[0]==TaskNames[i]:
-            output.append('pass')
-        elif MatchedIntents_Kore[0][:10]=='Ambiguity:' and TaskNames[i]=='None':
-            output.append('pass')
-        else:
-            output.append('fail')
-        output.append(str(MatchedIntents_Kore[1])) # CS score
-        output.append(str(MatchedIntents_Kore[2])) # ML score
-        output.append(str(MatchedIntents_Kore[3])) # FAQ score
-        output.append(MatchedIntents_DF[0])
-        if(MatchedIntents_DF[0]==TaskNames[i]):
-            output.append('pass')
-        else:
-            output.append('fail')
-        output.append(str(MatchedIntents_DF[1]))
+        if USEKORE:
+            output.append(MatchedIntents_Kore[0])
+            if MatchedIntents_Kore[0]==TaskNames[i]:
+                output.append('pass')
+            elif MatchedIntents_Kore[0][:10]=='Ambiguity:' and TaskNames[i]=='None':
+                output.append('pass')
+            else:
+                output.append('fail')
+            output.append(str(MatchedIntents_Kore[1])) # CS score
+            output.append(str(MatchedIntents_Kore[2])) # ML score
+            output.append(str(MatchedIntents_Kore[3])) # FAQ score
+        if USEGOOGLE:
+            output.append(MatchedIntents_DF[0])
+            if(MatchedIntents_DF[0]==TaskNames[i]):
+                output.append('pass')
+            else:
+                output.append('fail')
+            output.append(str(MatchedIntents_DF[1]))
 
         # output.append(MatchedIntents_Luis[0])
         # if(MatchedIntents_Luis[0]==TaskNames[i]):
@@ -123,7 +125,12 @@ def main():
     ods = newdoc(doctype='ods', filename=resultsFileName)
     sheet = Sheet('Results', size=(len(Utterances)+1,18))
     ods.sheets += sheet
-    insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF'])
+    if USEGOOGLE and USEKORE:
+        insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score','Matched Intent(s) DF','Status','ScoreDF'])
+    elif USEKORE:
+        insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) Kore','Status','Kore Total CS score','Kore ML score','Kore FAQ Score'])
+    elif USEGOOGLE:
+        insertRow(sheet,['Expected Task Name','Utterance','Type of Utterance','Matched Intent(s) DF','Status','ScoreDF'])
     ods.save()
     outputs = [None]*len(Utterances)
     prev=0
@@ -147,12 +154,12 @@ def main():
     ods.save()
     return resultsFileName
 
-def callWatsonBot(MatchedIntents_Watson, input_data, ses):
-        if config["USEWATSON"]:
-	        # ses is unused for now.
-	        resp = WatsonFindIntent(config["watsonBotId"], input_data)
-	        MatchedIntents_Watson.clear()
-	        MatchedIntents_Watson.extend([resp[0]["intent"],resp[0]["confidence"], json.dumps(resp)])
+# def callWatsonBot(MatchedIntents_Watson, input_data, ses):
+#         if config["USEWATSON"]:
+# 	        # ses is unused for now.
+# 	        resp = WatsonFindIntent(config["watsonBotId"], input_data)
+# 	        MatchedIntents_Watson.clear()
+# 	        MatchedIntents_Watson.extend([resp[0]["intent"],resp[0]["confidence"], json.dumps(resp)])
 
 def callKoreBot(MatchedIntents_Kore, input_data,ses):
         if config["KorePublicApi"]:
