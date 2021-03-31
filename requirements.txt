@@ -1,5 +1,5 @@
 ezodf==0.3.2
-lxml==4.0.0
+lxml==4.6.3
 incremental==17.5.0
 requests==2.9.1
 requests-toolbelt==0.8.0
